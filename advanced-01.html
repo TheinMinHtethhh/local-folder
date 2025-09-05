@@ -1,0 +1,749 @@
+<!doctype html>
+<html lang="jp">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Linux (Advanced) 第1回</title>
+
+		<meta name="description" content="Linux (Advanced) 第1回授業">
+		<meta name="author" content="篠崎 眞太郎">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/simple.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<section>
+					<h2>Linux (Advanced)</h2>
+					<h3>第1回：Linux管理コマンド</h3>
+					<h4>- Linux管理入門Ⅰ -
+					<p>
+						<br>
+						<small>担当：篠崎 眞太郎<br>メール：shinozaki@kyms.sundaidenshi.ac.jp</small>
+					</p>
+				</section>
+
+				<!-- 本日の授業の目的 -->
+				<section>
+					<section>
+						<h3>本日の授業の目的</h3>
+						<p>
+						<ul>
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>以下のコマンドの基本操作を習得する</h3>
+						<p>
+						<ol>
+							<li><font color="RED">su</font> &nbsp;&nbsp;(ユーザを切り替える)
+							<li><font color="RED">useradd</font> &nbsp;&nbsp;(新規ユーザの作成)
+							<li><font color="RED">userdel</font> &nbsp;&nbsp;(指定ユーザの削除)
+							<li><font color="RED">passwd</font> &nbsp;&nbsp;(指定ユーザのパスワードを設定・変更する)
+							<li><font color="RED">groupadd</font> &nbsp;&nbsp;(新規グループの作成)
+							<li><font color="RED">groupdel</font> &nbsp;&nbsp;(指定グループの削除)
+							<li><font color="RED">gpasswd</font> &nbsp;&nbsp;(指定グループへユーザを所属・離脱させる)
+							<li><font color="RED">chown</font> &nbsp;&nbsp;(ファイルやディレクトリの所有者を変更する)
+							<li><font color="RED">chgrp</font> &nbsp;&nbsp;(ファイルやディレクトリのグループを変更する)
+							<li><font color="RED">chmod</font> &nbsp;&nbsp;(ファイルやディレクトリのパーミッション(アクセス権)を変更する)
+						</ol>
+						</p>
+					</section>
+				</section>
+
+				<!-- 実習の前に -->
+				<section>
+					<section>
+						<h3>実習の前に覚えておく必須事項</h3>
+					</section>
+					<section>
+						<p>
+						<ul>
+							<li>マルチユーザ
+							<li>root(特権ユーザ)
+							<li>グループ
+							<li>ファイルやディレクトリのパーミッション(アクセス権)
+							<li>パーミッション(アクセス権)の数値表現
+							<li>/etc/passwd ファイル
+							<li>/etc/shadow ファイル
+							<li>/etc/group ファイル
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>マルチユーザ</h3>
+						<p>
+						<ul>
+							<li>マルチユーザとは，一つのシステムを共用する，
+							システムに存在する複数のユーザのことである．
+						</ul>
+						</p>
+						<img src="pics/a-01/multi.jpg">
+					</section>
+					<section>
+						<h3>root(特権ユーザ)</h3>
+						<p>
+						<ul>
+							<li>root(特権ユーザ)とは，重要なシステムファイル等にアクセスすることができる，
+								特別な権限を持ったアカウントのことである．
+						</ul>
+						</p>
+						<img src="pics/a-01/root.jpg">
+					</section>
+					<section>
+						<h3>グループ</h3>
+						<p>
+						<ul>
+							<li>グループとは，任意ユーザの権限をまとめて管理するための単位および仕組みである．
+							Linuxでは，任意のユーザを任意のグループに所属させることができ，
+							ファイル・ディレクトリ等へのアクセス権をグループ単位でまとめて設定することができる．
+						</ul>
+						</p>
+						<img src="pics/a-01/default-group.jpg">
+					</section>
+					<section>
+						<h3>グループ例</h3>
+						<p>
+						<ul>
+							<li>ユーザjohnは，基本のグループはjohnだがkenグループにも所属させることができる．
+						</ul>
+						</p>
+						<img src="pics/a-01/join-group.jpg">
+					</section>
+					<section>
+						<h3>パーミッション(アクセス権)</h3>
+						<p>
+						<ul>
+							<li>パーミッションの読み方
+						</ul>
+						</p>
+						<img src="pics/a-01/permission-basic.jpg">
+					</section>
+					<section>
+						<h3>ファイルのパーミッション(アクセス権)</h3>
+						<p>
+						<ul>
+							<li>ファイルの場合は以下のように表される
+						</ul>
+						</p>
+						<img src="pics/a-01/file-permission.jpg">
+					</section>
+					<section>
+						<h3>ディレクトリのパーミッション(アクセス権)</h3>
+						<p>
+						<ul>
+							<li>ディレクトリの場合は以下のように表される
+						</ul>
+						</p>
+						<img src="pics/a-01/directory-permission.jpg">
+					</section>
+					<section>
+						<h3>ファイルのパーミッション例1</h3>
+						<p>
+						<ul>
+							<li>一般ユーザkenは以下のようにファイルにアクセスできる
+						</ul>
+						</p>
+						<img src="pics/a-01/ken-permit.jpg">
+					</section>
+					<section>
+						<h3>ファイルのパーミッション例2</h3>
+						<p>
+						<ul>
+							<li>一般ユーザjohnは以下のようにファイルにアクセスできる
+						</ul>
+						</p>
+						<img src="pics/a-01/john-permit.jpg">
+					</section>
+					<section>
+						<h3>ファイルのパーミッション例3</h3>
+						<p>
+						<ul>
+							<li>一般ユーザyukaは以下のようにファイルにアクセスできる
+						</ul>
+						</p>
+						<img src="pics/a-01/yuka-permit.jpg">
+					</section>
+					<section>
+						<h3>ファイルのパーミッション例4</h3>
+						<p>
+						<ul>
+							<li>特権ユーザrootは以下のようにファイルにアクセスできる
+						</ul>
+						</p>
+						<img src="pics/a-01/root-permit.jpg">
+					</section>
+					<section>
+						<h3>パーミッション(アクセス権)の数値表現</h3>
+						<p>
+						<ul>
+							<li>パーミッションは数値で表すこともできる
+						</ul>
+						</p>
+						<img src="pics/a-01/file-permission-number.jpg">
+					</section>
+					<section>
+						<h3>/etc/passwd ファイル</h3>
+						<p>
+						<ul>
+							<li>/etc/passwd ファイルには，システムのユーザ情報が格納されている
+							(下記は，実際の/etc/passwdファイルの先頭10行を表示したもの)
+						</ul>
+						</p>
+						<img src="pics/a-01/etc-passwd.png">
+					</section>
+					<section>
+						<h3>/etc/shadow ファイル</h3>
+						<p>
+						<ul>
+							<li>/etc/shadow ファイルには，暗号化されたユーザのログインパスワードが記載されている．
+							(下記は，実際の/etc/shadowファイルから，例題のため作成したsampleuserユーザの暗号化されたパスワードを表示)
+						</ul>
+						</p>
+						<img src="pics/a-01/etc-shadow.png">
+					</section>
+					<section>
+						<h3>/etc/group ファイル</h3>
+						<p>
+						<ul>
+							<li>/etc/group ファイルには，システムに存在するグループ一覧が記載されている．
+							(下記は，実際の/etc/groupファイルの先頭10行を表示したもの)
+						</ul>
+						</p>
+						<img src="pics/a-01/etc-group.png">
+					</section>
+				</section>
+
+					<!-- コマンド -->
+				<section>
+					<section>
+						<h3>以下のコマンドの基本操作を実習します</h3>
+						<p>
+						<ol>
+							<li><font color="RED">su</font> &nbsp;&nbsp;(ユーザを切り替える)
+							<li><font color="RED">useradd</font> &nbsp;&nbsp;(新規ユーザの作成)
+							<li><font color="RED">userdel</font> &nbsp;&nbsp;(指定ユーザの削除)
+							<li><font color="RED">passwd</font> &nbsp;&nbsp;(指定ユーザのパスワードを設定・変更する)
+							<li><font color="RED">groupadd</font> &nbsp;&nbsp;(新規グループの作成)
+							<li><font color="RED">groupdel</font> &nbsp;&nbsp;(指定グループの削除)
+							<li><font color="RED">gpasswd</font> &nbsp;&nbsp;(指定グループへユーザを所属・離脱させる)
+							<li><font color="RED">chown</font> &nbsp;&nbsp;(ファイルやディレクトリの所有者を変更する)
+							<li><font color="RED">chgrp</font> &nbsp;&nbsp;(ファイルやディレクトリのグループを変更する)
+							<li><font color="RED">chmod</font> &nbsp;&nbsp;(ファイルやディレクトリのパーミッション(アクセス権)を変更する)
+						</ol>
+						</p>
+					</section>
+					
+					<!-- su コマンド -->
+					<section>
+						<h3>su コマンド</h3>
+						<p>
+						<ul>
+							<li>ユーザを切り替える
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>su コマンドの使い方(※1,※2,※3)</h3>
+						<p>
+						<ol>
+							<li><font color="RED">su</font>&nbsp;&nbsp;
+							<li><font color="RED">su</font>&nbsp;&nbsp;<font color="BLUE">切り替えたいユーザ名</font>
+						</ol>
+						<ul>
+							<br>
+							(※1)ユーザ名を指定しない場合はroot(特権ユーザ)へ切り替わる<br>
+							(※2)パスワードが設定されている場合は，パスワード入力を求められる場合がある<br>
+							(※3)<font color="RED">"exit"</font>と打つと切り替える前のユーザに戻る<br>
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>su の実行例</h3>
+						<p>
+						<ul>
+							<li><font color="RED">root(特権ユーザ)</font>に切り替えた後，exitで元のユーザに戻る
+						</ul>
+						</p>
+						<img src="pics/a-01/su-sample.png">
+					</section>
+
+					<!-- useradd コマンド -->
+					<section>
+						<h3>useradd コマンド</h3>
+						<p>
+						<ul>
+							<li>新規ユーザの作成
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>useradd コマンドの使い方(※1)</h3>
+						<p>
+						<ol>
+							<li><font color="RED">useradd</font>&nbsp;&nbsp;<font color="BLUE">作成したいユーザ名</font>
+						</ol>
+							<ul>
+							<font color="RED">(※1)useradd コマンドを使用する為に root(特権ユーザ) へ切り替える必要がある</font>
+							</ul>
+						</p>
+					</section>
+					<section>
+						<h3>useradd の実行例</h3>
+						<p>
+						<ul>
+							<li>rootユーザへ切り替え後，<font color="RED">test</font>ユーザを作成する．
+							ユーザが正しく作成されたか確認し，exitで元のユーザに戻る
+						</ul>
+						</p>
+						<img src="pics/a-01/useradd-sample.png">
+					</section>
+
+					<!-- userdel コマンド -->
+					<section>
+						<h3>userdel コマンド</h3>
+						<p>
+						<ul>
+							<li>指定ユーザの削除
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>userdel コマンドの使い方(※1)</h3>
+						<p>
+						<ol>
+							<li><font color="RED">userdel</font>&nbsp;&nbsp;<font color="BLUE">削除したいユーザ名</font>
+						</ol>
+							<ul>
+							<font color="RED">(※1)userdel コマンドを使用する為に root(特権ユーザ) へ切り替える必要がある</font>
+							</ul>
+						</p>
+					</section>
+					<section>
+						<h3>userdel の実行例</h3>
+						<p>
+						<ul>
+							<li>rootユーザへ切り替え後，<font color="RED">test</font>ユーザを削除する．
+							ユーザが正しく削除されたか確認し，exitで元のユーザに戻る
+						</ul>
+						</p>
+						<img src="pics/a-01/userdel-sample.png">
+					</section>
+
+					<!-- passwd コマンド -->
+					<section>
+						<h3>passwd コマンド</h3>
+						<p>
+						<ul>
+							<li>指定ユーザのパスワードを設定・変更する
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>passwd コマンドの使い方(※1)</h3>
+						<p>
+						<ol>
+							<li><font color="RED">passwd</font>&nbsp;&nbsp;<font color="BLUE">パスワード設定したいユーザ名</font>
+						</ol>
+							<ul>
+							<font color="RED">(※1)passwd コマンドを使用する為に root(特権ユーザ) へ切り替える必要がある</font>
+							</ul>
+						</p>
+					</section>
+					<section>
+						<h3>passwd の実行例</h3>
+						<p>
+						<ul>
+							<li>rootユーザへ切り替え後，<font color="RED">hanako</font>ユーザを作成する．
+							作成後，<font color="BLUE">hanako</font>ユーザにパスワードを設定する(パスワードは任意の文字)．
+							exitで元のユーザに戻り，<font color="RED">su&nbsp;&nbsp;hanako</font>
+							を実行しhanakoユーザに切り替える(先ほどのパスワードを尋ねられるので入力)．
+							最後にexitで元のユーザに戻る．
+						</ul>
+						</p>
+						<img src="pics/a-01/passwd-sample.png">
+					</section>
+
+					<!-- groupadd コマンド -->
+					<section>
+						<h3>groupadd コマンド</h3>
+						<p>
+						<ul>
+							<li>新規グループの作成
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>groupadd コマンドの使い方(※1)</h3>
+						<p>
+						<ol>
+							<li><font color="RED">groupadd</font>&nbsp;&nbsp;<font color="BLUE">作成したいグループ名</font>
+						</ol>
+							<ul>
+							<font color="RED">(※1)groupadd コマンドを使用する為に root(特権ユーザ) へ切り替える必要がある</font>
+							</ul>
+						</p>
+					</section>
+					<section>
+						<h3>groupadd の実行例</h3>
+						<p>
+						<ul>
+							<li>rootユーザへ切り替え後，<font color="RED">john</font>グループを作成する．
+							グループが正しく作成されたか確認し，exitで元のユーザに戻る
+						</ul>
+						</p>
+						<img src="pics/a-01/groupadd-sample.png">
+					</section>
+
+					<!-- groupdel コマンド -->
+					<section>
+						<h3>groupdel コマンド</h3>
+						<p>
+						<ul>
+							<li>新規グループの作成
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>groupdel コマンドの使い方(※1)</h3>
+						<p>
+						<ol>
+							<li><font color="RED">groupdel</font>&nbsp;&nbsp;<font color="BLUE">削除したいグループ名</font>
+						</ol>
+							<ul>
+							<font color="RED">(※1)groupdel コマンドを使用する為に root(特権ユーザ) へ切り替える必要がある</font>
+							</ul>
+						</p>
+					</section>
+					<section>
+						<h3>groupdel の実行例</h3>
+						<p>
+						<ul>
+							<li>rootユーザへ切り替え後，<font color="RED">john</font>グループを削除する．
+							グループが正しく削除されたか確認し，exitで元のユーザに戻る
+						</ul>
+						</p>
+						<img src="pics/a-01/groupdel-sample.png">
+					</section>
+
+					<!-- gpasswd コマンド -->
+					<section>
+						<h3>gpasswd コマンド</h3>
+						<p>
+						<ul>
+							<li>指定グループへユーザを所属・離脱させる
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>gpasswd コマンドの使い方(※1)</h3>
+						<p>
+						<ol>
+							<li><font color="RED">gpasswd</font>&nbsp;&nbsp;<font color="BLUE">オプション</font>&nbsp;&nbsp;ユーザ名&nbsp;&nbsp;グループ名
+						</ol>
+						<ul>
+							<font color="RED">(※1)gpasswd コマンドを使用する為に root(特権ユーザ) へ切り替える必要がある</font>
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>gpasswd コマンドのオプション</h3>
+						<p>
+						<ol>
+							<li><font color="RED">gpasswd</font>&nbsp;&nbsp;<font color="BLUE">-a</font>&nbsp;&nbsp;指定ユーザ名&nbsp;&nbsp;指定グループ名 (指定グループに指定ユーザを所属させる)
+							<li><font color="RED">gpasswd</font>&nbsp;&nbsp;<font color="BLUE">-d</font>&nbsp;&nbsp;指定ユーザ名&nbsp;&nbsp;指定グループ名 (指定グループから指定ユーザを離脱させる)
+							<li>その他のオプション(本日は学習しない)
+						</ol>
+						</p>
+					</section>
+					<section>
+						<h3>gpasswd の実行例1</h3>
+						<p>
+						<ul>
+							<li>rootユーザへ切り替え後，<font color="RED">sundai</font>グループを作成し，
+							<font color="BLUE">sundaiグループにhanakoユーザを所属させる</font>．グループに正しく所属できたか確認し，exitで元のユーザに戻る
+						</ul>
+						</p>
+						<img src="pics/a-01/gpasswd-sample.png">
+					</section>
+					<section>
+						<h3>gpasswd の実行例2</h3>
+						<p>
+						<ul>
+							<li>rootユーザへ切り替え後，<font color="RED">sundaiグループからhanakoユーザを離脱させる</font>．
+							グループから正しく離脱できたか確認し，exitで元のユーザに戻る
+						</ul>
+						</p>
+						<img src="pics/a-01/gpasswd-sample2.png">
+					</section>
+
+					<!-- chown コマンド -->
+					<section>
+						<h3>chown コマンド</h3>
+						<p>
+						<ul>
+							<li>ファイルやディレクトリの所有者を変更する
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>chown コマンドの使い方(※1)</h3>
+						<p>
+						<ol>
+							<li><font color="RED">chown</font>&nbsp;&nbsp;ユーザ名&nbsp;&nbsp;パス
+							<li><font color="RED">chown</font>&nbsp;&nbsp;<font color="BLUE">オプション</font>&nbsp;&nbsp;ユーザ名&nbsp;&nbsp;パス
+						</ol>
+						<ul>
+							<font color="RED">(※1)chown コマンドを使用する為に root(特権ユーザ) へ切り替える必要がある</font>
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>chown コマンドのオプション</h3>
+						<p>
+						<ol>
+							<li><font color="RED">chown</font>&nbsp;&nbsp;<font color="BLUE">-R</font>&nbsp;&nbsp;指定ユーザ名&nbsp;&nbsp;パス 
+							(ディレクトリとその中にある全てのファイル・ディレクトリの所有者も再帰的に変更する．)
+							<li>その他のオプション(本日は学習しない)
+						</ol>
+						</p>
+					</section>
+					<section>
+						<h3>chown の実行例1</h3>
+						<p>
+						<ul>
+							<li><font color="RED">hanakoディレクトリ</font>を作成し，その中に空の<font color="BLUE">hanako.txt</font>ファイルを作成する．
+							rootユーザへ切り替え後，<font color="RED">hanako.txtファイルの所有者をhanakoに変更する</font>，
+							正しく変更できたか確認し，exitで元のユーザに戻る(全て相対パス指定)
+						</ul>
+						</p>
+						<img src="pics/a-01/chown-sample.png">
+					</section>
+					<section>
+						<h3>chown の実行例2</h3>
+						<p>
+						<ul>
+							<li>rootユーザへ切り替え後，<font color="RED">hanakoディレクトリ内の全てのファイルの所有者を再帰的にhanakoに変更する</font>，
+							正しく変更できたか確認し，exitで元のユーザに戻る(全て相対パス指定)
+						</ul>
+						</p>
+						<img src="pics/a-01/chown-sample2.png">
+					</section>
+
+					<!-- chgrp コマンド -->
+					<section>
+						<h3>chgrp コマンド</h3>
+						<p>
+						<ul>
+							<li>ファイルやディレクトリのグループを変更する
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>chgrp コマンドの使い方(※1)</h3>
+						<p>
+						<ol>
+							<li><font color="RED">chgrp</font>&nbsp;&nbsp;ユーザ名&nbsp;&nbsp;パス
+							<li><font color="RED">chgrp</font>&nbsp;&nbsp;<font color="BLUE">オプション</font>&nbsp;&nbsp;ユーザ名&nbsp;&nbsp;パス
+						</ol>
+						<ul>
+							<font color="RED">(※1)chgrp コマンドを使用する為に root(特権ユーザ) へ切り替える必要がある</font>
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>chgrp コマンドのオプション</h3>
+						<p>
+						<ol>
+							<li><font color="RED">chgrp</font>&nbsp;&nbsp;<font color="BLUE">-R</font>&nbsp;&nbsp;指定ユーザ名&nbsp;&nbsp;パス 
+							(ディレクトリとその中にある全てのファイル・ディレクトリの所有者も再帰的に変更する．)
+							<li>その他のオプション(本日は学習しない)
+						</ol>
+						</p>
+					</section>
+					<section>
+						<h3>chgrp の実行例1</h3>
+						<p>
+						<ul>
+							<li>rootユーザへ切り替え後，<font color="RED">hanakoディレクトリ</font>の中にある
+							<font color="BLUE">hanako.txtファイルのグループをhanakoに変更する</font>，
+							正しく変更できたか確認し，exitで元のユーザに戻る(全て相対パス指定)
+						</ul>
+						</p>
+						<img src="pics/a-01/chgrp-sample.png">
+					</section>
+					<section>
+						<h3>chgrp の実行例2</h3>
+						<p>
+						<ul>
+							<li>rootユーザへ切り替え後，<font color="RED">hanakoディレクトリとその中の全てのファイルのグループを再帰的にhanakoに変更する</font>，
+							正しく変更できたか確認し，exitで元のユーザに戻る(全て相対パス指定)
+						</ul>
+						</p>
+						<img src="pics/a-01/chgrp-sample2.png">
+					</section>
+
+					<!-- chmod コマンド -->
+					<section>
+						<h3>chmod コマンド</h3>
+						<p>
+						<ul>
+							<li>ファイルやディレクトリのパーミッション(アクセス権)を変更する
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>chmod コマンドの使い方(※1)</h3>
+						<p>
+						<ol>
+							<li><font color="RED">chmod</font>&nbsp;&nbsp;<font color="BLUE">オプション1</font>&nbsp;&nbsp;パス
+							<li><font color="RED">chmod</font>&nbsp;&nbsp;<font color="BLUE">オプション1</font>&nbsp;&nbsp;<font color="BLUE">オプション2</font>&nbsp;&nbsp;パス
+						</ol>
+						<ul>
+							<font color="RED">(※1)所有者以外のユーザのファイル・ディレクトリのパーミッション変更は，
+							root(特権ユーザ)もしくはそのファイル・ディレクトリの所有者へユーザを切り替える必要がある</font>
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>chmod コマンドのオプション(*1)</h3>
+						<p>
+						<ol>
+							<li><font color="RED">chmod</font>&nbsp;&nbsp;<font color="BLUE">ugo-rwx</font>&nbsp;&nbsp;パス (*2)
+							<li><font color="RED">chmod</font>&nbsp;&nbsp;<font color="BLUE">ugo+rwx</font>&nbsp;&nbsp;パス (*3)
+							<li><font color="RED">chmod</font>&nbsp;&nbsp;<font color="BLUE">777</font>&nbsp;&nbsp;パス (*4)
+							<li><font color="RED">chmod</font>&nbsp;&nbsp;<font color="BLUE">ugo-rwx</font>&nbsp;&nbsp;-R&nbsp;&nbsp;パス (*5)
+							<li><font color="RED">chmod</font>&nbsp;&nbsp;<font color="BLUE">ugo+rwx</font>&nbsp;&nbsp;-R&nbsp;&nbsp;パス (*5)
+							<li><font color="RED">chmod</font>&nbsp;&nbsp;<font color="BLUE">777</font>&nbsp;&nbsp;-R&nbsp;&nbsp;パス (*5)
+						</ol>
+						<ul>
+						(*1) オプション文字の意味： u(所有者)，g(グループ), o(その他ユーザ), r(読み込み), w(書き込み), x(実行)<br>
+						(*2) 権限の削除は，引き算で表す．(例：u-r 所有者の読み込み権を削除する)<br>
+						(*3) 権限の付与は，足し算で表す．(例：uo+rw 所有者とその他ユーザに読み込み・書き込み権を付与する)<br>
+						(*4) 権限の設定は数値表現可能．(例："実習の前に覚えておく必需事項"を参照)<br>
+						(*5)ディレクトリとその中にある全てのファイル・ディレクトリのパーミッションも再帰的に変更する．
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>chmod の実行例1</h3>
+						<p>
+						<ul>
+							<li>現在のディレクトリに空の<font color="RED">permit.txt</font>ファイルを作成し，現在のパーミッションを確認する．
+							<font color="BLUE">その他ユーザの読み込み権を削除し</font>，
+							正しく変更できたか確認する(全て相対パス指定)
+						</ul>
+						</p>
+						<img src="pics/a-01/chmod-sample.png">
+					</section>
+					<section>
+						<h3>chmod の実行例2</h3>
+						<p>
+						<ul>
+							<li>現在のディレクトリにある<font color="RED">permit.txt</font>ファイルに
+							<font color="BLUE">全てのユーザへ読み込み・書き込み・実行権限を付与する</font>．
+							最後に，正しく変更できたか確認する(全て相対パス指定)
+						</ul>
+						</p>
+						<img src="pics/a-01/chmod-sample2.png">
+					</section>
+					<section>
+						<h3>chmod の実行例3</h3>
+						<p>
+						<ul>
+							<li>現在のディレクトリにある<font color="RED">permit.txt</font>ファイルに数値表現で
+							<font color="BLUE">所有者に読み込み・書き込み・実行権を設定</font>し，
+							<font color="RED">グループ，その他のユーザには読み込み権のみを設定</font>する．
+							最後に，正しく変更できたか確認する(全て相対パス指定)
+						</ul>
+						</p>
+						<img src="pics/a-01/chmod-sample3.png">
+					</section>
+					<section>
+						<h3>chmod の実行例4</h3>
+						<p>
+						<ul>
+							<li>現在のディレクトリにpermitディレクトリを作成し，この中に空の
+							<font color="RED">permit2.txt</font>ファイルを作成する．
+							ディレクトリとその中の全てのファイルのパーミッションを再帰的に，
+							数値表現で<font color="BLUE">所有者とグループは読み込み・書き込み・実行権を設定</font>し，
+							<font color="RED">その他のユーザには読み込み権のみを設定</font>する．
+							最後に，正しく変更できたか確認する(全て相対パス指定)
+						</ul>
+						</p>
+						<img src="pics/a-01/chmod-sample4.png">
+					</section>
+
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				slideNumber: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

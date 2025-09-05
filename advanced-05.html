@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="jp">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Linux (Advanced) 第5回</title>
+
+		<meta name="description" content="Linux (Advanced) 第5回授業">
+		<meta name="author" content="篠崎 眞太郎">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/simple.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<section>
+					<h2>Linux (Advanced)</h2>
+					<h3>第5回：Linux管理コマンド</h3>
+					<h4>- Linux管理入門Ⅳ・Webサーバ運用実習Ⅰ -
+					<p>
+						<br>
+						<small>担当：篠崎 眞太郎<br>
+						メール：shinozaki@kyms.sundaidenshi.ac.jp</small>
+					</p>
+				</section>
+
+				<!-- 本日の授業の目的 -->
+				<section>
+					<section>
+						<h3>本日の授業の目的</h3>
+						<p>
+						<ul>
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>以下のコマンドの基本操作を習得する</h3>
+						<p>
+						<ol>
+							<li><font color="RED">service</font> &nbsp;&nbsp;(デーモン(サービス)の起動・再起動・停止・状態取得等の管理をおこなう)
+							<li><font color="RED">firewall-cmd</font> &nbsp;&nbsp;(ファイアウォールの設定をおこなう)
+						</ol>
+						</p>
+					</section>
+					<section>
+						<h3>Webサーバの基本的な運用方法を実習する</h3>
+						<p>
+						<ol>
+						</ol>
+						</p>
+					</section>
+				</section>
+
+				<!-- 実習の前に -->
+				<section>
+					<section>
+						<h3>実習の前に覚えておく必須事項</h3>
+					</section>
+					<section>
+						<p>
+						<ul>
+							<li>デーモン(サービス)
+							<li>ポート(port)
+							<li>ファイアウォール(firewall)
+							<li>firewalld(firewall-cmd)
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>デーモン(サービス)</h3>
+						<p>
+						<ul>
+							<li>デーモン(サービス)とは，Linuxシステムのバックグラウンドプロセス(裏方で働くプログラム)
+							として動作するプログラムのことである．
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>ポート(port)</h3>
+						<p>
+						<ul>
+							<li>ポート(port)とは，インターネット通信の出入口を識別する番号である．
+							通信の種類に応じて公式に予約されているウェルノウンポート(well-known port:0?1023番)と，
+							ユーザやプログラムが非公式に割り当てているその他ポート(1024?65535番)があり，
+							パソコンやサーバには計65536個のポートがある．
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>ポートの概略図(Webページを閲覧する場合の例)</h3>
+						<p>
+						<ul>
+							<li>Webページを閲覧する場合は，well-know port の内 <font color="RED">80番</font> を使用する
+						</ul>
+						</p>
+						<img src="pics/a-05/port80.png">
+					</section>
+					<section>
+						<h3>ファイアウォール(firewall)</h3>
+						<p>
+						<ul>
+							<li>ファイアウォール(firewall)とは，ネットワーク上の通信を制御し，
+							ファイアウォール内部の機器(サーバ等)の安全を維持することを目的とした
+							ソフトウェア・ハードウェアのことである．
+						</ul>
+						</p>
+						<img src="pics/a-05/firewall.png">
+					</section>
+					<section>
+						<h3>firewalld(firewall-cmd)</h3>
+						<p>
+						<ul>
+							<li>firewalldとは，Red Hat社が近年新しく開発したファイアウォールソフトウェアである．
+							基本的には，<font color="RED">firewall-cmdコマンド</font>で
+							<font color="BLUE">ネットワークカード毎に，ゾーン(zone)とポート(port)を指定する</font>だけで，
+							ファイアウォール設定をおこなえる簡便性を持つ．
+						</ul>
+						</p>
+						<img src="pics/a-05/firewalld.png">
+					</section>
+					<section>
+						<h3>firewalldのzone一覧</h3>
+						<p>
+						<ul>
+							<li>firewalldのzone一覧を以下に示す
+						</ul>
+						</p>
+						<img src="pics/a-05/firewalld-zone.png">
+					</section>
+				</section>
+				
+				
+					<!-- コマンド -->
+				<section>
+					<section>
+						<h3>以下のコマンドの基本操作を実習します</h3>
+						<p>
+						<ol>
+							<li><font color="RED">service</font> &nbsp;&nbsp;(デーモン(サービス)の起動・再起動・停止・状態取得等の管理をおこなう)
+							<li><font color="RED">firewall-cmd</font> &nbsp;&nbsp;(ファイアウォールの設定をおこなう)
+						</ol>
+						</p>
+					</section>
+					<section>
+						<h3>実習の準備1</h3>
+						<p>
+						<ul>
+							<li>ターミナルを開き，特権ユーザ(root)に切り替えてください
+						</ul>
+						</p>
+						<img src="pics/a-05/su.png">
+					</section>
+					<section>
+						<h3>実習の準備2</h3>
+						<p>
+						<ul>
+							<li>画面右上にあるネットワークアイコンより，無線接続を設定してください(SSID:tux4linux，パスワード:tux4linux)．
+							また有線接続は切断してください．
+						</ul>
+						</p>
+						<img src="pics/a-05/tux4linux.png">
+					</section>
+
+					<!-- service コマンド -->
+					<section>
+						<h3>service コマンド</h3>
+						<p>
+						<ul>
+							<li>デーモン(サービス)の起動・再起動・停止・状態取得等の管理をおこなう
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>service コマンドの使い方</h3>
+						<p>
+						<ol>
+							<li><font color="RED">service</font>&nbsp;&nbsp;管理したいデーモン名(※1)	
+						</ol><br>
+						<ul>
+							(※1) 管理できるデーモン一覧は，"<font color="RED">/usr/lib/systemd/system</font>" 以下を参照のこと
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>service の実行例</h3>
+						<p>
+						<ul>
+							<li><font color="RED">lsコマンドで"/usr/lib/systemd/system"以下の管理できるデーモン一覧から，
+							名前に"httpd"の付くデーモンを確認する</font>．確認後，<font color="BLUE">httpd(apache)を停止</font>し，
+							かわりに<font color="RED">lighttpdを起動</font>する．最後にlighttpdが起動しているかプロセスを確認する．
+						</ul>
+						</p>
+						<img src="pics/a-05/service-sample.png">
+					</section>
+
+					
+					<!-- firewall-cmd コマンド -->
+					<section>
+						<h3>firewall-cmd コマンド</h3>
+						<p>
+						<ul>
+							<li>ファイアウォールの設定をおこなう
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>firewall-cmd コマンドの使い方</h3>
+						<p>
+						<ol>
+							<li><font color="RED">firewall-cmd</font>&nbsp;&nbsp;オプション
+							<li><font color="RED">firewall-cmd</font>&nbsp;&nbsp;オプション=制御対象
+							<li><font color="RED">firewall-cmd</font>&nbsp;&nbsp;オプション=制御対象&nbsp;&nbsp;オプション=制御対象
+						</ol>
+						</p>
+					</section>
+					<section>
+						<h3>firewall-cmd コマンドのオプション</h3>
+						<p>
+						<ol>
+							<li><font color="RED">firewall-cmd</font>&nbsp;&nbsp;--state&nbsp;&nbsp;(firewalldの稼働状況を確認)
+							<li><font color="RED">firewall-cmd</font>&nbsp;&nbsp;--get-active-zones&nbsp;&nbsp;
+							(現在稼働中のfirewalldの制御対象と，適用されているzone設定の確認)
+							<li><font color="RED">firewall-cmd</font>&nbsp;&nbsp;--get-zones&nbsp;&nbsp;(適用可能なzone一覧)
+							<li><font color="RED">firewall-cmd</font>&nbsp;&nbsp;--get-services&nbsp;&nbsp;(適用可能なポート一覧)
+							<li><font color="RED">firewall-cmd</font>&nbsp;&nbsp;--zone=ゾーン名&nbsp;&nbsp;--list-services&nbsp;&nbsp;
+							(指定したゾーン名の付いた制御対象の現在のポート設定を表示)
+							<li><font color="RED">firewall-cmd</font>&nbsp;&nbsp;--zone=ゾーン名&nbsp;&nbsp;--add-service=ポート名&nbsp;&nbsp;
+							(指定ゾーン名の付いた制御対象に指定ポートを追加(ポート開放))
+							<li><font color="RED">firewall-cmd</font>&nbsp;&nbsp;--zone=ゾーン名&nbsp;&nbsp;--remove-service=ポート名&nbsp;&nbsp;
+							(指定ゾーン名の付いた制御対象から指定ポートを削除(ポート閉鎖))
+						</ol>
+						</p>
+					</section>
+					<section>
+						<h3>firewall-cmd の実行例1</h3>
+						<p>
+						<ul>
+							<li>firewalldの稼働状況を確認する．<font color="RED">running</font>となっていれば稼働中
+						</ul>
+						</p>
+						<img src="pics/a-05/firewall-cmd-sample.png">
+					</section>
+					<section>
+						<h3>firewall-cmd の実行例2</h3>
+						<p>
+						<ul>
+							<li>現在稼働中のfirewalldの制御対象と，適用されているzone設定を確認する
+						</ul>
+						</p>
+						<img src="pics/a-05/firewall-cmd-sample2.png">
+					</section>
+					<section>
+						<h3>firewall-cmd の実行例3</h3>
+						<p>
+						<ul>
+							<li>適用可能なzone一覧と，ポート一覧を表示する
+						</ul>
+						</p>
+						<img src="pics/a-05/firewall-cmd-sample3.png">
+					</section>
+					<section>
+						<h3>firewall-cmd の実行例4</h3>
+						<p>
+						<ul>
+							<li>ゾーン名publicの付いた制御対象の現在のポート設定を表示する．
+							ゾーンpublicに，80番ポート(http)を追加し，これを開放する．
+							最後に80番ポート(http)が追加されたか確認する．
+							(余力のある人は，他の人にIPアドレスを知らせ，ブラウザで "http://IPアドレス" を実行してもらいlighttpdのメインページが表示されるか確認．)
+						</ul>
+						</p>
+						<img src="pics/a-05/firewall-cmd-sample4.png">
+					</section>
+					<section>
+						<h3>firewall-cmd の実行例5</h3>
+						<p>
+						<ul>
+							<li>ゾーン名publicの付いた制御対象の現在のポート設定を表示する．
+							ゾーンpublicから，80番ポート(http)を削除し，これを閉鎖する．
+							最後に80番ポート(http)が削除されたか確認する．
+							(余力のある人は，他の人にIPアドレスを知らせ，
+							ブラウザで "http://IPアドレス" を実行してもらいlighttpdのメインページが表示されないか確認．
+							(ブラウザキャッシュが残っている場合があるのでリロードする．))
+						</ul>
+						</p>
+						<img src="pics/a-05/firewall-cmd-sample5.png">
+					</section>
+
+
+				</section>
+		
+				
+				<!-- 実習 -->
+				<section>
+					<section>
+						<h3>本日の実習</h3>
+						<p>
+						<ul>
+							<li>これから指示する実習内容を実行すること
+							<li>実習内容を記録すること(使用したコマンド・オプションも全て記録せよ)
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>作業前に</h3>
+						<p>
+						<ul>
+							<li>トラブル防止の為，作業前にSELinux(強制アクセス制御)を無効にしてください
+						</ul>
+						</p>
+							<img src="pics/a-05/setenforce0.png">
+					</section>
+					<section>
+						<h3>作業のヒント1</h3>
+						<p>
+						<ul>
+							<li>liveuserディレクトリでコンテンツ作成
+							<li>作成したコンテンツは"/var/www/lighttpd"ディレクトリへコピー(特権ユーザへ切り替え必要)
+						</ul>
+						</p>
+							<img src="pics/a-05/web1.png">
+					</section>
+					<section>
+						<h3>作業のヒント2</h3>
+						<p>
+						<ul>
+							<li>必要最低限のhtmlタグと画像・リンクの貼り方は以下の図参照
+						</ul>
+						</p>
+							<img src="pics/a-05/web2.png">
+					</section>
+
+				<!-- 実習1 -->
+					<section>
+						<p>
+						<ul>
+							実習1：ネットワークカード(wlp2s0)に現在割り当てられているIPアドレスを記録せよ
+						</ul>
+						</p>
+							<img src="pics/practice.jpg">
+					</section>
+
+				<!-- 実習2 -->
+					<section>
+						<p>
+						<ul>
+							実習2：例題において現在，ゾーンpublicのhttp(80番ポート)は閉じられている．現在のポート設定を確認し，http(80番ポート)を開放せよ
+						</ul>
+						</p>
+							<img src="pics/practice.jpg">
+					</section>
+
+				<!-- 実習3 -->
+					<section>
+						<p>
+						<ul>
+							実習3：他の人に，実習1で記録したIPアドレスを通知し，
+							Webブラウザでアクセスしてもらいlighttpdのメインページが表示されているか確認しなさい
+						</ul>
+						</p>
+							<img src="pics/practice.jpg">
+					</section>
+
+				<!-- 実習4 -->
+					<section>
+						<p>
+						<ul>
+							実習4：/var/www/lighttpdディレクトリ以下に自作のindex.htmlを配置し(特権ユーザに切り替え必要)，
+							他の人にWebブラウザでアクセスしてもらい，自作のindex.htmlが表示されているか確認しなさい
+						</ul>
+						</p>
+							<img src="pics/practice.jpg">
+					</section>
+				<!-- 実習5 -->
+					<section>
+						<p>
+						<ul>
+							問題5：自作のindex.htmlを画像やリンクを加えるなどして改良し，
+							自由にWebサイト構築せよ．必要に応じてping，traceroute等で通信経路を確認せよ
+						</ul>
+						</p>
+							<img src="pics/practice.jpg">
+					</section>
+
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				slideNumber: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

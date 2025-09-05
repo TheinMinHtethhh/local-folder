@@ -1,0 +1,586 @@
+<!doctype html>
+<html lang="jp">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Linux (Advanced) 第3回</title>
+
+		<meta name="description" content="Linux (Advanced) 第3回授業">
+		<meta name="author" content="篠崎 眞太郎">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/simple.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<section>
+					<h2>Linux (Advanced)</h2>
+					<h3>第3回：Linux管理コマンド</h3>
+					<h4>- Linux管理入門Ⅲ -
+					<p>
+						<br>
+						<small>担当：篠崎 眞太郎<br>
+						メール：shinozaki@kyms.sundaidenshi.ac.jp</small>
+					</p>
+				</section>
+
+				<!-- 本日の授業の目的 -->
+				<section>
+					<section>
+						<h3>本日の授業の目的</h3>
+						<p>
+						<ul>
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>以下のコマンドの基本操作を習得する</h3>
+						<p>
+						<ol>
+							<li><font color="RED">lspci</font> &nbsp;&nbsp;(システム上のPCIデバイス情報を表示する)
+							<li><font color="RED">dmesg</font> &nbsp;&nbsp;(Linuxが起動時に出力した情報を確認する)
+							<li><font color="RED">ifconfig</font> &nbsp;&nbsp;(ネットワーク環境の確認・設定をおこなう)
+							<li><font color="RED">ping</font> &nbsp;&nbsp;(ネットワークの通信状況を確認する)
+							<li><font color="RED">traceroute</font> &nbsp;&nbsp;(ネットワークの通信経路を調査する)
+						</ol>
+						</p>
+					</section>
+				</section>
+
+				<!-- 実習の前に -->
+				<section>
+					<section>
+						<h3>実習の前に覚えておく必須事項</h3>
+					</section>
+					<section>
+						<p>
+						<ul>
+							<li>デバイス
+							<li>インターネット
+							<li>IPアドレス(IP address)
+							<li>ネットマスク(netmask)
+							<li>ネットマスクの抽出方法
+							<li>2進数から10進数への変換方法
+							<li>10進数から2進数への変換方法
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>デバイス</h3>
+						<p>
+						<ul>
+							<li>デバイスとは，PCに接続された機器のことである．Linuxでは lspci, dmesg 等のコマンドや，
+							/proc ディレクトリ以下のファイルにアクセスすることでデバイス情報を得られる
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>インターネット</h3>
+						<p>
+						<ul>
+							<li>インターネットとは，通信プロトコル(TCP/IP)を用いた全世界のネットワークを相互接続した
+							コンピュータネットワークを示す
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>インターネットの概略図</h3>
+						<p>
+						<ul>
+							<li>インターネットは，ルータと呼ばれる機器を隔てて，ローカルエリアネットワークとグローバルエリアネットワークに別れる．
+							ルータはローカルエリア(例：家の内側)とグローバルエリア(世界)を安全に接続する機器である
+						</ul>
+						</p>
+						<img src="pics/a-03/internet.png">
+					</section>
+					<section>
+						<h3>IPアドレス(IP address)</h3>
+						<p>
+						<ul>
+							<li>IPアドレスとは，インターネットなどのIPネットワークに接続されたコンピュータ機器毎に割り振られた
+							識別番号である(インターネット上の住所のようなもの)．
+							通常は"192.168.0.1"のようにピリオドで4つに区切られた10進数表記(0?255，2進数で8ビットに相当)で表す
+						</ul>
+						</p>
+						<img src="pics/a-03/ip.png">
+					</section>
+					<section>
+						<h3>ネットマスク(Netmask)</h3>
+						<p>
+						<ul>
+							<li>ネットマスク(Netmask)とは，IPアドレスからネットワークアドレス部(後述)を抽出するためのマスク値である．
+							通常は，"255.255.255.0"のようにIPアドレスと同じようにピリオドで区切られた10進数表記(0?255，2進数で8ビットに相当)で表すが，
+							ネットワークアドレス部(後述)を抽出する場合は，2進数に変換して各種計算をおこなう
+						</ul>
+						</p>
+						<img src="pics/a-03/netmask.png">
+					</section>
+					<section>
+						<h3>IPアドレスの構造</h3>
+						<p>
+						<ul>
+							<li>以下の図は，IPアドレス"192.168.0.1"でネットマスクが"255.255.255.0"のときのIPアドレスの構造を例示したものである．
+							ネットワークアドレスとは，世界のなかでどのネットワークに属しているかを表す識別番号である(例では，"192.168.0".0)．
+							ホストアドレスとは，ネットワーク内でどのPCであるかを表す識別番号である(例では，192.168.0."1")．
+						</ul>
+						</p>
+						<img src="pics/a-03/struct-ip.png">
+					</section>
+					<section>
+						<h3>ネットワークアドレスの抽出方法</h3>
+						<p>
+						<ul>
+							<li>以下の図は，IPアドレス"192.168.0.1"でネットマスクが"255.255.255.0"
+							のとき，ネットマスクの抽出方法を例示したものである．
+							2進数変換したIPアドレスとネットマスクの各ビットで論理積(1と0の掛け算)をとると，
+							ネットワークアドレスが抽出される．
+						</ul>
+						</p>
+						<img src="pics/a-03/calc-netaddr.png">
+					</section>
+					<section>
+						<h3>2進数から10進数への変換方法(例1)</h3>
+						<p>
+						<ul>
+							<li>8ビットの2進数"11111111"から10進数への変換方法．
+							各ビットを以下の図のように10進数で置き換えて，足し合わせる．
+						</ul>
+						</p>
+						<img src="pics/a-03/bin1.png">
+					</section>
+					<section>
+						<h3>2進数から10進数への変換方法(例2)</h3>
+						<p>
+						<ul>
+							<li>8ビットの2進数"10101000"から10進数への変換方法．
+							各ビットを以下の図のように10進数で置き換えて，足し合わせる．
+						</ul>
+						</p>
+						<img src="pics/a-03/bin2.png">
+					</section>
+					<section>
+						<h3>10進数から2進数への変換方法(例1)</h3>
+						<p>
+						<ul>
+							<li>10進数"168"から先頭より順に各ビットの10進数の値を引き，マイナスでなければ"引ける"とする．
+							引ければそのビットの値を"1"とし，引けなければ"0"とする．引けたら，引いた結果を用いて同じように繰り返す．
+							引き算の結果が"0"になれば終了
+						</ul>
+						</p>
+						<img src="pics/a-03/bin3.png">
+					</section>
+					<section>
+						<h3>10進数から2進数への変換方法(例2)</h3>
+						<p>
+						<ul>
+							<li>10進数"52"から先頭より順に各ビットの10進数の値を引き，マイナスでなければ"引ける"とする．
+							引ければそのビットの値を"1"とし，引けなければ"0"とする．引けたら，引いた結果を用いて同じように繰り返す．
+							引き算の結果が"0"になれば終了
+						</ul>
+						</p>
+						<img src="pics/a-03/bin4.png">
+					</section>
+					<section>
+						<h3>練習問題</h3>
+						<p>
+						<ul>
+							<li>2進数"11011110"を10進数に変換しなさい．&nbsp;&nbsp;答え：
+							<li>2進数"11010111"を10進数に変換しなさい．&nbsp;&nbsp;答え：
+							<li>2進数"01010001"を10進数に変換しなさい．&nbsp;&nbsp;答え：
+							<li>10進数"63"を2進数に変換しなさい．&nbsp;&nbsp;&nbsp;&nbsp;答え：
+							<li>10進数"124"を2進数に変換しなさい．&nbsp;&nbsp;&nbsp;&nbsp;答え：
+							<li>10進数"213"を2進数に変換しなさい．&nbsp;&nbsp;&nbsp;&nbsp;答え：
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>練習問題解答</h3>
+						<p>
+						<ul>
+							<li>2進数"11011110"を10進数に変換しなさい．&nbsp;&nbsp;答え：222
+							<li>2進数"11010111"を10進数に変換しなさい．&nbsp;&nbsp;答え：215
+							<li>2進数"01010001"を10進数に変換しなさい．&nbsp;&nbsp;答え：81
+							<li>10進数"63"を2進数に変換しなさい．&nbsp;&nbsp;&nbsp;&nbsp;答え：00111111
+							<li>10進数"124"を2進数に変換しなさい．&nbsp;&nbsp;&nbsp;&nbsp;答え：01111100
+							<li>10進数"213"を2進数に変換しなさい．&nbsp;&nbsp;&nbsp;&nbsp;答え：11010101
+						</ul>
+						</p>
+					</section>
+				</section>
+				
+				
+					<!-- コマンド -->
+				<section>
+					<section>
+						<h3>以下のコマンドの基本操作を実習します</h3>
+						<p>
+						<ol>
+							<li><font color="RED">lspci</font> &nbsp;&nbsp;(システム上のPCIデバイス情報を表示する)
+							<li><font color="RED">dmesg</font> &nbsp;&nbsp;(Linuxが起動時に出力した情報を確認する)
+							<li><font color="RED">ifconfig</font> &nbsp;&nbsp;(ネットワーク環境の確認・設定をおこなう)
+							<li><font color="RED">ping</font> &nbsp;&nbsp;(ネットワークの通信状況を確認する)
+							<li><font color="RED">traceroute</font> &nbsp;&nbsp;(ネットワークの通信経路を調査する)
+						</ol>
+						</p>
+					</section>
+					
+					
+					<!-- lspci コマンド -->
+					<section>
+						<h3>lspci コマンド</h3>
+						<p>
+						<ul>
+							<li>システム上のPCIデバイス情報を表示する
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>lspci コマンドの使い方</h3>
+						<p>
+						<ol>
+							<li><font color="RED">lspci</font>
+							&nbsp;&nbsp;|&nbsp;&nbsp;less
+							<li><font color="RED">lspci</font>
+							&nbsp;&nbsp;|&nbsp;&nbsp;grep&nbsp;&nbsp;"検索したい文字列"	
+						</ol>
+						</p>
+					</section>
+					<section>
+						<h3>lspci の実行例1-1</h3>
+						<p>
+						<ul>
+							<li>システム上のPCIデバイス情報を，lessを使って見易く表示する．
+							表示されたデバイス情報から<font color="RED">"Ethernet"や"Network"もしくは"Wireless"の文字を含んだ行を目視で探し</font>，
+							ネットワークカードの情報を確認する．
+						</ul>
+						</p>
+						<img src="pics/a-03/lspci-sample1-1.png">
+					</section>
+					<section>
+						<h3>lspci の実行例1-2(例1-1の続き)</h3>
+						<p>
+						<ul>
+							<li><font color="RED">"enter"</font>キーでスクロール，<font color="BLUE">"↑↓"</font>キーでページの上下スクロール．
+						</ul>
+						</p>
+						<img src="pics/a-03/lspci-sample1-2.png">
+					</section>
+					<section>
+						<h3>lspci の実行例1-3(例1-2の続き)</h3>
+						<p>
+						<ul>
+							<li><font color="RED">"Ethernet"や"Network"の文字列が含まれる行が，ネットワークカードの情報．</font>
+							"Ethernet"の行は有線ネットワークカードで，デバイスはRealtek社製RTL8111/8168/8411のいずれかであることがわかる．
+							"Wireless"の行は無線ネットワークカードで，デバイスはQualcomm社製Atheros AR93xxシリーズであることがわかる．
+							<font color="BLUE">"q"</font>キーで表示終了
+						</ul>
+						</p>
+						<img src="pics/a-03/lspci-sample1-3.png">
+					</section>
+					<section>
+						<h3>lspci の実行例2</h3>
+						<p>
+						<ul>
+							<li>lspciの出力結果から，grepコマンドで<font color="RED">"Wireless"</font>を含む行を抽出する
+						</ul>
+						</p>
+						<img src="pics/a-03/lspci-sample2.png">
+					</section>
+
+					
+					<!-- dmesg コマンド -->
+					<section>
+						<h3>dmesg コマンド</h3>
+						<p>
+						<ul>
+							<li>Linuxが起動時に出力した情報を確認する
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>dmesg コマンドの使い方</h3>
+						<p>
+						<ol>
+							<li><font color="RED">dmesg</font>&nbsp;&nbsp;
+							&nbsp;&nbsp;|&nbsp;&nbsp;less
+							<li><font color="RED">dmesg</font>&nbsp;&nbsp;
+							&nbsp;&nbsp;|&nbsp;&nbsp;grep&nbsp;&nbsp;"検索したい文字列"
+						</ol>
+						</p>
+					</section>
+					<section>
+						<h3>dmesg の実行例1-1</h3>
+						<p>
+						<ul>
+							<li>Linuxが起動時に出力した情報を，lessを使って見易く表示する．
+							Linuxが起動時に出力した情報には，デバイス情報含めほぼ全ての情報が表示される．
+						</ul>
+						</p>
+						<img src="pics/a-03/dmesg-sample1-1.png">
+					</section>
+					<section>
+						<h3>dmesg の実行例1-2(例1-1の続き)</h3>
+						<p>
+						<ul>
+							<li>様々な情報が表示されているので，しばらく眺めてみてください．
+							<font color="RED">"enter"</font>キーでスクロール，
+							<font color="BLUE">"↑↓"</font>キーでページの上下スクロール．
+							<font color="RED">"q"</font>キーで表示終了
+						</ul>
+						</p>
+						<img src="pics/a-03/dmesg-sample1-2.png">
+					</section>
+					<section>
+						<h3>dmesg の実行例2</h3>
+						<p>
+						<ul>
+							<li>dmesgの出力結果から，grepコマンドで<font color="RED">"network"</font>を含む行を抽出する．
+							結果より，システム上では，"p4p1(有線)"と"wlp2s0(無線)"がネットワークデバイスの識別子であると推測できる．
+							(今使っている学校以外のパソコンでは識別子は当然異なる．デバイスは千差万別．)
+						</ul>
+						</p>
+						<img src="pics/a-03/dmesg-sample2.png">
+					</section>
+					
+					
+					<!-- ifconfig コマンド -->
+					<section>
+						<h3>ifconfig コマンド</h3>
+						<p>
+						<ul>
+							<li>ネットワーク環境の確認・設定をおこなう
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>ifconfig コマンドの使い方(※1)</h3>
+						<p>
+						<ol>
+							<li><font color="RED">ifconfig</font>&nbsp;&nbsp;<font color="BLUE">デバイス識別子</font>
+							<li><font color="RED">ifconfig</font>&nbsp;&nbsp;|&nbsp;&nbsp;less
+							<li><font color="RED">ifconfig</font>&nbsp;&nbsp;<font color="BLUE">デバイス識別子</font>
+							&nbsp;&nbsp;設定したいIPアドレス&nbsp;&nbsp;netmask&nbsp;&nbsp;設定したいネットマスク
+						</ol>
+						<ul>
+							(※1) IPアドレス等を設定する場合は，特権ユーザになる必要がある．
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>ifconfig の実行例1-1</h3>
+						<p>
+						<ul>
+							<li>ifconfigの出力結果から，ネットワーク環境(デバイスのIPアドレス設定状態)をlessを使って見易く表示する．
+						</ul>
+						</p>
+						<img src="pics/a-03/ifconfig-sample1-1.png">
+					</section>
+					<section>
+						<h3>ifconfig の実行例1-2(例1-1の続き)</h3>
+						<p>
+						<ul>
+							<li><font color="RED">"enter"</font>キーでスクロール，<font color="BLUE">"↑↓"</font>キーでページの上下スクロール．
+						</ul>
+						</p>
+						<img src="pics/a-03/ifconfig-sample1-2.png">
+					</section>
+					<section>
+						<h3>ifconfig の実行例1-3(例1-2の続き)</h3>
+						<p>
+						<ul>
+							<li><font color="RED">"enter"</font>キーでスクロール，<font color="BLUE">"q"</font>キーで表示終了
+						</ul>
+						</p>
+						<img src="pics/a-03/ifconfig-sample1-3.png">
+					</section>
+					<section>
+						<h3>ifconfig の実行例2</h3>
+						<p>
+						<ul>
+							<li>ifconfigで<font color="RED">wlp2s0(無線デバイス)の状態</font>を確認する
+						</ul>
+						</p>
+						<img src="pics/a-03/ifconfig-sample2.png">
+					</section>
+					<section>
+						<h3>ifconfig の実行例3</h3>
+						<p>
+						<ul>
+							<li>特権ユーザに切り替える．ifconfigで<font color="RED">wlp2s0(無線デバイス)に，
+							IPアドレス"192.168.0.1"とネットマスク"255.255.255.0"を設定</font>する．
+							最後に正しく設定されたか確認する．
+						</ul>
+						</p>
+						<img src="pics/a-03/ifconfig-sample3.png">
+					</section>
+
+					
+					<!-- ping コマンド -->
+					<section>
+						<h3>ping コマンド</h3>
+						<p>
+						<ul>
+							<li>ネットワークの通信状況を確認する
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>ping コマンドの使い方</h3>
+						<p>
+						<ol>
+							<li><font color="RED">ping</font>&nbsp;&nbsp;IPアドレスまたはドメイン名&nbsp;&nbsp;<font color="BLUE">オプション</font>&nbsp;&nbsp;"数字"
+						</ol>
+						</p>
+					</section>
+					<section>
+						<h3>ping コマンドのオプション</h3>
+						<p>
+						<ol>
+							<li><font color="RED">ping</font>&nbsp;&nbsp;IPアドレスまたはドメイン名&nbsp;&nbsp;<font color="BLUE">-c</font>&nbsp;&nbsp;試行回数(※1)
+							&nbsp;&nbsp;(試行回数分通信状況を確認する．)
+						</ol>
+						<br><br>
+						<ul>
+							(※1) 試行回数を多くすると，他のサーバ・PC等に迷惑になるので程々にする<br>
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>ping の実行例1</h3>
+						<p>
+						<ul>
+							<li><font color="RED">IPアドレス"192.168.0.1(ifconfigで設定したので自分自身)"の通信状況を確認する．試行回数は5回とする．</font>
+						</ul>
+						</p>
+						<img src="pics/a-03/ping-sample.png">
+					</section>
+
+
+					<!-- traceroute コマンド -->
+					<section>
+						<h3>traceroute コマンド</h3>
+						<p>
+						<ul>
+							<li>ネットワークの通信経路を調査する
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>traceroute コマンドの使い方</h3>
+						<p>
+						<ol>
+							<li><font color="RED">traceroute</font>&nbsp;&nbsp;IPアドレスまたはドメイン名
+							<li><font color="RED">traceroute</font>&nbsp;&nbsp;<font color="BLUE">オプション</font>&nbsp;&nbsp;IPアドレスまたはドメイン名
+						</ol>
+						</p>
+					</section>
+					<section>
+						<h3>traceroute コマンドのオプション</h3>
+						<p>
+						<ol>
+							<li><font color="RED">traceroute</font>&nbsp;&nbsp;<font color="BLUE">-n</font>&nbsp;&nbsp;IPアドレスまたはドメイン名
+							(出力をIPアドレスのみに限定する．ドメインを表示しない．)
+						</ol>
+						</p>
+					</section>
+					<section>
+						<h3>traceroute の実行例1</h3>
+						<p>
+						<ul>
+							<li><font color="RED">"localhost(自分自身,127.0.0.1)"に対するネットワークの通信経路を調査する．</font>
+						</ul>
+						</p>
+						<img src="pics/a-03/traceroute-sample.png">
+					</section>
+					<section>
+						<h3>traceroute の実行例2</h3>
+						<p>
+						<ul>
+							<li><font color="RED">"localhost(自分自身,127.0.0.1)"に対するネットワークの通信経路を調査する．出力をIPアドレスのみに限定する．</font>
+						</ul>
+						</p>
+						<img src="pics/a-03/traceroute-sample2.png">
+					</section>
+					<section>
+						<h3>traceroute の実行例3</h3>
+						<p>
+						<ul>
+							<li><font color="RED">IPアドレス"192.168.0.1(ifconfigで設定したので自分自身)"に対するネットワークの通信経路を調査する．
+							出力をIPアドレスのみに限定する．</font>
+						</ul>
+						</p>
+						<img src="pics/a-03/traceroute-sample3.png">
+					</section>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				slideNumber: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

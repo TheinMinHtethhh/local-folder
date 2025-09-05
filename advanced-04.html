@@ -1,0 +1,580 @@
+<!doctype html>
+<html lang="jp">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Linux (Advanced) 総合演習1-3</title>
+
+		<meta name="description" content="Linux (Advanced) 総合演習 1-3">
+		<meta name="author" content="篠崎 眞太郎">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/simple.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<!-- 課題 -->
+				<section>
+					<section>
+						<h3>Linux (Advanced) 総合演習1</h3>
+						<p>
+						<ul>
+							<li>これから出題される各設問に回答すること
+							<li>各問題は，前の設問の結果と連続性あり
+							<li>回答は，回答欄に記入すること
+							<li>次の授業のときに答え合わせをします
+						</ul>
+						</p>
+					</section>
+
+				<!-- 問題1 -->
+					<section>
+						<p>
+						<ul>
+							問題1：ターミナルを新規に起動し，root(特権ユーザ)に切り替えなさい．
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題2 -->
+					<section>
+						<p>
+						<ul>
+							問題2：kadaiユーザを新規作成し，正常に作成されたか確認せよ．
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題3 -->
+					<section>
+						<p>
+						<ul>
+							問題3：先ほど作成したkadaiユーザにパスワードを設定せよ(パスワードは各自任意の文字列)．
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題4 -->
+					<section>
+						<p>
+						<ul>
+							問題4：現在のディレクトリに，空のlinux2.txtファイルを作成し，
+							このファイルの所有者とグループをkadaiに設定し，正しく設定されたか確認せよ．(全て相対パス)
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題5 -->
+					<section>
+						<p>
+						<ul>
+							問題5：問題4で作成したlinux2.txtファイルのパーミッションを，所有者は読み込み，書き込み可に設定し，
+							グループとその他ユーザは読み込みのみ可に設定せよ(数値表記)．最後に正しく設定されたか確認せよ．(全て相対パス)
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題6 -->
+					<section>
+						<p>
+						<ul>
+							問題6：現在，root(特権ユーザ)になっているが，問題4で作成したlinux2.txtファイルに書き込みができるように
+							パーミッションを正しく設定せよ(ヒント：問題5でその他ユーザのパーミッションはどうなっていましたか？)．(全て相対パス)
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題7 -->
+					<section>
+						<p>
+						<ul>
+							問題7：問題4で作成したlinux2.txtファイルを削除せよ．(全て相対パス)
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題8 -->
+					<section>
+						<p>
+						<ul>
+							問題8：kadaiユーザを削除し，正常に削除されたか確認せよ．
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題9 -->
+					<section>
+						<p>
+						<ul>
+							問題9：現在，root(特権ユーザ)になっているが，元のユーザに戻りなさい．
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				</section>
+
+
+				<!-- 課題 -->
+				<section>
+					<section>
+						<h3>Linux (Advanced) 総合演習1 解答</h3>
+						<p>
+							<small>担当：篠崎 眞太郎<br>メール：shinozaki@kyms.sundaidenshi.ac.jp</small>
+						</p>
+					</section>
+
+				<!-- 問題1 -->
+					<section>
+						<p>
+						<ul>
+							問題1：ターミナルを新規に起動し，root(特権ユーザ)に切り替えなさい．
+						</ul>
+						</p>
+							<img src="pics/a-p01/a01.png">
+					</section>
+
+				<!-- 問題2 -->
+					<section>
+						<p>
+						<ul>
+							問題2：kadaiユーザを新規作成し，正常に作成されたか確認せよ．
+						</ul>
+						</p>
+							<img src="pics/a-p01/a02.png">
+					</section>
+
+				<!-- 問題3 -->
+					<section>
+						<p>
+						<ul>
+							問題3：先ほど作成したkadaiユーザにパスワードを設定せよ(パスワードは各自任意の文字列)．
+						</ul>
+						</p>
+							<img src="pics/a-p01/a03.png">
+					</section>
+
+				<!-- 問題4 -->
+					<section>
+						<p>
+						<ul>
+							問題4：現在のディレクトリに，空のlinux2.txtファイルを作成し，
+							このファイルの所有者とグループをkadaiに設定し，正しく設定されたか確認せよ．(全て相対パス)
+						</ul>
+						</p>
+							<img src="pics/a-p01/a04.png">
+					</section>
+
+				<!-- 問題5 -->
+					<section>
+						<p>
+						<ul>
+							問題5：問題4で作成したlinux2.txtファイルのパーミッションを，所有者は読み込み，書き込み可に設定し，
+							グループとその他ユーザは読み込みのみ可に設定せよ(数値表記)．最後に正しく設定されたか確認せよ．(全て相対パス)
+						</ul>
+						</p>
+							<img src="pics/a-p01/a05.png">
+					</section>
+
+				<!-- 問題6 -->
+					<section>
+						<p>
+						<ul>
+							問題6：現在，root(特権ユーザ)になっているが，問題4で作成したlinux2.txtファイルに書き込みができるように
+							パーミッションを正しく設定せよ(ヒント：問題5でその他ユーザのパーミッションはどうなっていましたか？)．(全て相対パス)
+						</ul>
+						</p>
+							<img src="pics/a-p01/a06.png">
+					</section>
+
+				<!-- 問題7 -->
+					<section>
+						<p>
+						<ul>
+							問題7：問題4で作成したlinux2.txtファイルを削除せよ．(全て相対パス)
+						</ul>
+						</p>
+							<img src="pics/a-p01/a07.png">
+					</section>
+
+				<!-- 問題8 -->
+					<section>
+						<p>
+						<ul>
+							問題8：kadaiユーザを削除し，正常に削除されたか確認せよ．
+						</ul>
+						</p>
+							<img src="pics/a-p01/a08.png">
+					</section>
+
+				<!-- 問題9 -->
+					<section>
+						<p>
+						<ul>
+							問題9：現在，root(特権ユーザ)になっているが，元のユーザに戻りなさい．
+						</ul>
+						</p>
+							<img src="pics/a-p01/a09.png">
+					</section>
+
+				</section>
+
+
+				<!-- 課題 -->
+				<section>
+					<section>
+						<h3>Linux (Advanced) 総合演習2</h3>
+						<p>
+						<ul>
+							<li>これから出題される各設問に回答すること
+							<li>各問題は，前の設問の結果と連続性あり
+							<li>回答は，回答欄に記入すること
+							<li>次の授業のときに答え合わせをします
+						</ul>
+						</p>
+					</section>
+
+				<!-- 問題1 -->
+					<section>
+						<p>
+						<ul>
+							問題1：mate-terminalプログラムのPIDを表示せよ．
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題2 -->
+					<section>
+						<p>
+						<ul>
+							問題2：mate-terminalプログラムが開いているファイルやディレクトリ等の情報を表示せよ
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題3 -->
+					<section>
+						<p>
+						<ul>
+							問題3：killコマンドからmate-terminalを正常終了させよ
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				</section>
+
+
+				<!-- 課題 -->
+				<section>
+					<section>
+						<h3>Linux (Advanced) 総合演習2 解答</h3>
+						<p>
+							<small>担当：篠崎 眞太郎<br>メール：shinozaki@kyms.sundaidenshi.ac.jp</small>
+						</p>
+					</section>
+
+				<!-- 問題1 -->
+					<section>
+						<p>
+						<ul>
+							問題1：mate-terminalプログラムのPIDを表示せよ．
+						</ul>
+						</p>
+							<img src="pics/a-p02/a01.png">
+					</section>
+
+				<!-- 問題2 -->
+					<section>
+						<p>
+						<ul>
+							問題2：mate-terminalプログラムが開いているファイルやディレクトリ等の情報を表示せよ
+						</ul>
+						</p>
+							<img src="pics/a-p02/a02.png">
+					</section>
+
+				<!-- 問題3 -->
+					<section>
+						<p>
+						<ul>
+							問題3：killコマンドからmate-terminalを正常終了させよ
+						</ul>
+						</p>
+							<img src="pics/a-p02/a03.png">
+					</section>
+
+				</section>
+
+
+				<!-- 課題 -->
+				<section>
+					<section>
+						<h3>Linux (Advanced) 総合演習3</h3>
+						<p>
+						<ul>
+							<li>これから出題される各設問に回答すること
+							<li>各問題は，前の設問の結果と連続性あり
+							<li>回答は，回答欄に記入すること
+							<li>次の授業のときに答え合わせをします
+						</ul>
+						</p>
+					</section>
+
+				<!-- 問題1 -->
+					<section>
+						<p>
+						<ul>
+							問題1：PCIデバイスの情報を出力し，"Audio"を含む行の情報を表示せよ
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題2 -->
+					<section>
+						<p>
+						<ul>
+							問題2：wlp2s0(無線デバイス)に，
+							IPアドレス"192.168.0.10"とネットマスク"255.255.255.0"を設定せよ．
+							最後に正しく設定されたか確認せよ．
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題3 -->
+					<section>
+						<p>
+						<ul>
+							問題3：IPアドレス"192.168.0.10(ifconfigで設定したので自分自身)"の通信状況を確認せよ．試行回数は8回とする．
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題4 -->
+					<section>
+						<p>
+						<ul>
+							問題4：IPアドレス"192.168.0.10(ifconfigで設定したので自分自身)"に対するネットワークの通信経路を調査せよ．
+							出力をIPアドレスのみに限定とする．
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題5 -->
+					<section>
+						<p>
+						<ul>
+							問題5-1：2進数"00100101"を10進数に変換せよ．<br>
+							問題5-2：2進数"10110000"を10進数に変換せよ．<br>
+							問題5-3：10進数"76"を2進数に変換せよ．<br>
+							問題5-4：10進数"221"を2進数に変換せよ．<br>(全ての問題で計算過程も記述せよ．)
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題6 -->
+					<section>
+						<p>
+						<ul>
+							問題6-1：10進数"133"を2進数に変換せよ．<br>
+							問題6-2：10進数"14"を2進数に変換せよ．<br>
+							問題6-3：10進数"18"を2進数に変換せよ．<br>
+							問題6-4：10進数"9"を2進数に変換せよ．<br>(全ての問題で計算過程も記述せよ．)
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題7 -->
+					<section>
+						<p>
+						<ul>
+							問題7-1：IPアドレス"133.14.18.9"でネットマスク"255.255.0.0"のネットワークアドレスを抽出せよ．<br>
+							問題7-2：IPアドレス"133.14.18.9"でネットマスク"255.192.0.0"のネットワークアドレスを抽出せよ．<br>(全ての問題で2進数?10進数変換の過程は不要．)
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				</section>
+
+
+				<!-- 課題 -->
+				<section>
+					<section>
+						<h3>Linux (Advanced) 総合演習3 解答</h3>
+						<p>
+							<small>担当：篠崎 眞太郎<br>メール：shinozaki@kyms.sundaidenshi.ac.jp</small>
+						</p>
+					</section>
+
+				<!-- 問題1 -->
+					<section>
+						<p>
+						<ul>
+							問題1：PCIデバイスの情報を出力し，"Audio"を含む行の情報を表示せよ
+						</ul>
+						</p>
+							<img src="pics/a-p03/a01.png">
+					</section>
+
+				<!-- 問題2 -->
+					<section>
+						<p>
+						<ul>
+							問題2：<font color="RED">wlp2s0(無線デバイス)に，
+							IPアドレス"192.168.0.10"とネットマスク"255.255.255.0"を設定</font>せよ．
+							最後に正しく設定されたか確認せよ．
+						</ul>
+						</p>
+							<img src="pics/a-p03/a02.png">
+					</section>
+
+				<!-- 問題3 -->
+					<section>
+						<p>
+						<ul>
+							問題3：IPアドレス"192.168.0.10(ifconfigで設定したので自分自身)"の通信状況を確認せよ．試行回数は8回とする．
+						</ul>
+						</p>
+							<img src="pics/a-p03/a03.png">
+					</section>
+
+				<!-- 問題4 -->
+					<section>
+						<p>
+						<ul>
+							問題4：IPアドレス"192.168.0.10(ifconfigで設定したので自分自身)"に対するネットワークの通信経路を調査せよ．
+							出力をIPアドレスのみに限定とする．
+						</ul>
+						</p>
+							<img src="pics/a-p03/a04.png">
+					</section>
+
+				<!-- 問題5 -->
+					<section>
+						<p>
+						<ul>
+							問題5-1：2進数"00100101"を10進数に変換せよ．<br>
+							問題5-2：2進数"10110000"を10進数に変換せよ．<br>
+							問題5-3：10進数"76"を2進数に変換せよ．<br>
+							問題5-4：10進数"221"を2進数に変換せよ．<br>(全ての問題で計算過程も記述せよ．)
+						</ul>
+						</p>
+							<img src="pics/a-p03/a05.png">
+					</section>
+
+				<!-- 問題6 -->
+					<section>
+						<p>
+						<ul>
+							問題6-1：10進数"133"を2進数に変換せよ．<br>
+							問題6-2：10進数"14"を2進数に変換せよ．<br>
+							問題6-3：10進数"18"を2進数に変換せよ．<br>
+							問題6-4：10進数"9"を2進数に変換せよ．<br>(全ての問題で計算過程も記述せよ．)
+						</ul>
+						</p>
+							<img src="pics/a-p03/a06.png">
+					</section>
+
+				<!-- 問題7 -->
+					<section>
+						<p>
+						<ul>
+							問題7-1：IPアドレス"133.14.18.9"でネットマスク"255.255.0.0"のネットワークアドレスを抽出せよ．<br>
+							問題7-2：IPアドレス"133.14.18.9"でネットマスク"255.192.0.0"のネットワークアドレスを抽出せよ．<br>(全ての問題で2進数?10進数変換の過程は不要．)
+						</ul>
+						</p>
+							<img src="pics/a-p03/a07.png">
+					</section>
+
+				</section>
+
+
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				slideNumber: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
