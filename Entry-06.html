@@ -1,0 +1,780 @@
+<!doctype html>
+<html lang="jp">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Linux (Entry) 総合演習1-2</title>
+
+		<meta name="description" content="Linux (Entry) 総合演習1-2">
+		<meta name="author" content="篠崎 眞太郎">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/simple.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<!-- 課題 -->
+				<section>
+
+					<section>
+						<h3>Linux (Entry) 総合演習1</h3>
+						<p>
+						<ul>
+							<li>これから出題される各設問に回答すること
+							<li>各問題は，前の設問の結果と連続性あり
+							<li>回答は，回答欄に記入すること
+							<li>次の授業のときに答え合わせをします
+						</ul>
+						</p>
+					</section>
+
+				<!-- 問題1 -->
+					<section>
+						<p>
+						<ul>
+							問題1：ターミナルを新規に起動し，現在のディレクトリの場所を絶対パスで表示しなさい．コマンドと出力結果を記入すること．
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題2 -->
+					<section>
+						<p>
+						<ul>
+							問題2：ホームディレクトリ(/home/liveuser)に，kadai01ディレクトリを作成せよ．コマンドとパス(絶対パス指定)を記入すること．
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題3 -->
+					<section>
+						<p>
+						<ul>
+							問題3：ホームディレクトリ(/home/liveuser)にあるファイルやディレクトリの情報を表示するコマンドを実行せよ．コマンド，パス(絶対パス指定)と結果を記入すること．(日本語のディレクトリは無視してよい．)
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題4 -->
+					<section>
+						<p>
+						<ul>
+							問題4：問題2で作成したkadai01ディレクトリに移動せよ．コマンド，パス(相対パス指定)を記入すること．
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題5 -->
+					<section>
+						<p>
+						<ul>
+							問題5：現在のディレクトリの場所を絶対パスで表示しなさい．コマンドと出力結果を記入すること．
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題6 -->
+					<section>
+						<p>
+						<ul>
+							問題6：現在のディレクトリに空のkadai01.txtファイルを作成しなさい．コマンドとパス(相対パス指定)を記入すること．
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題7 -->
+					<section>
+						<p>
+						<ul>
+							問題7：現在のディレクトリにあるファイルやディレクトリの情報を表示しなさい．コマンド，パス(絶対パス指定)と出力結果を記入すること．
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題8 -->
+					<section>
+						<p>
+						<ul>
+							問題8：問題6で作成したkadai01.txtを，同じディレクトリにsample01.txtとして移動しなさい(名前変更)．コマンドとパス(相対パス指定)を記入すること．
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題9 -->
+					<section>
+						<p>
+						<ul>
+							問題9：現在のディレクトリにあるファイルやディレクトリの情報を表示しなさい．コマンド，パス(相対パス指定)と出力結果を記入すること．
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題10 -->
+					<section>
+						<p>
+						<ul>
+							問題10：現在のディレクトリにあるsample01.txtを同じ場所にsample02.txtとしてコピーしなさい．コマンドとパス(相対パス指定)を記入すること．
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題11 -->
+					<section>
+						<p>
+						<ul>
+							問題11：現在のディレクトリにあるsample01.txtを削除しなさい．コマンドとパス(相対パス指定)を記入すること．
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題12 -->
+					<section>
+						<p>
+						<ul>
+							問題12：現在のディレクトリにあるファイルやディレクトリの情報を表示しなさい．コマンド，パス(相対パス指定)と出力結果を記入すること．
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題13 -->
+					<section>
+						<p>
+						<ul>
+							問題13：一階層上のディレクトリに移動しなさい．コマンドとパス(相対パス指定)を記入すること．
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題14 -->
+					<section>
+						<p>
+						<ul>
+							問題14：現在のディレクトリの場所を絶対パスで表示しなさい．コマンドと出力結果を記入すること．
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題15 -->
+					<section>
+						<p>
+						<ul>
+							問題15：現在のディレクトリにあるkadai01ディレクトリにあるファイルやディレクトリの情報を表示しなさい．コマンド，パス(絶対パス指定)と出力結果を記入すること．
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題16 -->
+					<section>
+						<p>
+						<ul>
+							問題16：現在のディレクトリにあるkadai01ディレクトリにあるsample02.txtを削除しなさい．コマンドとパス(相対パス指定)を記入すること．
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題17 -->
+					<section>
+						<p>
+						<ul>
+							問題17：現在のディレクトリにあるkadai01ディレクトリを削除しなさい．コマンドとパス(相対パス指定)を記入すること．
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題18 -->
+					<section>
+						<p>
+						<ul>
+							問題18：現在のディレクトリにあるファイルやディレクトリの情報を表示しなさい．コマンド，パス(相対パス指定)と出力結果を記入すること．(日本語のディレクトリは無視してよい．)
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h3>Linux (Entry) 総合演習1 解答</h3>
+						<p>
+							<small>担当：篠崎 眞太郎<br>メール：shinozaki@kyms.sundaidenshi.ac.jp</small>
+						</p>
+					</section>
+
+				<!-- 問題1 -->
+					<section>
+						<p>
+						<ul>
+							問題1：ターミナルを新規に起動し，現在のディレクトリの場所を絶対パスで表示しなさい．コマンドと出力結果を記入すること．
+						</ul>
+						</p>
+							<img src="pics/e-p01/a01.png">
+					</section>
+
+				<!-- 問題2 -->
+					<section>
+						<p>
+						<ul>
+							問題2：ホームディレクトリ(/home/liveuser)に，kadai01ディレクトリを作成せよ．コマンドとパス(絶対パス指定)を記入すること．
+						</ul>
+						</p>
+							<img src="pics/e-p01/a02.png">
+					</section>
+
+				<!-- 問題3 -->
+					<section>
+						<p>
+						<ul>
+							問題3：ホームディレクトリ(/home/liveuser)にあるファイルやディレクトリの情報を表示するコマンドを実行せよ．コマンド，パス(絶対パス指定)と結果を記入すること．(日本語のディレクトリは無視してよい．)
+						</ul>
+						</p>
+							<img src="pics/e-p01/a03.png">
+					</section>
+
+				<!-- 問題4 -->
+					<section>
+						<p>
+						<ul>
+							問題4：問題2で作成したkadai01ディレクトリに移動せよ．コマンド，パス(相対パス指定)を記入すること．
+						</ul>
+						</p>
+							<img src="pics/e-p01/a04.png">
+					</section>
+
+				<!-- 問題5 -->
+					<section>
+						<p>
+						<ul>
+							問題5：現在のディレクトリの場所を絶対パスで表示しなさい．コマンドと出力結果を記入すること．
+						</ul>
+						</p>
+							<img src="pics/e-p01/a05.png">
+					</section>
+
+				<!-- 問題6 -->
+					<section>
+						<p>
+						<ul>
+							問題6：現在のディレクトリに空のkadai01.txtファイルを作成しなさい．コマンドとパス(相対パス指定)を記入すること．
+						</ul>
+						</p>
+							<img src="pics/e-p01/a06.png">
+					</section>
+
+				<!-- 問題7 -->
+					<section>
+						<p>
+						<ul>
+							問題7：現在のディレクトリにあるファイルやディレクトリの情報を表示しなさい．コマンド，パス(絶対パス指定)と出力結果を記入すること．
+						</ul>
+						</p>
+							<img src="pics/e-p01/a07.png">
+					</section>
+
+				<!-- 問題8 -->
+					<section>
+						<p>
+						<ul>
+							問題8：問題6で作成したkadai01.txtを，同じディレクトリにsample01.txtとして移動しなさい(名前変更)．コマンドとパス(相対パス指定)を記入すること．
+						</ul>
+						</p>
+							<img src="pics/e-p01/a08.png">
+					</section>
+
+				<!-- 問題9 -->
+					<section>
+						<p>
+						<ul>
+							問題9：現在のディレクトリにあるファイルやディレクトリの情報を表示しなさい．コマンド，パス(相対パス指定)と出力結果を記入すること．
+						</ul>
+						</p>
+							<img src="pics/e-p01/a09.png">
+					</section>
+
+				<!-- 問題10 -->
+					<section>
+						<p>
+						<ul>
+							問題10：現在のディレクトリにあるsample01.txtを同じ場所にsample02.txtとしてコピーしなさい．コマンドとパス(相対パス指定)を記入すること．
+						</ul>
+						</p>
+							<img src="pics/e-p01/a10.png">
+					</section>
+
+				<!-- 問題11 -->
+					<section>
+						<p>
+						<ul>
+							問題11：現在のディレクトリにあるsample01.txtを削除しなさい．コマンドとパス(相対パス指定)を記入すること．
+						</ul>
+						</p>
+							<img src="pics/e-p01/a11.png">
+					</section>
+
+				<!-- 問題12 -->
+					<section>
+						<p>
+						<ul>
+							問題12：現在のディレクトリにあるファイルやディレクトリの情報を表示しなさい．コマンド，パス(相対パス指定)と出力結果を記入すること．
+						</ul>
+						</p>
+							<img src="pics/e-p01/a12.png">
+					</section>
+
+				<!-- 問題13 -->
+					<section>
+						<p>
+						<ul>
+							問題13：一階層上のディレクトリに移動しなさい．コマンドとパス(相対パス指定)を記入すること．
+						</ul>
+						</p>
+							<img src="pics/e-p01/a13.png">
+					</section>
+
+				<!-- 問題14 -->
+					<section>
+						<p>
+						<ul>
+							問題14：現在のディレクトリの場所を絶対パスで表示しなさい．コマンドと出力結果を記入すること．
+						</ul>
+						</p>
+							<img src="pics/e-p01/a14.png">
+					</section>
+
+				<!-- 問題15 -->
+					<section>
+						<p>
+						<ul>
+							問題15：現在のディレクトリにあるkadai01ディレクトリにあるファイルやディレクトリの情報を表示しなさい．コマンド，パス(絶対パス指定)と出力結果を記入すること．
+						</ul>
+						</p>
+							<img src="pics/e-p01/a15.png">
+					</section>
+
+				<!-- 問題16 -->
+					<section>
+						<p>
+						<ul>
+							問題16：現在のディレクトリにあるkadai01ディレクトリにあるsample02.txtを削除しなさい．コマンドとパス(相対パス指定)を記入すること．
+						</ul>
+						</p>
+							<img src="pics/e-p01/a16.png">
+					</section>
+
+				<!-- 問題17 -->
+					<section>
+						<p>
+						<ul>
+							問題17：現在のディレクトリにあるkadai01ディレクトリを削除しなさい．コマンドとパス(相対パス指定)を記入すること．
+						</ul>
+						</p>
+							<img src="pics/e-p01/a17.png">
+					</section>
+
+				<!-- 問題18 -->
+					<section>
+						<p>
+						<ul>
+							問題18：現在のディレクトリにあるファイルやディレクトリの情報を表示しなさい．コマンド，パス(相対パス指定)と出力結果を記入すること．(日本語のディレクトリは無視してよい．)
+						</ul>
+						</p>
+							<img src="pics/e-p01/a18.png">
+					</section>
+
+				</section>
+
+
+				<!-- Linux (Entry) 総合演習2 -->
+				<section>
+					<section>
+						<h3>Linux (Entry) 総合演習2</h3>
+						<p>
+						<ul>
+							<li>これから出題される各設問に解答欄すること
+							<li>各問題は，前の設問の結果と連続性あり
+							<li>解答は，解答欄に記入すること
+							<li>次の授業のときに答え合わせをします
+						</ul>
+						</p>
+					</section>
+
+				<!-- 問題1 -->
+					<section>
+						<p>
+						<ul>
+							問題1：ターミナルを新規に起動し，現在のディレクトリの場所を絶対パスで表示しなさい．コマンドと出力結果を記入すること．
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題2 -->
+					<section>
+						<p>
+						<ul>
+							問題2：ホームディレクトリ(/home/liveuser)に，kadai02ディレクトリを作成せよ．コマンドとパス(絶対パス指定)を記入すること．
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題3 -->
+					<section>
+						<p>
+						<ul>
+							問題3：ホームディレクトリ(/home/liveuser)にあるファイルやディレクトリの情報を表示するコマンドを実行せよ．コマンド，パス(絶対パス指定)と結果を記入すること．(日本語のディレクトリは無視してよい．)
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題4 -->
+					<section>
+						<p>
+						<ul>
+							問題4：問題2で作成したkadai02ディレクトリに移動せよ．コマンド，パス(相対パス指定)を記入すること．
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題5 -->
+					<section>
+						<p>
+						<ul>
+							問題5：現在のディレクトリの場所を絶対パスで表示しなさい．コマンドと出力結果を記入すること．
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題6 -->
+					<section>
+						<p>
+						<ul>
+							問題6：現在のディレクトリに空のhello.txtファイルを作成しなさい．コマンドとパス(相対パス指定)を記入すること．
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題7 -->
+					<section>
+						<p>
+						<ul>
+							問題7：現在のディレクトリにあるhello.txtファイルに，"Hello Kadai" を上書きしなさい．コマンドとパス(相対パス指定)を記入すること．
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題8 -->
+					<section>
+						<p>
+						<ul>
+							問題8：現在のディレクトリにあるhello.txtファイルに，"Hi Kadai" を追記しなさい．コマンドとパス(相対パス指定)を記入すること．
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題9 -->
+					<section>
+						<p>
+						<ul>
+							問題9：現在のディレクトリにあるhello.txtの内容を確認しなさい(more, lessコマンドのいずれかを使用)．コマンドとパス(相対パス指定)，出力結果を記入すること．
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題10 -->
+					<section>
+						<p>
+						<ul>
+							問題10：現在のディレクトリにあるhello.txtの内容をcatで表示し，これを同じディレクトリにworld.txtとして上書きしなさい．コマンドとパス(相対パス指定)を記入すること．
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題11 -->
+					<section>
+						<p>
+						<ul>
+							問題11：現在のディレクトリにあるworld.txtファイルに，"World Wide Web" を上書きしなさい．コマンドとパス(相対パス指定)を記入すること．
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題12 -->
+					<section>
+						<p>
+						<ul>
+							問題12：現在のディレクトリにあるhello.txtとworld.txtファイルを結合し，hello-world.txtに上書きしなさい．コマンドとパス(相対パス指定)を記入すること．
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題13 -->
+					<section>
+						<p>
+						<ul>
+							問題13：現在のディレクトリのファイルとディレクトリ情報をhello-world.txtに追記しなさい．コマンドとパス(相対パス指定)を記入すること．
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題14 -->
+					<section>
+						<p>
+						<ul>
+							問題14：現在のディレクトリにあるhello-world.txtの内容を確認しなさい(more, lessコマンドのいずれかを使用)．コマンドとパス(相対パス指定)，出力結果を記入すること．
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				</section>
+
+				<section>
+					<section>
+						<h3>Linux (Entry) 総合演習2 解答</h3>
+						<p>
+							<small>担当：篠崎 眞太郎<br>メール：shinozaki@kyms.sundaidenshi.ac.jp</small>
+						</p>
+					</section>
+
+				<!-- 問題1 -->
+					<section>
+						<p>
+						<ul>
+							問題1：ターミナルを新規に起動し，現在のディレクトリの場所を絶対パスで表示しなさい．コマンドと出力結果を記入すること．
+						</ul>
+						</p>
+							<img src="pics/e-p02/a01.png">
+					</section>
+
+				<!-- 問題2 -->
+					<section>
+						<p>
+						<ul>
+							問題2：ホームディレクトリ(/home/liveuser)に，kadai02ディレクトリを作成せよ．コマンドとパス(絶対パス指定)を記入すること．
+						</ul>
+						</p>
+							<img src="pics/e-p02/a02.png">
+					</section>
+
+				<!-- 問題3 -->
+					<section>
+						<p>
+						<ul>
+							問題3：ホームディレクトリ(/home/liveuser)にあるファイルやディレクトリの情報を表示するコマンドを実行せよ．コマンド，パス(絶対パス指定)と結果を記入すること．(日本語のディレクトリは無視してよい．)
+						</ul>
+						</p>
+							<img src="pics/e-p02/a03.png">
+					</section>
+
+				<!-- 問題4 -->
+					<section>
+						<p>
+						<ul>
+							問題4：問題2で作成したkadai02ディレクトリに移動せよ．コマンド，パス(相対パス指定)を記入すること．
+						</ul>
+						</p>
+							<img src="pics/e-p02/a04.png">
+					</section>
+
+				<!-- 問題5 -->
+					<section>
+						<p>
+						<ul>
+							問題5：現在のディレクトリの場所を絶対パスで表示しなさい．コマンドと出力結果を記入すること．
+						</ul>
+						</p>
+							<img src="pics/e-p02/a05.png">
+					</section>
+
+				<!-- 問題6 -->
+					<section>
+						<p>
+						<ul>
+							問題6：現在のディレクトリに空のhello.txtファイルを作成しなさい．コマンドとパス(相対パス指定)を記入すること．
+						</ul>
+						</p>
+							<img src="pics/e-p02/a06.png">
+					</section>
+
+				<!-- 問題7 -->
+					<section>
+						<p>
+						<ul>
+							問題7：現在のディレクトリにあるhello.txtファイルに，"Hello Kadai" を上書きしなさい．コマンドとパス(相対パス指定)を記入すること．
+						</ul>
+						</p>
+							<img src="pics/e-p02/a07.png">
+					</section>
+
+				<!-- 問題8 -->
+					<section>
+						<p>
+						<ul>
+							問題8：現在のディレクトリにあるhello.txtファイルに，"Hi Kadai" を追記しなさい．コマンドとパス(相対パス指定)を記入すること．
+						</ul>
+						</p>
+							<img src="pics/e-p02/a08.png">
+					</section>
+
+				<!-- 問題9 -->
+					<section>
+						<p>
+						<ul>
+							問題9：現在のディレクトリにあるhello.txtの内容を確認しなさい(more, lessコマンドのいずれかを使用)．コマンドとパス(相対パス指定)，出力結果を記入すること．
+						</ul>
+						</p>
+							<img src="pics/e-p02/a09.png">
+					</section>
+
+				<!-- 問題10 -->
+					<section>
+						<p>
+						<ul>
+							問題10：現在のディレクトリにあるhello.txtの内容をcatで表示し，これを同じディレクトリにworld.txtとして上書きしなさい．コマンドとパス(相対パス指定)を記入すること．
+						</ul>
+						</p>
+							<img src="pics/e-p02/a10.png">
+					</section>
+
+				<!-- 問題11 -->
+					<section>
+						<p>
+						<ul>
+							問題11：現在のディレクトリにあるworld.txtファイルに，"World Wide Web" を上書きしなさい．コマンドとパス(相対パス指定)を記入すること．
+						</ul>
+						</p>
+							<img src="pics/e-p02/a11.png">
+					</section>
+
+				<!-- 問題12 -->
+					<section>
+						<p>
+						<ul>
+							問題12：現在のディレクトリにあるhello.txtとworld.txtファイルを結合し，hello-world.txtに上書きしなさい．コマンドとパス(相対パス指定)を記入すること．
+						</ul>
+						</p>
+							<img src="pics/e-p02/a12.png">
+					</section>
+
+				<!-- 問題13 -->
+					<section>
+						<p>
+						<ul>
+							問題13：現在のディレクトリのファイルとディレクトリ情報をhello-world.txtに追記しなさい．コマンドとパス(相対パス指定)を記入すること．
+						</ul>
+						</p>
+							<img src="pics/e-p02/a13.png">
+					</section>
+
+				<!-- 問題14 -->
+					<section>
+						<p>
+						<ul>
+							問題14：現在のディレクトリにあるhello-world.txtの内容を確認しなさい(more, lessコマンドのいずれかを使用)．コマンドとパス(相対パス指定)，出力結果を記入すること．
+						</ul>
+						</p>
+							<img src="pics/e-p02/a14.png">
+					</section>
+
+				</section>
+
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				slideNumber: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

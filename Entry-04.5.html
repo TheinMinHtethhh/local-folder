@@ -1,0 +1,556 @@
+<!doctype html>
+<html lang="jp">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Linux (Entry) 第4回 復習</title>
+
+		<meta name="description" content="Linux (Entry) 第4回授業 復習">
+		<meta name="author" content="篠崎 眞太郎">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/simple.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<section>
+					<h2>Linux (Entry)</h2>
+					<h3>第4回：Linuxコマンド 復習</h3>
+					<h4>- Linuxコマンドとオプション，ワイルドカード -
+					<p>
+						<br>
+						<small>担当：篠崎 眞太郎<br>メール：shinozaki@kyms.sundaidenshi.ac.jp</small>
+					</p>
+				</section>
+
+				<!-- 本日の授業の目的 -->
+				<section>
+					<section>
+						<h3>本日の授業の目的</h3>
+						<p>
+						<ul>
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>以下のコマンドとオプションを習得する</h3>
+						<p>
+						<ol>
+							<li><font color="RED">ls</font> &nbsp;&nbsp;(ファイルやディレクトリ情報を表示)
+							<li><font color="RED">mkdir</font> &nbsp;&nbsp;(ディレクトリを作成)
+							<li><font color="RED">rm</font> &nbsp;&nbsp;(ファイルを削除する)
+							<li><font color="RED">mv</font> &nbsp;&nbsp;(ファイルやディレクトリを移動する)
+							<li><font color="RED">cp</font> &nbsp;&nbsp;(ファイルを複製する)
+						</ol>
+						</p>
+					</section>
+				</section>
+
+
+				<!-- 授業の前に -->
+				<section>
+
+					<section>
+						<h3>授業の前に覚えておく必須事項</h3>
+					</section>
+					<section>
+						<p>
+						<ul>
+							<li>ワイルドカード
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>ワイルドカードとは</h3>
+						<p>
+						<ul>
+							<li>曖昧な文字を表現する表記方法
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>ワイルドカード指定方法</h3>
+						<p>
+						<ul>
+							<li>? (任意の1文字を表す)
+							<li>* (任意の0文字以上を表す)
+							<li>[] ([]内に指定した文字のいずれかを含む)
+							<li>{} ({}内に指定した文字列のいずれかを含む)
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>? (任意の1文字を表す)例</h3>
+							<img src="pics/e-04/q-sample.png">
+					</section>
+					<section>
+						<h3>* (任意の0文字以上を表す)例</h3>
+							<img src="pics/e-04/a-sample.png">
+					</section>
+					<section>
+						<h3>[] ([]内に指定した文字のいずれかを含む)例</h3>
+							<img src="pics/e-04/sq-sample.png">
+					</section>
+					<section>
+						<h3>{} ({}内に指定した文字列のいずれかを含む)例</h3>
+							<img src="pics/e-04/c-sample.png">
+					</section>
+				</section>
+
+
+					<!-- コマンド -->
+				<section>
+					<section>
+						<h3>以下のコマンドの基本操作を実習します</h3>
+						<p>
+						<ol>
+							<li><font color="RED">ls</font> &nbsp;&nbsp;(ファイルやディレクトリ情報を表示)
+							<li><font color="RED">mkdir</font> &nbsp;&nbsp;(ディレクトリを作成)
+							<li><font color="RED">rm</font> &nbsp;&nbsp;(ファイルを削除する)
+							<li><font color="RED">mv</font> &nbsp;&nbsp;(ファイルやディレクトリを移動する)
+							<li><font color="RED">cp</font> &nbsp;&nbsp;(ファイルを複製する)
+						</ol>
+						</p>
+					</section>
+					<section>
+						<h3>まずは<font color="RED">ターミナル</font>を開きましょう</h3>
+						<img src="pics/terminal.png">
+					</section>
+
+
+					<!-- ls コマンド -->
+					<section>
+						<h3>ls コマンド</h3>
+						<p>
+						<ul>
+							<li>ファイルやディレクトリの情報を確認する
+							<li>List の略
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>ls コマンドの使い方</h3>
+						<p>
+						<ol>
+							<li><font color="RED">ls</font>&nbsp;&nbsp;
+							<li><font color="RED">ls</font>&nbsp;&nbsp;パス
+							<li><font color="RED">ls</font>&nbsp;&nbsp;<font color="BLUE">オプション</font>&nbsp;&nbsp;
+							<li><font color="RED">ls</font>&nbsp;&nbsp;<font color="BLUE">オプション</font>&nbsp;&nbsp;パス
+						</ol>
+						</p>
+					</section>
+					<section>
+						<h3>ls コマンドのオプション(※1)</h3>
+						<p>
+						<ol>
+							<li><font color="RED">ls</font>&nbsp;&nbsp;<font color="BLUE">-a</font>&nbsp;&nbsp;(隠しファイルやディレクトリ(※2)を表示)
+							<li><font color="RED">ls</font>&nbsp;&nbsp;<font color="BLUE">-l</font>&nbsp;&nbsp;(ファイルやディレクトリの詳細も表示)
+							<li><font color="RED">ls</font>&nbsp;&nbsp;<font color="BLUE">-h</font>&nbsp;&nbsp;(ファイルサイズを読みやすい単位で表示)
+							<li>その他のオプション(本日は学習しない)
+						</ol>
+							<br><br>
+						<ul>
+							(※1) オプションは組み合わせて使うこともできる<br>
+							例：<font color="RED">ls</font>&nbsp;&nbsp;<font color="BLUE">-lah</font><br>
+							(※2) 名前の頭にピリオド(．)が付くファイルやディレクトリ<br>
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>ls の実行例1</h3>
+						<p>
+						<ul>
+							<li>現在のディレクトリ以下のファイルやディレクトリの情報を隠しファイル等含め確認する
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>ls の実行例2</h3>
+						<p>
+						<ul>
+							<li>現在のディレクトリ以下のファイルやディレクトリの詳細を確認する
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>ls の実行例3</h3>
+						<p>
+						<ul>
+							<li>現在のディレクトリ以下のファイルやディレクトリの詳細を表示しつつ，ファイルサイズの単位を読みやすい形で確認する
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>ls の実行例4-1</h3>
+						<p>
+						<ul>
+							<li>現在のディレクトリ以下のファイルやディレクトリの詳細を隠しファイル等も表示しつつ，ファイルサイズの単位を読みやすい形で表示し，lessに引き渡す．
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>ls の実行例4-2(例4-1の続き)</h3>
+						<p>
+						<ul>
+							<li><font color="BLUE">"enter"</font>キーでスクロール，<font color="BLUE">"q"</font>キーで表示終了．
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+
+
+					<!-- mkdir コマンド -->
+					<section>
+						<h3>mkdir コマンド</h3>
+						<p>
+						<ul>
+							<li>ディレクトリを作成する
+							<li>Make directory の略
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>mkdir コマンドの使い方</h3>
+						<p>
+						<ol>
+							<li><font color="RED">mkdir</font>&nbsp;&nbsp;パス
+							<li><font color="RED">mkdir</font>&nbsp;&nbsp;<font color="BLUE">オプション</font>
+							<li><font color="RED">mkdir</font>&nbsp;&nbsp;<font color="BLUE">オプション</font>&nbsp;&nbsp;パス
+						</ol>
+						</p>
+					</section>
+					<section>
+						<h3>mkdir コマンドのオプション(※1)</h3>
+						<p>
+						<ol>
+							<li><font color="RED">mkdir</font>&nbsp;&nbsp;<font color="BLUE">-v</font>&nbsp;&nbsp;(ディレクトリ作成毎に結果も表示する)
+							<li><font color="RED">mkdir</font>&nbsp;&nbsp;<font color="BLUE">-p</font>&nbsp;&nbsp;(子ディレクトリ(※2)も一度に作成する)
+							<li>その他のオプション(本日は学習しない)
+						</ol>
+							<br><br>
+						<ul>
+							(※1) オプションは組み合わせて使うこともできる<br>
+							例：<font color="RED">mkdir</font>&nbsp;&nbsp;<font color="BLUE">-pv</font>&nbsp;&nbsp;./hello/world<br>
+							(※2) ディレクトリ以下のディレクトリの意味
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>mkdir の実行例1</h3>
+						<p>
+						<ul>
+							<li><font color="RED">現在のディレクトリ</font>に<font color="BLUE">sample04</font>ディレクトリを作成し結果も表示する
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>mkdir の実行例2</h3>
+						<p>
+						<ul>
+							<li><font color="RED">現在のディレクトリ</font>に<font color="BLUE">helloディレクトリを含んだtest04ディレクトリ</font>を作成し，
+								test04ディレクトリ以下の隠しファイルやディレクトリや詳細も含め全て表示する(全て相対パス)．
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+
+
+					<!-- cp コマンド -->
+					<section>
+						<h3>cp コマンド</h3>
+						<p>
+						<ul>
+							<li>ファイルやディレクトリを複製する
+							<li>Copy の略
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>cp コマンドの使い方</h3>
+						<p>
+						<ul>
+							<li>使い方1：<font color="RED">cp</font>&nbsp;&nbsp;パス&nbsp;&nbsp;(複製先の)パス
+							<li>使い方2：<font color="RED">cp</font>&nbsp;&nbsp;<font color="BLUE">オプション</font>
+							<li>使い方3：<font color="RED">cp</font>&nbsp;&nbsp;<font color="BLUE">オプション</font>&nbsp;&nbsp;パス&nbsp;&nbsp;(複製先の)パス
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>cp コマンドのオプション(※1)</h3>
+						<p>
+						<ol>
+							<li><font color="RED">cp</font>&nbsp;&nbsp;<font color="BLUE">-b</font>&nbsp;&nbsp;(ファイルの控え(※2)を作成しコピーする)
+							<li><font color="RED">cp</font>&nbsp;&nbsp;<font color="BLUE">-i</font>&nbsp;&nbsp;(警告あり(※3)でファイル・ディレクトリをコピーする)
+							<li><font color="RED">cp</font>&nbsp;&nbsp;<font color="BLUE">-f</font>&nbsp;&nbsp;(警告なし(※4)でファイル・ディレクトリをコピーする)
+							<li><font color="RED">cp</font>&nbsp;&nbsp;<font color="BLUE">-r</font>&nbsp;&nbsp;(ディレクトリを再帰的(※5)に複製する)
+							<li>その他のオプション(本日は学習しない)
+						</ol>
+							<br><br>
+						<ul>
+							(※1) オプションは組み合わせて使うこともできる<br>
+							例：<font color="RED">cp</font>&nbsp;&nbsp;<font color="BLUE">-rfb</font>&nbsp;&nbsp;./hello&nbsp;&nbsp;./hello2<br>
+							(※2) コピー先に同名のファイル・ディレクトリが存在した場合，複製を作成しコピーする<br>
+							(※3) コピー先に同名のファイル・ディレクトリが存在した場合，警告する<br>
+							(※4) コピー先に同名のファイル・ディレクトリが存在した場合，警告しない<br>
+							(※5) ディレクトリの中にファイルやディレクトリが存在しても，全てコピーする<br>
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>cp の実行例1</h3>
+						<p>
+						<ul>
+							<li><font color="RED">現在のディレクトリ</font>に hello john と記載された john-smith.txt (*1)を作成し内容を確認する．
+								<font color="BLUE">sample04ディレクトリ</font>に hello smith と記載された john-smith.txt (*2)を作成し内容を確認する．
+								<font color="RED">(*1)を(*2)に控えを作成しつつコピーする．</font>(*2)と控えファイルの内容をそれぞれ確認する．(全て相対パス指定)
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>cp の実行例2</h3>
+						<p>
+						<ul>
+							<li>現在のディレクトリにある<font color="RED">sample04ディレクトリのjohn-smith.txt~</font>
+								を<font color="BLUE">ホームディレクトリにjohn-smith.txt</font>として警告ありでコピーし内容を確認する．(全て相対パス)
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>cp の実行例3</h3>
+						<p>
+						<ul>
+							<li>現在のディレクトリにある<font color="RED">sample04ディレクトリのjohn-smith.txt</font>
+								を<font color="BLUE">ホームディレクトリにjohn-smith.txt</font>として警告なしでコピーし内容を確認する．(全て相対パス)
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>cp の実行例4</h3>
+						<p>
+						<ul>
+							<li>現在のディレクトリにある<font color="RED">sample04ディレクトリ</font>を
+								ファイルも含め警告なしで<font color="BLUE">test04ディレクトリ以下へコピーし</font>ファイルやディレクトリの内容を確認する．(全て相対パス)
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+
+					<!-- rm コマンド -->
+					<section>
+						<h3>rm コマンド</h3>
+						<p>
+						<ul>
+							<li>ファイルやディレクトリを削除する
+							<li>Remove の略
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>rm コマンドの使い方</h3>
+						<p>
+						<ol>
+							<li><font color="RED">rm</font>&nbsp;&nbsp;パス
+							<li><font color="RED">rm</font>&nbsp;&nbsp;<font color="BLUE">オプション</font>
+							<li><font color="RED">rm</font>&nbsp;&nbsp;<font color="BLUE">オプション</font>&nbsp;&nbsp;パス(複数指定可能)
+						</ol>
+						</p>
+					</section>
+					<section>
+						<h3>rm コマンドのオプション(※1)</h3>
+						<p>
+						<ol>
+							<li><font color="RED">rm</font>&nbsp;&nbsp;<font color="BLUE">-i</font>&nbsp;&nbsp;(削除前に警告する)
+							<li><font color="RED">rm</font>&nbsp;&nbsp;<font color="BLUE">-f</font>&nbsp;&nbsp;(警告なしに削除する)
+							<li><font color="RED">rm</font>&nbsp;&nbsp;<font color="BLUE">-r</font>&nbsp;&nbsp;(ディレクトリ内を再帰的(※2)に削除する)
+							<li>その他のオプション(本日は学習しない)
+						</ol>
+							<br><br>
+						<ul>
+							(※1) オプションは組み合わせて使うこともできる<br>
+							例1：<font color="RED">rm</font>&nbsp;&nbsp;<font color="BLUE">-rf</font>&nbsp;&nbsp;./hello<br>
+							例2：<font color="RED">rm</font>&nbsp;&nbsp;<font color="BLUE">-ri</font>&nbsp;&nbsp;./hello<br>
+							(※2) ディレクトリの中にファイルやディレクトリが存在しても，全て削除する
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>rm の実行例1</h3>
+						<p>
+						<ul>
+							<li><font color="RED">ホームディレクトリ</font>の john-smith.txt ファイルを警告ありで削除する．(全て相対パス指定)
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>rm の実行例2</h3>
+						<p>
+						<ul>
+							<li><font color="RED">現在のディレクトリのsample04ディレクトリに移動し，</font>
+								<font color="BLUE">全てのファイル</font>を警告なしに削除する．(全て相対パス指定)
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>rm の実行例3</h3>
+						<p>
+						<ul>
+							<li><font color="BLUE">ホームディレクトリにあるtest04ディレクトリ</font>を，再帰的に警告なしに削除する．(相対パスと絶対パス指定)
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+
+
+					<!-- mv コマンド -->
+					<section>
+						<h3>mv コマンド</h3>
+						<p>
+						<ul>
+							<li>ファイルやディレクトリを移動する
+							<li>Move の略
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>mv コマンドの使い方</h3>
+						<p>
+						<ol>
+							<li><font color="RED">mv</font>&nbsp;&nbsp;パス&nbsp;&nbsp;(移動先の)パス
+							<li><font color="RED">mv</font>&nbsp;&nbsp;<font color="BLUE">オプション</font>
+							<li><font color="RED">mv</font>&nbsp;&nbsp;<font color="BLUE">オプション</font>&nbsp;&nbsp;パス&nbsp;&nbsp;(移動先の)パス
+						</ol>
+						</p>
+					</section>
+					<section>
+						<h3>mv コマンドのオプション(※1)</h3>
+						<p>
+						<ol>
+							<li><font color="RED">mv</font>&nbsp;&nbsp;<font color="BLUE">-b</font>&nbsp;&nbsp;(ファイルの控え(※2)を作成する)
+							<li><font color="RED">mv</font>&nbsp;&nbsp;<font color="BLUE">-i</font>&nbsp;&nbsp;(警告あり(※3)でファイル・ディレクトリを移動する)
+							<li><font color="RED">mv</font>&nbsp;&nbsp;<font color="BLUE">-f</font>&nbsp;&nbsp;(警告なし(※4)でファイル・ディレクトリを移動する)
+							<li>その他のオプション(本日は学習しない)
+						</ol>
+							<br><br>
+						<ul>
+							(※1) オプションは組み合わせて使うこともできる<br>
+							例：<font color="RED">mv</font>&nbsp;&nbsp;<font color="BLUE">-fb</font>&nbsp;&nbsp;./hello<br>
+							(※2) 移動先に同名のファイル・ディレクトリが存在する場合，バックアップを作成する<br>
+							(※3) 移動先に同名のファイル・ディレクトリが存在すれば警告する<br>
+							(※4) 移動先に同名のファイル・ディレクトリが存在しても警告しない<br>
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>mv の実行例1</h3>
+						<p>
+						<ul>
+							<li><font color="RED">現在のディレクトリに空のtest01.txtとtest02.txtを作成し</font>
+								<font color="BLUE">test02.txtをtest01.txtに移動</font>し控えを作成する．
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>mv の実行例2</h3>
+						<p>
+						<ul>
+							<li>現在のディレクトリにある<font color="RED">test01.txt~</font>ファイルを
+								<font color="BLUE">test01.txt</font>に警告ありで移動する．
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>mv の実行例3</h3>
+						<p>
+						<ul>
+							<li>現在のディレクトリの<font color="RED">test01.txt</font>ファイルをホームディレクトリにコピーする．
+								ホームディレクトリに移動し，<font color="BLUE">sample04ディレクトリのtest01.txt</font>を現在のディレクトリに警告なしで移動する．(全て相対パス指定)
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				slideNumber: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

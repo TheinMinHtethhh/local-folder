@@ -1,0 +1,526 @@
+<!doctype html>
+<html lang="jp">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Linux (Entry) 第5回 復習</title>
+
+		<meta name="description" content="Linux (Entry) 第5回授業 復習">
+		<meta name="author" content="篠崎 眞太郎">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/simple.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<section>
+					<h2>Linux (Entry)</h2>
+					<h3>第5回：Linuxコマンド 復習</h3>
+					<h4>- ファイル・文字列検索と正規表現 -
+					<p>
+						<br>
+						<small>担当：篠崎 眞太郎<br>メール：shinozaki@kyms.sundaidenshi.ac.jp</small>
+					</p>
+				</section>
+
+				<!-- 本日の授業の目的 -->
+				<section>
+					<section>
+						<h3>本日の授業の目的</h3>
+						<p>
+						<ul>
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>以下のコマンドとオプションを習得する</h3>
+						<p>
+						<ol>
+							<li><font color="RED">grep</font> &nbsp;&nbsp;(任意の文字列を検索する)
+							<li><font color="RED">egrep</font> &nbsp;&nbsp;(grepの機能拡張版)
+							<li><font color="RED">find</font> &nbsp;&nbsp;(ファイルやディレクトリを検索する)
+						</ol>
+						</p>
+					</section>
+				</section>
+
+
+				<!-- 授業の前に -->
+				<section>
+					<section>
+						<h3>授業の前に覚えておく必須事項</h3>
+					</section>
+					<section>
+						<p>
+						<ul>
+							<li>正規表現
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>正規表現とは</h3>
+						<p>
+						<ul>
+							<li>コマンドが提供する，曖昧な文字を表現する表記方法
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>ワイルドカードとの違い</h3>
+						<p>
+						<ul>
+							<li>ワイルドカードは，シェルが提供する機能
+							<li>正規表現は，各コマンドが提供する機能(正規表現の機能が実装されている場合)
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>正規表現の種類や例</h3>
+						<p>
+						<ul>
+							<li>詳細や例題は，egrep コマンドにて
+						</ul>
+						</p>
+					</section>
+				</section>
+
+
+					<!-- コマンド -->
+				<section>
+					<section>
+						<h3>以下のコマンドの基本操作を実習します</h3>
+						<p>
+						<ol>
+							<li><font color="RED">grep</font> &nbsp;&nbsp;(任意の文字列を検索する)
+							<li><font color="RED">egrep</font> &nbsp;&nbsp;(grepの機能拡張版)
+							<li><font color="RED">find</font> &nbsp;&nbsp;(ファイルやディレクトリを検索する)
+						</ol>
+						</p>
+					</section>
+					<section>
+						<h3>まずは<font color="RED">ターミナル</font>を開きましょう</h3>
+						<img src="pics/terminal.png">
+					</section>
+
+
+					<!-- grep コマンド -->
+					<section>
+						<h3>grep コマンド</h3>
+						<p>
+						<ul>
+							<li>任意の文字列を検索する
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>grep コマンドの使い方</h3>
+						<p>
+						<ol>
+							<li><font color="RED">grep</font>&nbsp;&nbsp;検索文字列&nbsp;&nbsp;パス
+							<li><font color="RED">grep</font>&nbsp;&nbsp;<font color="BLUE">オプション</font>&nbsp;&nbsp;検索文字列&nbsp;&nbsp;パス
+							<li>コマンド&nbsp;&nbsp;|&nbsp;&nbsp;<font color="RED">grep</font>&nbsp;&nbsp;検索文字列
+							<li>コマンド&nbsp;&nbsp;|&nbsp;&nbsp;<font color="RED">grep</font>&nbsp;&nbsp;<font color="BLUE">オプション</font>&nbsp;&nbsp;検索文字列
+						</ol>
+						</p>
+					</section>
+					<section>
+						<h3>grep コマンドのオプション(※1)</h3>
+						<p>
+						<ol>
+							<li><font color="RED">grep</font>&nbsp;&nbsp;<font color="BLUE">-i</font>&nbsp;&nbsp;検索文字列&nbsp;&nbsp;パス(検索文字列に大文字・小文字の区別をなくす)
+							<li><font color="RED">grep</font>&nbsp;&nbsp;<font color="BLUE">-v</font>&nbsp;&nbsp;検索文字列&nbsp;&nbsp;パス(検索文字列に一致しない行を表示)
+							<li>その他のオプション(本日は学習しない)
+						</ol>
+							<br><br>
+						<ul>
+							(※1) オプションは組み合わせて使うこともできる<br>
+							例：<font color="RED">grep</font>&nbsp;&nbsp;<font color="BLUE">-iv</font>&nbsp;&nbsp;検索文字列&nbsp;&nbsp;パス<br>
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>grep の実行例1</h3>
+						<p>
+						<ul>
+							<li>現在のディレクトリに sample05 ディレクトリを作成し，このディレクトリに<font color="RED"> "Hello Ken" と記載された hello-ken.txt を作成</font>する．<font color="BLUE">検索文字列に "Hello" を指定し，
+								現在のディレクトリ以下のすべてのファイルに対して文字列検索</font>する．(全て相対パス指定)
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>grep の実行例2</h3>
+						<p>
+						<ul>
+							<li>現在のディレクトリにある sample05 ディレクトリに<font color="RED"> "Hello Becky" と記載された hello-becky.txt を作成</font>する．<font color="BLUE">検索文字列に "hello" を指定し，
+								現在のディレクトリ以下のすべてのファイルに対して大文字・小文字の区別なく文字列検索</font>する．(全て相対パス指定)
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>grep の実行例3</h3>
+						<p>
+						<ul>
+							<li>現在のディレクトリにある sample05 ディレクトリに<font color="RED"> "Hello Steve" と記載された hello-steve.txt を作成</font>する．<font color="BLUE">検索文字列に "Ken" を指定し，
+								現在のディレクトリ以下のすべてのファイルに対して検索文字列に一致しない行を表示</font>する．(全て相対パス指定)
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>grep の実行例4</h3>
+						<p>
+						<ul>
+							<li>現在のディレクトリの sample05 ディレクトリにある全てのファイルに対し，
+								<font color="RED">ファイルに含まれる大文字・小文字の区別なく文字列"becky"を含まない文字列を検索</font>する．(全て相対パス指定)
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>grep の実行例5</h3>
+						<p>
+						<ul>
+							<li>現在のディレクトリの sample05 以下にある隠しファイルを含むディレクトリのファイルやディレクトリの詳細情報を表示し，
+                                <font color="RED">この中かから文字列 ".txt" を含む行を表示</font>する．(全て相対パス指定)
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+
+
+					<!-- egrep コマンド -->
+					<section>
+						<h3>egrep コマンド</h3>
+						<p>
+						<ul>
+							<li>任意の文字列を検索する
+							<li>grepの機能拡張版
+							<li>正規表現を活用できる
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>egrep コマンドの使い方</h3>
+						<p>
+						<ol>
+							<li><font color="RED">egrep</font>&nbsp;&nbsp;検索文字列(正規表現)&nbsp;&nbsp;パス
+							<li><font color="RED">egrep</font>&nbsp;&nbsp;<font color="BLUE">オプション</font>&nbsp;&nbsp;検索文字列(正規表現)&nbsp;&nbsp;パス
+							<li>コマンド&nbsp;&nbsp;|&nbsp;&nbsp;<font color="RED">egrep</font>&nbsp;&nbsp;検索文字列(正規表現)
+							<li>コマンド&nbsp;&nbsp;|&nbsp;&nbsp;<font color="RED">egrep</font>&nbsp;&nbsp;<font color="BLUE">オプション</font>&nbsp;&nbsp;検索文字列(正規表現)
+						</ol>
+						</p>
+					</section>
+					<section>
+						<h3>egrep コマンドのオプション(※1)</h3>
+						<p>
+						<ol>
+							<li><font color="RED">egrep</font>&nbsp;&nbsp;<font color="BLUE">-i</font>&nbsp;&nbsp;検索文字列&nbsp;&nbsp;パス(検索文字列に大文字・小文字の区別をなくす)
+							<li><font color="RED">egrep</font>&nbsp;&nbsp;<font color="BLUE">-v</font>&nbsp;&nbsp;検索文字列&nbsp;&nbsp;パス(検索文字列に一致しない行を表示)
+							<li>その他のオプション(本日は学習しない)
+						</ol>
+							<br><br>
+						<ul>
+							(※1) オプションは組み合わせて使うこともできる<br>
+							例：<font color="RED">grep</font>&nbsp;&nbsp;<font color="BLUE">-iv</font>&nbsp;&nbsp;検索文字列&nbsp;&nbsp;パス<br>
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>egrep コマンドで使用できる正規表現</h3>
+						<p>
+						<ol>
+							<li>^ (行頭)
+							<li>$ (行末)
+							<li>. (任意の1文字を表す)
+							<li>[] ([]内に指定した文字のいずれかを含む)
+							<li>[^] ([]内に指定した文字のいずれでもない)
+							<li>その他の正規表現(本日は学習しない)
+						</ol>
+						</p>
+					</section>
+					<section>
+						<h3>egrep コマンドで使用できる正規表現例</h3>
+						<p>
+						<ol>
+							<li>^A (行頭にAを含む)
+							<li>A$ (行末にAを含む)
+							<li>.BC (任意の1文字とBC)
+							<li>[ABC] ([]内に指定したABCのいずれかを含む)
+							<li>[A-Z] ([]内に指定したAからZのいずれかを含む)
+							<li>[^ABC] ([]内に指定したABCのいずれでもない)
+							<li>[^A-Z] ([]内に指定したAからZのいずれでもない)
+							<li>その他の正規表現(本日は学習しない)
+						</ol>
+						</p>
+					</section>
+					<section>
+						<h3>egrep の実行例1</h3>
+						<p>
+						<ul>
+							<li>現在のディレクトリの sample05 ディレクトリにある全ての.txtファイルに対し，<font color="RED">ファイルに含まれる行頭に"H"を含む文字列を検索</font>する．(全て相対パス指定)
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>egrep の実行例2</h3>
+						<p>
+						<ul>
+							<li>現在のディレクトリの sample05 ディレクトリにある全ての.txtファイルに対し，<font color="RED">ファイルに含まれる行末に"e"を含む文字列を検索</font>する．(全て相対パス指定)
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>egrep の実行例3</h3>
+						<p>
+						<ul>
+							<li>現在のディレクトリの sample05 ディレクトリにある全ての.txtファイルに対し，
+								<font color="RED">ファイルに含まれる"Hではじまりo"で終わる5文字の文字列を検索</font>する．(全て相対パス指定)
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>egrep の実行例4</h3>
+						<p>
+						<ul>
+							<li>現在のディレクトリの sample05 ディレクトリにある全ての.txtファイルに対し，
+								<font color="RED">ファイルに含まれる行末に"yn"いずれかを含む文字列を検索</font>する．(全て相対パス指定)
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>egrep の実行例5</h3>
+						<p>
+						<ul>
+							<li>現在のディレクトリの sample05 ディレクトリにある全ての.txtファイルに対し，
+								<font color="RED">ファイルに含まれる行頭に"AからZ"のいずれかを含む5文字の文字列を検索</font>する．(全て相対パス指定)
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>egrep の実行例6</h3>
+						<p>
+						<ul>
+							<li>現在のディレクトリの sample05 ディレクトリにある全ての.txtファイルに対し，
+								<font color="RED">ファイルに含まれる行末に"yn"いずれかを含まない3文字の文字列を検索</font>する．(全て相対パス指定)
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>egrep の実行例7</h3>
+						<p>
+						<ul>
+							<li>現在のディレクトリの sample05 ディレクトリにある全ての.txtファイルに対し，
+								<font color="RED">ファイルに含まれる行頭に大文字・小文字の区別なく"aからz"いずれかを含む文字列を検索</font>する．(全て相対パス指定)
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>egrep の実行例8</h3>
+						<p>
+						<ul>
+							<li>現在のディレクトリの sample05 ディレクトリにある全ての.txtファイルに対し，
+								<font color="RED">ファイルに含まれる文字列"Ken"を含まない文字列を検索</font>する．(全て相対パス指定)
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>egrep の実行例9</h3>
+						<p>
+						<ul>
+							<li>現在のディレクトリの sample05 ディレクトリにある全ての.txtファイルに対し，
+								<font color="RED">ファイルに含まれる大文字・小文字の区別なく文字列"becky"を含まない文字列を検索</font>する．(全て相対パス指定)
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>egrep の実行例10</h3>
+						<p>
+						<ul>
+							<li>/etc/init.d ディレクトリ以下のファイルやディレクトリの情報を表示し，
+							この中から<font color="RED">行頭に"nl"いずれかを含む文字列を検索</font>する．(全て絶対パス指定)
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+
+
+					<!-- find コマンド -->
+					<section>
+						<h3>find コマンド</h3>
+						<p>
+						<ul>
+							<li>ファイルやディレクトリを検索する
+							<li>find "見つける"の意味
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>find コマンドの使い方</h3>
+						<p>
+						<ol>
+							<li><font color="RED">find</font>&nbsp;&nbsp;パス
+							<li><font color="RED">find</font>&nbsp;&nbsp;パス&nbsp;&nbsp;<font color="BLUE">オプション</font>&nbsp;&nbsp;条件
+							<li>find&nbsp;&nbsp;|&nbsp;&nbsp;<font color="RED">grep</font>&nbsp;&nbsp;検索文字列
+							<li>find&nbsp;&nbsp;|&nbsp;&nbsp;<font color="RED">grep</font>&nbsp;&nbsp;<font color="BLUE">オプション</font>&nbsp;&nbsp;検索文字列
+							<li>find&nbsp;&nbsp;|&nbsp;&nbsp;<font color="RED">egrep</font>&nbsp;&nbsp;検索文字列(正規表現)
+							<li>find&nbsp;&nbsp;|&nbsp;&nbsp;<font color="RED">egrep</font>&nbsp;&nbsp;<font color="BLUE">オプション</font>&nbsp;&nbsp;検索文字列(正規表現)
+						</ol>
+						</p>
+					</section>
+					<section>
+						<h3>find コマンドのオプション</h3>
+						<p>
+						<ol>
+							<li><font color="RED">find</font>&nbsp;&nbsp;パス&nbsp;&nbsp;<font color="BLUE">-name</font>&nbsp;&nbsp;検索文字列
+							<li>その他のオプション(本日は学習しない)
+						</ol>
+						</p>
+					</section>
+					<section>
+						<h3>find の実行例1</h3>
+						<p>
+						<ul>
+							<li>sample05ディレクトリ以下の<font color="RED">ファイルやディレクトリをすべて検索</font>する．(全て相対パス指定)
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>find の実行例2</h3>
+						<p>
+						<ul>
+							<li>sample05ディレクトリにある<font color="RED">hello-ken.txtを検索</font>する．(全て相対パス指定)
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>find の実行例3</h3>
+						<p>
+						<ul>
+							<li>sample05ディレクトリにある<font color="RED">文字列".txt"を含んだファイルやディレクトリを検索</font>する．(全て相対パス指定)
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>find の実行例4</h3>
+						<p>
+						<ul>
+							<li>sample05ディレクトリにある<font color="RED">文字列"becky"を含まないファイルやディレクトリを検索</font>する．(全て相対パス指定)
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>find の実行例5</h3>
+						<p>
+						<ul>
+							<li>sample05ディレクトリにある<font color="RED">行末に"t"を含むファイルやディレクトリを検索</font>する．(全て相対パス指定)
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>find の実行例6</h3>
+						<p>
+						<ul>
+							<li>sample05ディレクトリにある<font color="RED">"sから始まりeで終わる"任意の5文字を含むファイルやディレクトリを検索</font>する．(全て相対パス指定)
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>find の実行例7</h3>
+						<p>
+						<ul>
+							<li>sample05ディレクトリにある<font color="RED">"sから始まりeで終わる"任意の5文字を含まないファイルやディレクトリを検索</font>する．(全て相対パス指定)
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+				</section>
+
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				slideNumber: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

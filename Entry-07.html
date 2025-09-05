@@ -1,0 +1,615 @@
+<!doctype html>
+<html lang="jp">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Linux (Entry) 総合演習3-4</title>
+
+		<meta name="description" content="Linux (Entry) 総合演習3-4">
+		<meta name="author" content="篠崎 眞太郎">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/simple.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<!-- 課題 -->
+				<section>
+
+					<section>
+						<h3>Linux (Entry) 総合演習3</h3>
+						<p>
+						<ul>
+							<li>これから出題される各設問に解答すること
+							<li>各問題は，前の設問の結果と連続性あり
+							<li>解答は，解答欄に記入すること
+							<li>次の授業のときに答え合わせをします
+						</ul>
+						</p>
+					</section>
+
+				<!-- 問題1 -->
+					<section>
+						<p>
+						<ul>
+							問題1：ターミナルを新規に起動し，現在のディレクトリの場所を絶対パスで表示しなさい．コマンドと出力結果を記入すること．
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+
+				<!-- 問題2 -->
+					<section>
+						<p>
+						<ul>
+							問題2：ホームディレクトリの隠しファイルやディレクトリを含む詳細情報を表示するコマンドを実行し，
+									現在のディレクトリにls.txtとして保存しlessで内容を確認せよ．コマンド，パスを記入すること(結果は記入不要)．(全て相対パス指定)
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題3 -->
+					<section>
+						<p>
+						<ul>
+							問題3：現在のディレクトリに空のls-la.txtファイルを作成せよ．
+							コマンド，パスを記入すること．(全て相対パス指定)
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題4 -->
+					<section>
+						<p>
+						<ul>
+							問題4：現在のディレクトリのls.txtをls-la.txtに警告なしで移動せよ．
+							コマンドとパスを記入すること．(全て相対パス指定)
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題5 -->
+					<section>
+						<p>
+						<ul>
+							問題5：現在のディレクトリにtmp02ディレクトリを含むtmp01ディレクトリを作成せよ．
+							コマンドとパスを記入すること．(全て相対パス指定)
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題6 -->
+					<section>
+						<p>
+						<ul>
+							問題6：現在のディレクトリにある隠しファイルやディレクトリを含めた詳細情報を表示し，
+									結果をtmp01ディレクトリ以下のtmp02ディレクトリにls-la.txtとして保存し，これをlessで確認せよ．
+									コマンド，パスを記入すること(結果は記入不要)．(全て相対パス指定)
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題7 -->
+					<section>
+						<p>
+						<ul>
+							問題7：現在のディレクトリにあるls-la.txtをtmp01ディレクトリ以下のtmp02ディレクトリに控えを作成しコピーしなさい．
+									コマンドとパスを記入すること．(全て相対パス指定)
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題8 -->
+					<section>
+						<p>
+						<ul>
+							問題8：現在のディレクトリにあるファイルやディレクトリの情報を表示し，現在のディレクトリにあるls-la.txtに上書きしなさい(詳細情報ではない)．
+									コマンド，パスを記入すること．(全て相対パス指定)
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題9 -->
+					<section>
+						<p>
+						<ul>
+							問題9：現在のディレクトリにあるls-la.txtを，tmp01ディレクトリ以下にあるtmp02ディレクトリのls-la.txtに警告なしにコピーしなさい．
+									コマンド，パスを記入すること．(全て相対パス指定)
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題10 -->
+					<section>
+						<p>
+						<ul>
+							問題10：現在のディレクトリのtmp01ディレクトリ以下にあるtmp02ディレクトリのls-la.txtの内容をcatで確認しなさい．
+									コマンド，パスおよび結果を記入すること．(全て相対パス指定)
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題11 -->
+					<section>
+						<p>
+						<ul>
+							問題11：ホームディレクトリに移動し，現在のディレクトリの場所を絶対パスで表示しなさい．コマンド，パスを記入すること．(全て絶対パス指定)
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題12 -->
+					<section>
+						<p>
+						<ul>
+							問題12：現在のディレクトリにあるtmp01ディレクトリを再帰的に削除しなさい(警告不要)．コマンド，パスを記入すること．(全て絶対パス指定)
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h3>Linux (Entry) 総合演習3 解答</h3>
+						<p>
+							<small>担当：篠崎 眞太郎<br>メール：shinozaki@kyms.sundaidenshi.ac.jp</small>
+						</p>
+					</section>
+
+				<!-- 問題1 -->
+					<section>
+						<p>
+						<ul>
+							問題1：ターミナルを新規に起動し，現在のディレクトリの場所を絶対パスで表示しなさい．コマンドと出力結果を記入すること．
+						</ul>
+						</p>
+							<img src="pics/e-p03/a01.png">
+					</section>
+
+
+				<!-- 問題2 -->
+					<section>
+						<p>
+						<ul>
+							問題2：ホームディレクトリの隠しファイルやディレクトリを含む詳細情報を表示するコマンドを実行し，
+									現在のディレクトリにls.txtとして保存しlessで内容を確認せよ．コマンド，パスを記入すること(結果は記入不要)．(全て相対パス指定)
+						</ul>
+						</p>
+							<img src="pics/e-p03/a02.png">
+					</section>
+
+				<!-- 問題3 -->
+					<section>
+						<p>
+						<ul>
+							問題3：現在のディレクトリに空のls-la.txtファイルを作成せよ．
+							コマンド，パスを記入すること．(全て相対パス指定)
+						</ul>
+						</p>
+							<img src="pics/e-p03/a03.png">
+					</section>
+
+				<!-- 問題4 -->
+					<section>
+						<p>
+						<ul>
+							問題4：現在のディレクトリのls.txtをls-la.txtに警告なしで移動せよ．
+							コマンドとパスを記入すること．(全て相対パス指定)
+						</ul>
+						</p>
+							<img src="pics/e-p03/a04.png">
+					</section>
+
+				<!-- 問題5 -->
+					<section>
+						<p>
+						<ul>
+							問題5：現在のディレクトリにtmp02ディレクトリを含むtmp01ディレクトリを作成せよ．
+							コマンドとパスを記入すること．(全て相対パス指定)
+						</ul>
+						</p>
+							<img src="pics/e-p03/a05.png">
+					</section>
+
+				<!-- 問題6 -->
+					<section>
+						<p>
+						<ul>
+							問題6：現在のディレクトリにある隠しファイルやディレクトリを含めた詳細情報を表示し，
+									結果をtmp01ディレクトリ以下のtmp02ディレクトリにls-la.txtとして保存し，これをlessで確認せよ．
+									コマンド，パスを記入すること(結果は記入不要)．(全て相対パス指定)
+						</ul>
+						</p>
+							<img src="pics/e-p03/a06.png">
+					</section>
+
+				<!-- 問題7 -->
+					<section>
+						<p>
+						<ul>
+							問題7：現在のディレクトリにあるls-la.txtをtmp01ディレクトリ以下のtmp02ディレクトリに控えを作成しコピーしなさい．
+									コマンドとパスを記入すること．(全て相対パス指定)
+						</ul>
+						</p>
+							<img src="pics/e-p03/a07.png">
+					</section>
+
+				<!-- 問題8 -->
+					<section>
+						<p>
+						<ul>
+							問題8：現在のディレクトリにあるファイルやディレクトリの情報を表示し，現在のディレクトリにあるls-la.txtに上書きしなさい(詳細情報ではない)．
+									コマンド，パスを記入すること．(全て相対パス指定)
+						</ul>
+						</p>
+							<img src="pics/e-p03/a08.png">
+					</section>
+
+				<!-- 問題9 -->
+					<section>
+						<p>
+						<ul>
+							問題9：現在のディレクトリにあるls-la.txtを，tmp01ディレクトリ以下にあるtmp02ディレクトリのls-la.txtに警告なしにコピーしなさい．
+									コマンド，パスを記入すること．(全て相対パス指定)
+						</ul>
+						</p>
+							<img src="pics/e-p03/a09.png">
+					</section>
+
+				<!-- 問題10 -->
+					<section>
+						<p>
+						<ul>
+							問題10：現在のディレクトリのtmp01ディレクトリ以下にあるtmp02ディレクトリのls-la.txtの内容をcatで確認しなさい．
+									コマンド，パスおよび結果を記入すること．(全て相対パス指定)
+						</ul>
+						</p>
+							<img src="pics/e-p03/a10.png">
+					</section>
+
+				<!-- 問題11 -->
+					<section>
+						<p>
+						<ul>
+							問題11：ホームディレクトリに移動し，現在のディレクトリの場所を絶対パスで表示しなさい．コマンド，パスを記入すること．(全て絶対パス指定)
+						</ul>
+						</p>
+							<img src="pics/e-p03/a11.png">
+					</section>
+
+				<!-- 問題12 -->
+					<section>
+						<p>
+						<ul>
+							問題12：現在のディレクトリにあるtmp01ディレクトリを再帰的に削除しなさい(警告不要)．コマンド，パスを記入すること．(全て絶対パス指定)
+						</ul>
+						</p>
+							<img src="pics/e-p03/a12.png">
+					</section>
+
+				</section>
+
+
+				<!-- Linux (Entry) 総合演習4 -->
+				<section>
+					<section>
+						<h3>Linux (Entry) 総合演習4</h3>
+						<p>
+						<ul>
+							<li>これから出題される各設問に解答すること
+							<li>各問題は，前の設問の結果と連続性あり
+							<li>解答は，解答欄に記入すること
+							<li>次の授業のときに答え合わせをします
+						</ul>
+						</p>
+					</section>
+
+				<!-- 問題1 -->
+					<section>
+						<p>
+						<ul>
+							問題1：ターミナルを新規に起動し，現在のディレクトリの場所を絶対パスで表示しなさい．コマンドと出力結果を記入すること．
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+
+				<!-- 問題2 -->
+					<section>
+						<p>
+						<ul>
+							問題2：ホームディレクトリにkadai05ディレクトリを作成しなさい．(全て相対パス指定)
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題3 -->
+					<section>
+						<p>
+						<ul>
+							問題3：現在のディレクトリにあるkadai05ディレクトリ以下に "I would like to get a job" と記載された get-job.txt ファイルを作成しなさい．コマンドとパスを記載すること．(全て相対パス指定)
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題4 -->
+					<section>
+						<p>
+						<ul>
+							問題4：現在のディレクトリにあるkadai05ディレクトリ以下に "I want to go shopping" と記載された go-shopping.txt ファイルを作成しなさい．コマンドとパスを記載すること．(全て相対パス指定)
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題5 -->
+					<section>
+						<p>
+						<ul>
+							問題5：現在のディレクトリにあるkadai05ディレクトリ以下に "I hope I will pass the exam" と記載された pass-exam.txt ファイルを作成しなさい．コマンドとパスを記載すること．(全て相対パス指定)
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題6 -->
+					<section>
+						<p>
+						<ul>
+							問題6：現在のディレクトリの kadai05 ディレクトリにある全てのファイルに対し，
+									ファイルに含まれる文字列"want"を含む文字列を検索しなさい．コマンドとパス，結果を記載すること．(全て相対パス指定)
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題7 -->
+					<section>
+						<p>
+						<ul>
+							問題7：現在のディレクトリの kadai05 ディレクトリにある全てのファイルに対し，
+									ファイルに含まれる大文字・小文字の区別なく文字列"job"を含まない文字列を検索しなさい．コマンドとパス，結果を記載すること．(全て相対パス指定)
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題8 -->
+					<section>
+						<p>
+						<ul>
+							問題8：現在のディレクトリの kadai05 ディレクトリにある全てのファイルに対し，
+									ファイルに含まれる文字列の行頭に"I"を含む文字列を検索しなさい．コマンドとパス，結果を記載すること．(全て相対パス指定)
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題9 -->
+					<section>
+						<p>
+						<ul>
+							問題9：現在のディレクトリの kadai05 ディレクトリにある全てのファイルに対し，
+									ファイルに含まれる文字列の行末に"bg"のいずれかを含む文字列を検索しなさい．コマンドとパス，結果を記載すること．(全て相対パス指定)
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+
+				<!-- 問題10 -->
+					<section>
+						<p>
+						<ul>
+							問題10：現在のディレクトリの kadai05 ディレクトリのファイルやディレクトリの情報を表示し，
+									この中から文字列"eから始まりmで終わる"4文字の文字列を含まないファイルやディレクトリを表示しなさい．コマンドとパス，結果を記載すること．(全て相対パス指定)
+						</ul>
+						</p>
+							<img src="pics/kaitou.jpg">
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h3>Linux (Entry) 総合演習4 解答</h3>
+						<p>
+							<small>担当：篠崎 眞太郎<br>メール：shinozaki@kyms.sundaidenshi.ac.jp</small>
+						</p>
+					</section>
+
+				<!-- 問題1 -->
+					<section>
+						<p>
+						<ul>
+							問題1：ターミナルを新規に起動し，現在のディレクトリの場所を絶対パスで表示しなさい．コマンドと出力結果を記入すること．
+						</ul>
+						</p>
+							<img src="pics/e-p04/a01.png">
+					</section>
+
+
+				<!-- 問題2 -->
+					<section>
+						<p>
+						<ul>
+							問題2：ホームディレクトリにkadai05ディレクトリを作成しなさい．(全て相対パス指定)
+						</ul>
+						</p>
+							<img src="pics/e-p04/a02.png">
+					</section>
+
+				<!-- 問題3 -->
+					<section>
+						<p>
+						<ul>
+							問題3：現在のディレクトリにあるkadai05ディレクトリ以下に "I would like to get a job" と記載された get-job.txt ファイルを作成しなさい．
+							コマンドとパスを記載すること．(全て相対パス指定)
+						</ul>
+						</p>
+							<img src="pics/e-p04/a03.png">
+					</section>
+
+				<!-- 問題4 -->
+					<section>
+						<p>
+						<ul>
+							問題4：現在のディレクトリにあるkadai05ディレクトリ以下に "I want to go shopping" と記載された go-shopping.txt ファイルを作成しなさい．
+							コマンドとパスを記載すること．(全て相対パス指定)
+						</ul>
+						</p>
+							<img src="pics/e-p04/a04.png">
+					</section>
+
+				<!-- 問題5 -->
+					<section>
+						<p>
+						<ul>
+							問題5：現在のディレクトリにあるkadai05ディレクトリ以下に "I hope I will pass the exam" と記載された pass-exam.txt ファイルを作成しなさい．
+							コマンドとパスを記載すること．(全て相対パス指定)
+						</ul>
+						</p>
+							<img src="pics/e-p04/a05.png">
+					</section>
+
+				<!-- 問題6 -->
+					<section>
+						<p>
+						<ul>
+							問題6：現在のディレクトリの kadai05 ディレクトリにある全てのファイルに対し，
+									ファイルに含まれる文字列"want"を含む文字列を検索しなさい．コマンドとパス，結果を記載すること．(全て相対パス指定)
+						</ul>
+						</p>
+							<img src="pics/e-p04/a06.png">
+					</section>
+
+				<!-- 問題7 -->
+					<section>
+						<p>
+						<ul>
+							問題7：現在のディレクトリの kadai05 ディレクトリにある全てのファイルに対し，
+									ファイルに含まれる大文字・小文字の区別なく文字列"job"を含まない文字列を検索しなさい．コマンドとパス，結果を記載すること．(全て相対パス指定)
+						</ul>
+						</p>
+							<img src="pics/e-p04/a07.png">
+					</section>
+
+				<!-- 問題8 -->
+					<section>
+						<p>
+						<ul>
+							問題8：現在のディレクトリの kadai05 ディレクトリにある全てのファイルに対し，
+									ファイルに含まれる文字列の行頭に"I"を含む文字列を検索しなさい．コマンドとパス，結果を記載すること．(全て相対パス指定)
+						</ul>
+						</p>
+							<img src="pics/e-p04/a08.png">
+					</section>
+
+				<!-- 問題9 -->
+					<section>
+						<p>
+						<ul>
+							問題9：現在のディレクトリの kadai05 ディレクトリにある全てのファイルに対し，
+									ファイルに含まれる文字列の行末に"bg"のいずれかを含む文字列を検索しなさい．コマンドとパス，結果を記載すること．(全て相対パス指定)
+						</ul>
+						</p>
+							<img src="pics/e-p04/a09.png">
+					</section>
+
+				<!-- 問題10 -->
+					<section>
+						<p>
+						<ul>
+							問題10：現在のディレクトリの kadai05 ディレクトリのファイルやディレクトリの情報を表示し，
+									この中から文字列"eから始まりmで終わる"4文字の文字列を含まないファイルやディレクトリを表示しなさい．コマンドとパス，結果を記載すること．(全て相対パス指定)
+						</ul>
+						</p>
+							<img src="pics/e-p04/a10.png">
+					</section>
+				</section>
+
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				slideNumber: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

@@ -1,0 +1,541 @@
+<!doctype html>
+<html lang="jp">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Linux (Entry) 第3回 復習</title>
+
+		<meta name="description" content="Linux (Entry) 第3回授業 復習">
+		<meta name="author" content="篠崎 眞太郎">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/simple.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<section>
+					<h2>Linux (Entry)</h2>
+					<h3>第3回：Linuxコマンド 復習</h3>
+					<h4>- 標準入出力・リダイレクト・パイプ・ファイル閲覧(入門) -
+					<p>
+						<br>
+						<small>担当：篠崎 眞太郎<br>メール：shinozaki@kyms.sundaidenshi.ac.jp</small>
+					</p>
+				</section>
+
+				<!-- 本日の授業の目的 -->
+				<section>
+					<section>
+						<h3>本日の授業の目的</h3>
+						<p>
+						<ul>
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>以下のコマンドの基本操作を習得する</h3>
+						<p>
+						<ol>
+							<li><font color="RED">more</font> &nbsp;&nbsp;(コマンド標準出力やファイルの内容を見易く表示する)
+							<li><font color="RED">less</font> &nbsp;&nbsp;(コマンド標準出力やファイルの内容を見易く表示する)
+							<li><font color="RED">echo</font> &nbsp;&nbsp;(文字列を標準出力に表示する)
+							<li><font color="RED">&gt;</font> &nbsp;&nbsp;(コマンド標準出力をファイルに上書きする)
+							<li><font color="RED">&gt;&gt;</font> &nbsp;&nbsp;(コマンド標準出力をファイルに追記する)
+							<li><font color="RED">cat</font> &nbsp;&nbsp;(ファイル(中身)を表示または結合する)
+							<li><font color="RED">|</font> &nbsp;&nbsp;(コマンド標準出力を次のコマンドの入力に引き渡す)
+						</ol>
+						</p>
+					</section>
+				</section>
+
+				<!-- 授業の前に -->
+				<section>
+
+					<section>
+						<h3>授業の前に覚えておく必須事項</h3>
+					</section>
+					<section>
+						<p>
+						<ul>
+							<li>標準入力
+							<li>標準出力
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>標準入力</h3>
+						<p>
+						<ul>
+							<li><font color="RED">コマンド(プログラム)</font>に<font color="BLUE">入ってくるデータ</font>のこと
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>標準入力例</h3>
+						<p>
+							<img src="pics/e-03/stdin-exp.png">
+						</p>
+					</section>
+					<section>
+						<h3>標準出力</h3>
+						<p>
+						<ul>
+							<li><font color="RED">コマンド(プログラム)</font>が<font color="BLUE">出力するデータ</font>のこと
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>標準出力例</h3>
+						<p>
+							<img src="pics/e-03/stdout-exp.png">
+						</p>
+					</section>
+					<section>
+						<p>
+							とりあえず・・今日の授業は<font color="BLUE">オプション無し</font>でやります．
+						</p>
+					</section>
+				</section>
+
+					<!-- コマンド -->
+				<section>
+					<section>
+						<h3>以下のコマンドの基本操作を実習します</h3>
+						<p>
+						<ol>
+							<li><font color="RED">more</font> &nbsp;&nbsp;(コマンド標準出力やファイルの内容を見易く表示する)
+							<li><font color="RED">less</font> &nbsp;&nbsp;(コマンド標準出力やファイルの内容を見易く表示する)
+							<li><font color="RED">echo</font> &nbsp;&nbsp;(文字列を標準出力に表示する)
+							<li><font color="RED">&gt;</font> &nbsp;&nbsp;(コマンド標準出力をファイルに上書きする)
+							<li><font color="RED">&gt;&gt;</font> &nbsp;&nbsp;(コマンド標準出力をファイルに追記する)
+							<li><font color="RED">cat</font> &nbsp;&nbsp;(ファイル(中身)を表示または結合する)
+							<li><font color="RED">|</font> &nbsp;&nbsp;(コマンド標準出力を次のコマンドの入力に引き渡す)
+						</ol>
+						</p>
+					</section>
+					<section>
+						<h3>まずは<font color="RED">ターミナル</font>を開きましょう</h3>
+						<img src="pics/terminal.png">
+					</section>
+
+
+					<!-- more コマンド -->
+					<section>
+						<h3>more コマンド</h3>
+						<p>
+						<ul>
+							<li>コマンド標準出力やファイルの内容をページ単位で見易く表示する
+							<li>more "より多く"
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>more コマンドの使い方</h3>
+						<p>
+						<ul>
+							<li>使い方：<font color="RED">more</font>&nbsp;&nbsp;パス
+							<li><font color="BLUE">"enter"</font>キーでスクロール，<font color="BLUE">"q"</font>キーで表示終了
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>more の実行例1</h3>
+						<p>
+						<ul>
+							<li><font color="RED">/etc/fstab</font> ファイルの中身を表示する<font color="BLUE">(絶対パス指定)</font>
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>more の実行例2</h3>
+						<p>
+						<ul>
+							<li><font color="RED">/etc/fstab</font> ファイルをホームディレクトリにコピー<font color="BLUE">(絶対パス指定)</font>し，中身を表示<font color="BLUE">(相対パス指定)</font>
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>more の実行例3-1</h3>
+						<p>
+						<ul>
+							<li><font color="RED">/etc/init.d/livesys</font> ファイルの中身を表示<font color="BLUE">(絶対パス指定)</font>
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>more の実行例3-2(例3-1の続き)</h3>
+						<p>
+						<ul>
+							<li><font color="BLUE">"enter"</font>キーでスクロール，<font color="BLUE">"q"</font>キーで表示終了
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+
+
+					<!-- less コマンド -->
+					<section>
+						<h3>less コマンド</h3>
+						<p>
+						<ul>
+							<li>コマンド標準出力やファイルの内容をページ単位で見易く表示する
+							<li>more コマンドの機能強化版
+							<li>less "より少なく"
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>less コマンドの使い方</h3>
+						<p>
+						<ul>
+							<li>使い方：<font color="RED">less</font>&nbsp;&nbsp;パス
+							<li><font color="BLUE">"enter"</font>キーでスクロール，<font color="BLUE">"q"</font>キーで表示終了
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>less の実行例1-1</h3>
+						<p>
+						<ul>
+							<li><font color="RED">現在のディレクトリにあるfstab</font>ファイルの中身を表示<font color="BLUE">(相対パス指定)</font>
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>less の実行例1-2(例1-1の続き)</h3>
+						<p>
+						<ul>
+							<li><font color="BLUE">"enter"</font>キーでスクロール，<font color="BLUE">"q"</font>キーで表示終了
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>less の実行例2-1</h3>
+						<p>
+						<ul>
+							<li><font color="RED">/etc/init.d/livesys</font> ファイルをホームディレクトリにコピー<font color="BLUE">(絶対パス指定)</font>し，中身を表示<font color="BLUE">(相対パス指定)</font>
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>less の実行例2-2(例2-1の続き)</h3>
+						<p>
+						<ul>
+							<li><font color="BLUE">"enter"</font>キーでスクロール，<font color="BLUE">"q"</font>キーで表示終了
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>less の実行例3-1</h3>
+						<p>
+						<ul>
+							<li><font color="RED">現在のディレクトリにless-sample01ディレクトリを作成</font>，<font color="BLUE">livesysをless-sample01ディレクトリに移動</font>し，
+								less-sample01ディレクトリ内のlivesysの中身を閲覧<font color="RED">(全て相対パス指定)</font>
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>less の実行例3-2(例3-1の続き)</h3>
+						<p>
+						<ul>
+							<li><font color="BLUE">"enter"</font>キーでスクロール，<font color="BLUE">"q"</font>キーで表示終了
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+
+
+					<!-- echo コマンド -->
+					<section>
+						<h3>echo コマンド</h3>
+						<p>
+						<ul>
+							<li>文字列を標準出力に表示する
+							<li>echo "こだま"
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>echo コマンドの使い方</h3>
+						<p>
+						<ul>
+							<li>使い方：<font color="RED">echo</font>&nbsp;&nbsp;文字列
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>echo の実行例</h3>
+						<p>
+						<ul>
+							<li>標準出力に "Hello World" と表示する
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+
+
+					<!-- > コマンド -->
+					<section>
+						<h3>&gt; コマンド</h3>
+						<p>
+						<ul>
+							<li>コマンド標準出力をファイルに上書きする
+							<li>リダイレクト(上書き)
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>&gt; コマンドの使い方</h3>
+						<p>
+						<ul>
+							<li>使い方：コマンド&nbsp;&nbsp;<font color="RED">&gt;</font>&nbsp;&nbsp;パス
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>&gt; の実行例1</h3>
+						<p>
+						<ul>
+							<li><font color="RED">ホームディレクトリに空の echo-test.txt ファイルを作成</font>，
+								<font color="BLUE">このファイルに "Hello" を上書き</font>し moreコマンドで中身を確認する．<font color="RED">(全て相対パス指定)</font>
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>&gt; の実行例2</h3>
+						<p>
+						<ul>
+							<li><font color="RED">ホームディレクトリの echo-test.txt ファイル</font>に 
+								<font color="BLUE">ls の標準出力を上書き</font>し moreコマンドで中身を確認する．<font color="RED">(全て相対パス指定)</font>
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>&gt; の実行例3</h3>
+						<p>
+						<ul>
+							<li><font color="RED">ホームディレクトリの less-sample01 ディレクトリ</font>に移動し 
+								<font color="BLUE">pwd の標準出力を現在のディレクトリのpwd.txtに上書き</font>し moreコマンドで中身を確認する．<font color="RED">(全て絶対パス指定)</font>
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+
+
+					<!-- >> コマンド -->
+					<section>
+						<h3>&gt;&gt; コマンド</h3>
+						<p>
+						<ul>
+							<li>コマンド標準出力をファイルに上書きする
+							<li>リダイレクト(追記)
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>&gt;&gt; コマンドの使い方</h3>
+						<p>
+						<ul>
+							<li>使い方：コマンド&nbsp;&nbsp;<font color="RED">&gt;&gt;</font>&nbsp;&nbsp;パス
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>&gt;&gt; の実行例1</h3>
+						<p>
+						<ul>
+							<li><font color="RED">標準出力に "Hello" を出力し，これをホームディレクトリの hello-john.txt ファイルに上書き</font>する．
+								続いて<font color="BLUE">"John" を出力し先ほどのhello-john.txtファイルに上書き</font>する．最後に moreコマンドで中身を確認する．<font color="RED">(全て絶対パス指定)</font>
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>&gt;&gt; の実行例2</h3>
+						<p>
+						<ul>
+							<li><font color="RED">現在のディレクトリのファイルやディレクトリ情報</font><font color="BLUE">(相対パス指定)</font>を， 
+								<font color="RED">ホームディレクトリの hello-john.txt ファイルに追記</font><font color="BLUE">(絶対パス指定)</font>し moreコマンドで中身を確認する<font color="RED">(相対パス指定)．</font>
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+
+
+					<!-- cat コマンド -->
+					<section>
+						<h3>cat コマンド</h3>
+						<p>
+						<ul>
+							<li>ファイル(中身)を表示または結合する
+							<li>catenate(結合)の略
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>cat コマンドの使い方</h3>
+						<p>
+						<ul>
+							<li>使い方1：<font color="RED">cat</font>&nbsp;&nbsp;パス
+							<li>使い方2：<font color="RED">cat</font>&nbsp;&nbsp;パス&nbsp;&nbsp;パス
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>cat の実行例1</h3>
+						<p>
+						<ul>
+							<li><font color="RED">ホームディレクトリの hello-john.txt ファイルを cat で表示</font>し，
+								<font color="BLUE">これを現在のディレクトリの livesys に上書き</font>する．最後に moreコマンドで livesys の中身を確認する．<font color="RED">(全て絶対パス指定)</font>
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>cat の実行例2</h3>
+						<p>
+						<ul>
+							<li><font color="RED">現在のディレクトリにある livesys と pwd.txt を結合</font>し， 
+								<font color="RED">現在のディレクトリに cat.txt </font>として上書きする． 最後に moreコマンドで cat.txt の中身を確認する<font color="RED">．(全て相対パス指定)</font>
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+
+					<!-- | コマンド -->
+					<section>
+						<h3>| コマンド</h3>
+						<p>
+						<ul>
+							<li>コマンド標準出力を次のコマンドの入力に引き渡す
+							<li>パイプ
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>| コマンドの使い方</h3>
+						<p>
+						<ul>
+							<li>使い方：コマンド&nbsp;&nbsp;<font color="RED">|</font>&nbsp;&nbsp;コマンド
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>| の実行例1-1</h3>
+						<p>
+						<ul>
+							<li><font color="RED">/etc ディレクトリのファイルとディレクトリ情報</font>を<font color="BLUE">lessコマンドに引き渡す．(全て絶対パス指定)</font>
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>| の実行例1-2(例1-1の続き)</h3>
+						<p>
+						<ul>
+							<li><font color="BLUE">"enter"</font>キーでスクロール，<font color="BLUE">"q"</font>キーで表示終了
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>| の実行例2-1</h3>
+						<p>
+						<ul>
+							<li><font color="RED">ホームディレクトリへ移動し，ファイルとディレクトリ情報</font>を<font color="BLUE">lessコマンドに引き渡す．(全て相対パス指定)</font>
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>| の実行例2-2(例2-1の続き)</h3>
+						<p>
+						<ul>
+							<li><font color="BLUE">"enter"</font>キーでスクロール，<font color="BLUE">"q"</font>キーで表示終了
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+			</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				slideNumber: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

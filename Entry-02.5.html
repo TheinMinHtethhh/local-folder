@@ -1,0 +1,665 @@
+<!doctype html>
+<html lang="jp">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Linux (Entry) 第2回 復習</title>
+
+		<meta name="description" content="Linux (Entry) 第2回授業 復習">
+		<meta name="author" content="篠崎 眞太郎">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/simple.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<section>
+					<h2>Linux (Entry)</h2>
+					<h3>第2回：Linuxコマンド 復習</h3>
+					<h4>- ファイル・ディレクトリの操作(入門) -
+					<p>
+						<br>
+						<small>担当：篠崎 眞太郎<br>メール：shinozaki@kyms.sundaidenshi.ac.jp</small>
+					</p>
+				</section>
+
+				<!-- 本日の授業の目的 -->
+				<section>
+					<section>
+						<h3>本日の授業の目的</h3>
+						<p>
+						<ul>
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>以下のコマンドの基本操作を習得する</h3>
+						<p>
+						<ol>
+							<li><font color="RED">pwd</font> &nbsp;&nbsp;(現在のディレクトリの場所を確認)
+							<li><font color="RED">ls</font> &nbsp;&nbsp;(ファイルやディレクトリ情報を表示)
+							<li><font color="RED">mkdir</font> &nbsp;&nbsp;(ディレクトリを作成)
+							<li><font color="RED">rmdir</font> &nbsp;&nbsp;(空のディレクトリを削除)
+							<li><font color="RED">cd</font> &nbsp;&nbsp;(ディレクトリの移動)
+							<li><font color="RED">touch</font> &nbsp;&nbsp;(空のファイルを作成)
+							<li><font color="RED">mv</font> &nbsp;&nbsp;(ファイルやディレクトリを移動する)
+							<li><font color="RED">cp</font> &nbsp;&nbsp;(ファイルを複製する)
+							<li><font color="RED">rm</font> &nbsp;&nbsp;(ファイルを削除する)
+						</ol>
+						</p>
+					</section>
+				</section>
+
+				<!-- 授業の前に -->
+				<section>
+
+					<section>
+						<h3>授業の前に覚えておく必須事項</h3>
+					</section>
+					<section>
+						<p>
+						<ul>
+							<li>ディレクトリとファイル
+							<li>ルートディレクトリとホームディレクトリ
+							<li>相対パスと絶対パス
+							<li>コマンドの一般的な使い方
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>ディレクトリとファイル</h3>
+						<p>
+							<img src="pics/e-02/file-dir.jpg"
+						</p>
+					</section>
+					<section>
+						<h3>ルートディレクトリとホームディレクトリ</h3>
+						<p>
+							<img src="pics/e-02/root-home.jpg">
+						</p>
+					</section>
+					<section>
+						<h3>Linuxのディレクトリ例</h3>
+						<p>
+							<img src="pics/e-02/dirs.jpg">
+						</p>
+					</section>
+					<section>
+						<h3>相対パスと絶対パス</h3>
+						<p>
+							<img src="pics/e-02/path.jpg">
+						</p>
+					</section>
+					<section>
+						<h3>相対パスの例</h3>
+						<p>
+							<img src="pics/e-02/path-other.jpg">
+						</p>
+					</section>
+					<section>
+						<h3>コマンドの一般的な使い方</h3>
+					</section>
+					<section>
+						<p>
+							<font color="RED">コマンド名</font>&nbsp;&nbsp;処理対象(パスとか)<br>
+							<br>
+							もしくは<br>
+							<br>
+							<font color="RED">コマンド名</font>&nbsp;&nbsp;<font color="BLUE">オプション</font><br>
+							<br>
+							もしくは<br>
+							<br>
+							<font color="RED">コマンド名</font>&nbsp;&nbsp;<font color="BLUE">オプション</font>&nbsp;&nbsp;処理対象(パスとか)<br>
+						</p>
+					</section>
+					<section>
+						<h3>一例</h3>
+						<p>
+							<font color="RED">ls</font>&nbsp;&nbsp;/home/liveuser/<br>
+							<br>
+							もしくは<br>
+							<br>
+							<font color="RED">ls</font>&nbsp;&nbsp;<font color="BLUE">-t</font><br>
+							<br>
+							もしくは<br>
+							<br>
+							<font color="RED">ls</font>&nbsp;&nbsp;<font color="BLUE">-la</font>&nbsp;&nbsp;/home/liveuser<br>
+						</p>
+					</section>
+					<section>
+						<p>
+							とりあえず・・今日の授業は<font color="BLUE">オプション無し</font>でやります．
+						</p>
+					</section>
+				</section>
+
+					<!-- コマンド -->
+				<section>
+					<section>
+						<h3>以下のコマンドの基本操作を実習します</h3>
+						<p>
+						<ol>
+							<li><font color="RED">pwd</font> &nbsp;&nbsp;(現在のディレクトリの場所を確認)
+							<li><font color="RED">ls</font> &nbsp;&nbsp;(ファイルやディレクトリ情報を表示)
+							<li><font color="RED">mkdir</font> &nbsp;&nbsp;(ディレクトリを作成)
+							<li><font color="RED">rmdir</font> &nbsp;&nbsp;(空のディレクトリを削除)
+							<li><font color="RED">cd</font> &nbsp;&nbsp;(ディレクトリの移動)
+							<li><font color="RED">touch</font> &nbsp;&nbsp;(空のファイルを作成)
+							<li><font color="RED">mv</font> &nbsp;&nbsp;(ファイルやディレクトリを移動する)
+							<li><font color="RED">cp</font> &nbsp;&nbsp;(ファイルを複製する)
+							<li><font color="RED">rm</font> &nbsp;&nbsp;(ファイルを削除する)
+						</ol>
+						</p>
+					</section>
+					<section>
+						<h3>まずは<font color="RED">ターミナル</font>を開きましょう</h3>
+						<img src="pics/terminal.png">
+					</section>
+
+					<!-- pwd コマンド -->
+					<section>
+						<h3>pwd コマンド</h3>
+						<p>
+						<ul>
+							<li>現在のディレクトリの場所を<font color="RED">絶対パス</font>確認する
+							<li>Print working directory の略
+							
+							<table width="400" class="reveal">
+							<tr><td bgcolor="bisque">
+
+							</td></tr>
+							</table>
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>pwd コマンドの使い方</h3>
+						<p>
+						<ul>
+							<li>使い方1：<font color="RED">pwd</font>&nbsp;&nbsp;
+							<li>使い方2：<font color="RED">pwd</font>&nbsp;&nbsp;<font color="BLUE">オプション</font>
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>pwd の実行例</h3>
+						<p>
+						<ul>
+							<li>現在のディレクトリの場所を<font color="RED">絶対パス</font>で表示する
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+
+					<!-- ls コマンド -->
+					<section>
+						<h3>ls コマンド</h3>
+						<p>
+						<ul>
+							<li>ファイルやディレクトリの情報を確認する
+							<li>List の略
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>ls コマンドの使い方</h3>
+						<p>
+						<ul>
+							<li>使い方1：<font color="RED">ls</font>&nbsp;&nbsp;
+							<li>使い方2：<font color="RED">ls</font>&nbsp;&nbsp;パス
+							<li>使い方3：<font color="RED">ls</font>&nbsp;&nbsp;<font color="BLUE">オプション</font>&nbsp;&nbsp;
+							<li>使い方4：<font color="RED">ls</font>&nbsp;&nbsp;<font color="BLUE">オプション</font>&nbsp;&nbsp;パス
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>ls の実行例1</h3>
+						<p>
+						<ul>
+							<li>現在のディレクトリ以下のファイルやディレクトリの情報を確認する
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>ls の実行例2</h3>
+						<p>
+						<ul>
+							<li><font color="RED">相対パス指定</font>で現在のディレクトリ以下の<font color="BLUE">Desktop</font>ディレクトリの情報を確認する
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>ls の実行例3</h3>
+						<p>
+						<ul>
+							<li><font color="RED">絶対パス指定</font>で<font color="BLUE">ホームディレクトリ</font>の情報を確認する
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+
+					<!-- mkdir コマンド -->
+					<section>
+						<h3>mkdir コマンド</h3>
+						<p>
+						<ul>
+							<li>ディレクトリを作成する
+							<li>Make directory の略
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>mkdir コマンドの使い方</h3>
+						<p>
+						<ul>
+							<li>使い方1：<font color="RED">mkdir</font>&nbsp;&nbsp;パス
+							<li>使い方2：<font color="RED">mkdir</font>&nbsp;&nbsp;<font color="BLUE">オプション</font>
+							<li>使い方3：<font color="RED">mkdir</font>&nbsp;&nbsp;<font color="BLUE">オプション</font>&nbsp;&nbsp;パス
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>mkdir の実行例1</h3>
+						<p>
+						<ul>
+							<li><font color="RED">現在のディレクトリ</font>に<font color="BLUE">sample01</font>ディレクトリを作成する
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>mkdir の実行例2</h3>
+						<p>
+						<ul>
+							<li><font color="RED">相対パス指定</font>で<font color="BLUE">sample01</font>以下に<font color="BLUE">sample02</font>ディレクトリを作成する
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>mkdir の実行例3</h3>
+						<p>
+						<ul>
+							<li><font color="RED">絶対パス指定</font>で<font color="BLUE">ホームディレクトリ</font>以下に<font color="BLUE">sample03</font>ディレクトリを作成する
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+
+					<!-- rmdir コマンド -->
+					<section>
+						<h3>rmdir コマンド</h3>
+						<p>
+						<ul>
+							<li><font color="RED">空の</font>ディレクトリを削除する
+							<li>Remove directory の略
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>rmdir コマンドの使い方</h3>
+						<p>
+						<ul>
+							<li>使い方1：<font color="RED">rmdir</font>&nbsp;&nbsp;パス
+							<li>使い方2：<font color="RED">rmdir</font>&nbsp;&nbsp;<font color="BLUE">オプション</font>
+							<li>使い方3：<font color="RED">rmdir</font>&nbsp;&nbsp;<font color="BLUE">オプション</font>&nbsp;&nbsp;パス
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>rmdir の実行例1</h3>
+						<p>
+						<ul>
+							<li><font color="RED">相対パス指定</font>で<font color="BLUE">sample03</font>ディレクトリを削除する
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>rmdir の実行例2</h3>
+						<p>
+						<ul>
+							<li><font color="RED">相対パス指定</font>で<font color="BLUE">sample01</font>以下の<font color="BLUE">sample02</font>ディレクトリを削除する
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>rmdir の実行例3</h3>
+						<p>
+						<ul>
+							<li><font color="RED">絶対パス指定</font>で<font color="BLUE">ホームディレクトリ</font>以下の<font color="BLUE">sample01</font>ディレクトリを削除する
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+
+					<!-- cd コマンド -->
+					<section>
+						<h3>cd コマンド</h3>
+						<p>
+						<ul>
+							<li>ディレクトリを移動する
+							<li>Change directory の略
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>cd コマンドの使い方</h3>
+						<p>
+						<ul>
+							<li>使い方1：<font color="RED">cd</font>&nbsp;&nbsp;
+							<li>使い方2：<font color="RED">cd</font>&nbsp;&nbsp;パス
+							<li>使い方3：<font color="RED">cd</font>&nbsp;&nbsp;<font color="BLUE">オプション</font>&nbsp;&nbsp;パス
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>cd の実行例1</h3>
+						<p>
+						<ul>
+							<li><font color="RED">相対パス指定</font>で<font color="BLUE">Desktop</font>ディレクトリに移動する
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>cd の実行例2</h3>
+						<p>
+						<ul>
+							<li><font color="RED">相対パス指定</font>で<font color="BLUE">一階層上</font>の<font color="BLUE">ホームディレクトリ</font>に移動する
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>cd の実行例3</h3>
+						<p>
+						<ul>
+							<li><font color="RED">絶対パス指定</font>で<font color="BLUE">ホームディレクトリ</font>以下の<font color="BLUE">Desktop</font>ディレクトリに移動する
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>cd の実行例4</h3>
+						<p>
+						<ul>
+							<li><font color="RED">何も指定しない</font>で<font color="BLUE">ホームディレクトリ</font>に戻る
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+
+					<!-- touch コマンド -->
+					<section>
+						<h3>touch コマンド</h3>
+						<p>
+						<ul>
+							<li><font color="RED">空のファイル</font>を作成する
+							<li>ファイルの更新時間を更新する
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>touch コマンドの使い方</h3>
+						<p>
+						<ul>
+							<li>使い方1：<font color="RED">touch</font>&nbsp;&nbsp;パス
+							<li>使い方2：<font color="RED">touch</font>&nbsp;&nbsp;<font color="BLUE">オプション</font>&nbsp;&nbsp;パス
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>touch の実行例1</h3>
+						<p>
+						<ul>
+							<li>現在のディレクトリ以下に空の<font color="BLUE">test01.txt</font>ファイルを作成する
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>touch の実行例2</h3>
+						<p>
+						<ul>
+							<li><font color="RED">相対パス指定</font>で現在のディレクトリ以下の<font color="BLUE">Desktop</font>ディレクトリに空の<font color="BLUE">test02.txt</font>ファイルを作成する
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>touch の実行例3</h3>
+						<p>
+						<ul>
+							<li><font color="RED">絶対パス指定</font>で<font color="BLUE">ホームディレクトリ</font>以下に空の<font color="BLUE">test03.txt</font>を作成する
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+
+					<!-- mv コマンド -->
+					<section>
+						<h3>mv コマンド</h3>
+						<p>
+						<ul>
+							<li>ファイルやディレクトリを移動する
+							<li>Move の略
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>mv コマンドの使い方</h3>
+						<p>
+						<ul>
+							<li>使い方1：<font color="RED">mv</font>&nbsp;&nbsp;パス&nbsp;&nbsp;(移動先の)パス
+							<li>使い方2：<font color="RED">mv</font>&nbsp;&nbsp;<font color="BLUE">オプション</font>
+							<li>使い方3：<font color="RED">mv</font>&nbsp;&nbsp;<font color="BLUE">オプション</font>&nbsp;&nbsp;パス&nbsp;&nbsp;(移動先の)パス
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>mv の実行例1</h3>
+						<p>
+						<ul>
+							<li><font color="REd">相対パス指定</font>で<font color="BLUE">Desktop</font>ディレクトリにある<font color="BLUE">test02.txt</font>ファイルを<font color="BLUE">現在の</font>ディレクトリに移動する
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>mv の実行例2</h3>
+						<p>
+						<ul>
+							<li><font color="RED">相対パス指定</font>で現在のディレクトリにある<font color="BLUE">test01.txt</font>ファイルを
+								<font color="BLUE">sample01.txt</font>に移動する<font color="RED">(名前の変更と同じ意味)</font>
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>mv の実行例3</h3>
+						<p>
+						<ul>
+							<li><font color="RED">絶対パス指定</font>で<font color="BLUE">ホームディレクトリ</font>以下の<font color="BLUE">test03.txt</font>ファイルを
+								<font color="BLUE">ホームディレクトリ</font>以下の<font color="BLUE">Desktop</font>ディレクトリに移動する
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+
+					<!-- cp コマンド -->
+					<section>
+						<h3>cp コマンド</h3>
+						<p>
+						<ul>
+							<li>ファイルやディレクトリを複製する
+							<li>Copy の略
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>cp コマンドの使い方</h3>
+						<p>
+						<ul>
+							<li>使い方1：<font color="RED">cp</font>&nbsp;&nbsp;パス&nbsp;&nbsp;(複製先の)パス
+							<li>使い方2：<font color="RED">cp</font>&nbsp;&nbsp;<font color="BLUE">オプション</font>
+							<li>使い方3：<font color="RED">cp</font>&nbsp;&nbsp;<font color="BLUE">オプション</font>&nbsp;&nbsp;パス&nbsp;&nbsp;(複製先の)パス
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>cp の実行例1</h3>
+						<p>
+						<ul>
+							<li><font color="REd">相対パス指定</font>で<font color="BLUE">Desktop</font>ディレクトリにある
+								<font color="BLUE">test03.txt</font>ファイルを<font color="BLUE">現在の</font>ディレクトリに複製する
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>cp の実行例2</h3>
+						<p>
+						<ul>
+							<li><font color="RED">相対パス指定</font>で現在のディレクトリにある<font color="BLUE">sample01.txt</font>ファイル
+								を<font color="BLUE">Desktop</font>ディレクトリに<font color="BLUE">sample04.txt</font>として複製する
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>cp の実行例3</h3>
+						<p>
+						<ul>
+							<li><font color="RED">絶対パス指定</font>で<font color="BLUE">ホームディレクトリ</font>以下の<font color="BLUE">test02.txt</font>ファイルを
+								<font color="BLUE">ホームディレクトリ</font>以下の<font color="BLUE">Desktop</font>ディレクトリに複製する
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+
+					<!-- rm コマンド -->
+					<section>
+						<h3>rm コマンド</h3>
+						<p>
+						<ul>
+							<li>ファイルやディレクトリを削除する
+							<li>Remove の略
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>rm コマンドの使い方</h3>
+						<p>
+						<ul>
+							<li>使い方1：<font color="RED">rm</font>&nbsp;&nbsp;パス
+							<li>使い方2：<font color="RED">rm</font>&nbsp;&nbsp;<font color="BLUE">オプション</font>
+							<li>使い方3：<font color="RED">rm</font>&nbsp;&nbsp;<font color="BLUE">オプション</font>&nbsp;&nbsp;パス(複数指定可能)
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h3>rm の実行例1</h3>
+						<p>
+						<ul>
+							<li><font color="REd">相対パス指定</font>で<font color="BLUE">Desktop</font>ディレクトリにある
+								<font color="BLUE">全てのtxt(*.txt)</font>ファイルを削除する
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>rm の実行例2</h3>
+						<p>
+						<ul>
+							<li><font color="RED">相対パス指定</font>で現在のディレクトリにある<font color="BLUE">test02.txt</font>ファイル
+								と<font color="BLUE">test03.txt</font>ファイルを削除する
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+					<section>
+						<h3>rm の実行例3</h3>
+						<p>
+						<ul>
+							<li><font color="RED">絶対パス指定</font>で<font color="BLUE">ホームディレクトリ</font>以下の<font color="BLUE">sample01.txt</font>ファイルを削除する
+						</ul>
+						</p>
+						<img src="pics/kaitou.jpg">
+					</section>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				slideNumber: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
