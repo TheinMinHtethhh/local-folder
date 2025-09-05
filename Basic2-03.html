@@ -1,0 +1,1274 @@
+<!doctype html>
+<html lang="jp">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Linux (Basic2) 第3回</title>
+
+		<meta name="description" content="Linux (Basic2) 第3回授業">
+		<meta name="author" content="篠崎 眞太郎">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/simple.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<section>
+					<h3>Linux (Basic2)</h3>
+					<h4>第3回：シェルスクリプト(Shell script)</h4>
+					<h4>- シェルスクリプト基本文法2(条件式(前回の続き)・条件分枝・連番作成・繰り返し分) -
+					<p>
+						<br>
+						<small>担当：篠崎 眞太郎<br>
+						メール：shinozaki@kyms.sundaidenshi.ac.jp</small>
+					</p>
+				</section>
+
+				<!-- 本日の授業の目的 -->
+				<section>
+					<section>
+						<h4>本日の授業の目的</h4>
+						<p>
+						<ul>
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h4>以下のシェルスクリプトの基本文法を習得する</h4>
+						<p>
+						<ol>
+							<li><font color="RED">[ 条件式 ]</font> &nbsp;&nbsp;(条件式を評価する)
+							<li><font color="RED">if [ 条件式 ]，then，elif [ 条件式 ]，else，fi</font> &nbsp;&nbsp;(条件分岐する)
+							<li><font color="RED">case "$var" in, "値")，esac</font> &nbsp;&nbsp;(変数varを条件分岐する)
+							<li><font color="RED">while [ 条件式 ]， do ～ done</font> &nbsp;&nbsp;(条件が成り立つ間 do ～ done 内を繰り返す)
+							<li><font color="RED">seq</font> &nbsp;&nbsp;(連番を作成する)
+							<li><font color="RED">for var2 in ${var1}， do ～ done</font> &nbsp;&nbsp;(変数var1の内容を順にvar2に代入し do ～ done 内を繰り返す)							
+						</ol>
+						</p>
+					</section>
+				</section>
+
+				<!-- 実習の前に -->
+				<section>
+					<section>
+						<h4>実習の前に覚えておく必須事項(前回の復習)</h4>
+					</section>
+					<section>
+						<p>
+						<ul>
+							<li>シェルスクリプト(Shell script) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h4>シェルスクリプト(Shell script)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h4>
+						<p>
+						<ul>
+							<li>シェルスクリプト(Shell script)とは，シェル(Shell)上で動作する簡便なプログラムのことである．
+							複数のコマンドを組み合わせて，作業を自動処理させることが可能である．
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h4>シェルスクリプトの基本構造</h4>
+						<p>
+						<ul>
+							<li>シェルスクリプトの基本構造(例)は以下の図のようになる
+							
+							<table width="400" class="reveal">
+							<tr><td bgcolor="bisque">
+							#!/bin/sh<br>
+							<br>
+							#コメントは頭に &nbsp;&nbsp; # &nbsp;&nbsp; をつける(#以降は無視される)<br>
+							#行頭の &nbsp;&nbsp; #!/bin/sh&nbsp; &nbsp; は使用するシェルを指定する<br>
+							<br>
+							echo &nbsp;&nbsp; "Hello World!!" &nbsp;&nbsp; #Linuxコマンドを書く(例:echo)<br>
+							ls &nbsp;&nbsp; -la &nbsp;&nbsp; #Linuxコマンドを書く(例:ls &nbsp;&nbsp; -la)<br>
+							</td></tr>
+							</table>
+
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h4>シェルスクリプトの実行前準備</h4>
+						<p>
+						<ul>
+							<li>シェルスクリプトを実行するためには，ファイルに実行権限が必要なので，<font color="RED">chmodコマンドで実行権限をつける．</font>
+							<font color="BLUE">実行権限の付与はファイル作成後に，作成したファイル毎に初回の一回のみおこなえばよい</font>
+						</ul>
+						</p>
+						<img src="pics/b2-03/chmod.png">
+					</section>
+					<section>
+						<h4>シェルスクリプトの実行</h4>
+						<p>
+						<ul>
+							<li>シェルスクリプトを実行するためには，<font color="RED">./シェルスクリプト名</font>とする(相対パスでファイル指定)．
+						</ul>
+						</p>
+						<img src="pics/b2-03/exe.png">
+					</section>
+				</section>
+
+
+				<!-- 実習の前に -->
+				<section>
+					<section>
+						<h4>実習の準備</h4>
+						<p>
+						<ul>
+							<li>実習の前に，ホームディレクトリに演習用ディレクトリ(shells2)を作成し移動せよ．
+						</ul>
+						</p>
+						<img src="pics/b2-03/prep.png">
+					</section>
+				</section>
+				
+				
+					<!-- コマンド -->
+				<section>
+					<section>
+						<h4>以下のシェルスクリプトの基本文法を習得する</h4>
+						<p>
+						<ol>
+							<li><font color="RED">[ 条件式 ]</font> &nbsp;&nbsp;(条件式を評価する)
+							<li><font color="RED">if [ 条件式 ]，then，elif [ 条件式 ]，else，fi</font> &nbsp;&nbsp;(条件分岐する)
+							<li><font color="RED">case "$var" in, "値")，esac</font> &nbsp;&nbsp;(変数varを条件分岐する)
+							<li><font color="RED">while [ 条件式 ]， do ～ done</font> &nbsp;&nbsp;(条件が成り立つ間 do ～ done 内を繰り返す)
+							<li><font color="RED">seq</font> &nbsp;&nbsp;(連番を作成する)
+							<li><font color="RED">for var2 in ${var1}， do ～ done</font> &nbsp;&nbsp;(変数var1の内容を順にvar2に代入し do ～ done 内を繰り返す)
+						</ol>
+						</p>
+					</section>
+					
+					
+					<!-- [ 条件式 ] &nbsp;&nbsp;(条件式を評価する) -->
+					<section>
+						<h4>[ 条件式 ]</h4>
+						<p>
+						<ul>
+							<li>条件式を評価する &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						</p>
+					</section>
+					<section>
+						<h4>[ 条件式 ]</h4>
+						<p>
+						<ol>
+							<li>[ 条件式 ] &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						</ol>
+						</p>
+					</section>
+					<section>
+						<h4>基本的な条件式(ファイルやディレクトリおよび実行ファイルの確認．)</h4>
+						<p>
+						<ol>
+							<li><font color="RED">[&nbsp;&nbsp;-f&nbsp;&nbsp;ファイル名&nbsp;&nbsp;]</font> &nbsp;&nbsp;(ファイルが存在するか?) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<li><font color="RED">[&nbsp;&nbsp;-d&nbsp;&nbsp;ディレクトリ名&nbsp;&nbsp;]</font> &nbsp;&nbsp;(ディレクトリが存在するか?) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<li><font color="RED">[&nbsp;&nbsp;-x&nbsp;&nbsp;ファイル名&nbsp;&nbsp;]</font> &nbsp;&nbsp;(ファイルは実行可能か?) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							<li>他の条件は学習しない
+						</ol>
+						</p>
+					</section>
+					<section>
+						<h4>直前の比較結果が格納される変数</h4>
+						<p>
+						<ol>
+							<li><font color="RED">$?</font> &nbsp;&nbsp;(直前の比較結果(0(真)または1(偽))が格納される) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						</ol>
+						</p>
+					</section>
+
+					<section>
+						<h4>[ 条件式 ] の実行例1-1</h4>
+						<p>
+						<ul>
+							<li><font color="RED">vim &nbsp;&nbsp; sample1.sh</font> としエディタを開き，以下のコードを入力し保存して終了する(vim のコマンドモードで :wq と入力)
+
+							<table width="400" class="reveal">
+							<tr><td bgcolor="bisque">
+							#!/bin/sh<br>
+							<br>
+							# 条件比較する<br>
+							[ &nbsp;&nbsp; -f &nbsp;&nbsp; /etc/fstab &nbsp;&nbsp; ] &nbsp;&nbsp; # /etc/fstab ファイルが存在するか?<br>
+							echo &nbsp;&nbsp; $? &nbsp;&nbsp; # 結果を表示する
+							</td></tr>
+							</table>
+
+
+						</ul>
+						</p>
+					</section>
+
+					<section>
+						<h4>[ 条件式 ] の実行例1-2 (実行例1-1の続き)</h4>
+						<p>
+						<ul>
+							<li>実行する．結果が出力され，エラーメッセージがでなければ成功
+						</ul>
+						</p>
+						<img src="pics/b2-03/test-sample1-2.png">
+					</section>
+
+					<section>
+						<h4>[ 条件式 ] の実行例2-1</h4>
+						<p>
+						<ul>
+							<li><font color="RED">vim &nbsp;&nbsp; sample2.sh</font> としエディタを開き，以下のコードを入力し保存して終了する(vim のコマンドモードで :wq と入力)
+
+							<table width="400" class="reveal">
+							<tr><td bgcolor="bisque">
+							#!/bin/sh<br>
+							<br>
+							# 条件比較する<br>
+							# 現在のディレクトリに test.txt ファイルが存在するか?<br>
+							[ &nbsp;&nbsp; -f &nbsp;&nbsp; ./test.txt &nbsp;&nbsp; ]<br>
+							echo &nbsp;&nbsp; $? &nbsp;&nbsp; # 結果を表示する
+							</td></tr>
+							</table>
+
+
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h4>[ 条件式 ] の実行例2-2 (実行例2-1の続き)</h4>
+						<p>
+						<ul>
+							<li>実行する．結果が出力され，エラーメッセージがでなければ成功
+						</ul>
+						</p>
+						<img src="pics/b2-03/test-sample2-2.png">
+					</section>
+
+					<section>
+						<h4>[ 条件式 ] の実行例3-1</h4>
+						<p>
+						<ul>
+							<li><font color="RED">vim &nbsp;&nbsp; sample3.sh</font> としエディタを開き，以下のコードを入力し保存して終了する(vim のコマンドモードで :wq と入力)
+
+							<table width="400" class="reveal">
+							<tr><td bgcolor="bisque">
+							#!/bin/sh<br>
+							<br>
+							# 条件比較する<br>
+							[ &nbsp;&nbsp; -d &nbsp;&nbsp; /proc &nbsp;&nbsp; ] &nbsp;&nbsp; # /proc ディレクトリが存在するか?<br>
+							echo &nbsp;&nbsp; $? &nbsp;&nbsp; # 結果を表示する
+							</td></tr>
+							</table>
+
+
+						</ul>
+						</p>
+					</section>
+
+					<section>
+						<h4>[ 条件式 ] の実行例3-2 (実行例3-1の続き)</h4>
+						<p>
+						<ul>
+							<li>実行する．結果が出力され，エラーメッセージがでなければ成功
+						</ul>
+						</p>
+						<img src="pics/b2-03/test-sample3-2.png">
+					</section>
+
+					<section>
+						<h4>[ 条件式 ] の実行例4-1</h4>
+						<p>
+						<ul>
+							<li><font color="RED">vim &nbsp;&nbsp; sample4.sh</font> としエディタを開き，以下のコードを入力し保存して終了する(vim のコマンドモードで :wq と入力)
+
+							<table width="400" class="reveal">
+							<tr><td bgcolor="bisque">
+							#!/bin/sh<br>
+							<br>
+							# 現在のディレクトリに<br>
+							# sample ディレクトリが存在するか?<br>
+							[ &nbsp;&nbsp; -d &nbsp;&nbsp; ./sample &nbsp;&nbsp; ]<br>
+							echo &nbsp;&nbsp; $? &nbsp;&nbsp; # 結果を表示する
+							</td></tr>
+							</table>
+
+
+						</ul>
+						</p>
+					</section>
+					
+					
+					<section>
+						<h4>[ 条件式 ] の実行例4-2 (実行例4-1の続き)</h4>
+						<p>
+						<ul>
+							<li>実行する．結果が出力され，エラーメッセージがでなければ成功
+						</ul>
+						</p>
+						<img src="pics/b2-03/test-sample4-2.png">
+					</section>
+
+
+					<section>
+						<h4>[ 条件式 ] の実行例5-1</h4>
+						<p>
+						<ul>
+							<li><font color="RED">vim &nbsp;&nbsp; sample5.sh</font> としエディタを開き，以下のコードを入力し保存して終了する(vim のコマンドモードで :wq と入力)
+
+							<table width="400" class="reveal">
+							<tr><td bgcolor="bisque">
+							#!/bin/sh<br>
+							<br>
+							# /usr/bin/ls ファイル(コマンド)は実行可能か?<br>
+							[ &nbsp;&nbsp; -x &nbsp;&nbsp; /usr/bin/ls &nbsp;&nbsp; ] <br>
+							echo &nbsp;&nbsp; $? &nbsp;&nbsp; # 結果を表示する
+							</td></tr>
+							</table>
+
+
+						</ul>
+						</p>
+					</section>
+
+					<section>
+						<h4>[ 条件式 ] の実行例5-2 (実行例5-1の続き)</h4>
+						<p>
+						<ul>
+							<li>実行する．結果が出力され，エラーメッセージがでなければ成功
+						</ul>
+						</p>
+						<img src="pics/b2-03/test-sample5-2.png">
+					</section>
+
+
+					<section>
+						<h4>[ 条件式 ] の実行例6-1</h4>
+						<p>
+						<ul>
+							<li><font color="RED">vim &nbsp;&nbsp; sample6.sh</font> としエディタを開き，以下のコードを入力し保存して終了する(vim のコマンドモードで :wq と入力)
+
+							<table width="400" class="reveal">
+							<tr><td bgcolor="bisque">
+							#!/bin/sh<br>
+							<br>
+							# 現在のディレクトリにある test.sh<br>
+							# ファイルは実行可能か?<br>
+							[ &nbsp;&nbsp; -x &nbsp;&nbsp; ./test.sh &nbsp;&nbsp; ] <br>
+							echo &nbsp;&nbsp; $? &nbsp;&nbsp; # 結果を表示する
+							</td></tr>
+							</table>
+
+
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h4>[ 条件式 ] の実行例6-2 (実行例6-1の続き)</h4>
+						<p>
+						<ul>
+							<li>実行する．結果が出力され，エラーメッセージがでなければ成功
+						</ul>
+						</p>
+						<img src="pics/b2-03/test-sample6-2.png">
+					</section>
+
+
+					<!-- if [ 条件式 ], then，elif [ 条件式 ], else，fi &nbsp;&nbsp;(条件分枝する) -->
+					<section>
+						<h4>if [ 条件式 ]，then，elif [ 条件式 ]，else，fi</h4>
+						<p>
+						<ul>
+							<li>条件分枝する
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h4>if [ 条件式 ]，then，elif [ 条件式 ]，else，fi</h4>
+						<p>
+						<ol>
+							<table width="400" class="reveal">
+							<br>
+							<tr><td bgcolor="bisque">
+							if &nbsp;&nbsp; [ &nbsp;&nbsp; 条件式 &nbsp;&nbsp; ] &nbsp;&nbsp; # 条件①<br>
+							then<br>
+							<br>
+							# 条件①が成立したら，ここに記載された処理を実行<br>
+							 &nbsp;&nbsp; echo &nbsp;&nbsp; "hello" &nbsp;&nbsp; # 例<br>
+							<br>
+							fi &nbsp;&nbsp; # fi で条件分枝終了
+							<br>
+
+							</td></tr>
+							</table>
+						</ol>
+						</p>
+					</section>
+
+					<section>
+						<h4>if [ 条件式 ]，then，elif [ 条件式 ]，else，fi</h4>
+						<p>
+						<ol>
+							<table width="400" class="reveal">
+							<br>
+							<tr><td bgcolor="bisque">
+							if &nbsp;&nbsp; [ &nbsp;&nbsp; 条件式 &nbsp;&nbsp; ] &nbsp;&nbsp; # 条件①<br>
+							then<br>
+							# 条件①が成立したら，ここに記載された処理を実行<br>
+							 &nbsp;&nbsp; echo &nbsp;&nbsp; "OK" &nbsp;&nbsp; # 例<br>
+							<br>
+							else &nbsp;&nbsp; # 条件①が成立しない場合<br>
+							<br>
+							# 条件①が成立しない場合，ここに記載された処理を実行
+							<br>
+							 &nbsp;&nbsp; echo &nbsp;&nbsp; "NG" &nbsp;&nbsp; # 例<br>
+							<br>
+							fi &nbsp;&nbsp; # fi で条件分枝終了
+							<br>
+
+							</td></tr>
+							</table>
+						</ol>
+						</p>
+					</section>
+
+					<section>
+						<h4>if [ 条件式 ]，then，elif [ 条件式 ]，then，else，fi</h4>
+						<p>
+							<table width="400" class="reveal">
+							<br>
+							<tr><td bgcolor="bisque">
+							if &nbsp;&nbsp; [ &nbsp;&nbsp; 条件式 &nbsp;&nbsp; ] &nbsp;&nbsp; # 条件①<br>
+							then<br>
+							# 条件①が成立したら，ここに記載された処理を実行<br>
+							 &nbsp;&nbsp; echo &nbsp;&nbsp; "OK 1" &nbsp;&nbsp; # 例<br>
+							<br>
+							elif  &nbsp;&nbsp; [ &nbsp;&nbsp; 条件式 &nbsp;&nbsp; ] &nbsp;&nbsp; # 条件②(条件①が不成立の場合)<br>
+							then<br>
+							# 条件①が不成立かつ，条件②が成立した場合<br>
+							# ここに記載された処理を実行
+							<br>
+							 &nbsp;&nbsp; echo &nbsp;&nbsp; "OK 2" &nbsp;&nbsp; # 例<br>
+							<br>
+							fi &nbsp;&nbsp; # fi で条件分枝終了
+							<br>
+
+							</td></tr>
+							</table>
+						</p>
+					</section>
+
+					<section>
+						<h4>if [ 条件式 ]，then，elif [ 条件式 ]，then，else，fi</h4>
+						<p>
+							<table width="400" class="reveal">
+							<br>
+							<tr><td bgcolor="bisque">
+							if &nbsp;&nbsp; [ &nbsp;&nbsp; 条件式 &nbsp;&nbsp; ] &nbsp;&nbsp; # 条件①<br>
+							then<br>
+							 &nbsp;&nbsp; echo &nbsp;&nbsp; "OK 1" &nbsp;&nbsp;<br>
+							<br>
+							elif  &nbsp;&nbsp; [ &nbsp;&nbsp; 条件式 &nbsp;&nbsp; ] &nbsp;&nbsp; # 条件②(条件①が不成立の場合)<br>
+							then<br>
+							 &nbsp;&nbsp; echo &nbsp;&nbsp; "OK 2" &nbsp;&nbsp;<br>
+							<br>
+							else # 条件①②が不成立<br>
+							 &nbsp;&nbsp; echo &nbsp;&nbsp; "NG" &nbsp;&nbsp;<br>
+							<br>
+							fi &nbsp;&nbsp; # fi で条件分枝終了
+							<br>
+
+							</td></tr>
+							</table>
+						</p>
+					</section>
+
+
+					<section>
+						<h4>if [ 条件式 ]，then，elif [ 条件式 ]，then，else，fi の実行例1-1</h4>
+						<p>
+						<ul>
+							<li><font color="RED">vim &nbsp;&nbsp; sample7.sh</font> としエディタを開き，以下のコードを入力し保存して終了する(vim のコマンドモードで :wq と入力)
+
+							<table width="400" class="reveal">
+							<tr><td bgcolor="bisque">
+							#!/bin/sh<br>
+							# キーボードから入力した値を変数Aに代入する<br>
+							echo &nbsp;&nbsp; -n &nbsp;&nbsp; "Input &nbsp;&nbsp; A &nbsp;&nbsp; = &nbsp;&nbsp; "<br>
+							read &nbsp;&nbsp; A<br>
+							# キーボードから入力した値を変数Bに代入する<br>
+							echo &nbsp;&nbsp; -n &nbsp;&nbsp; "Input &nbsp;&nbsp; B &nbsp;&nbsp; = &nbsp;&nbsp; "<br>
+							read &nbsp;&nbsp; B<br>
+							# 条件比較する<br>
+							if &nbsp;&nbsp; [ &nbsp;&nbsp; "$A" &nbsp;&nbsp; = &nbsp;&nbsp; "$B" &nbsp;&nbsp; ] &nbsp;&nbsp; # 変数A &nbsp;&nbsp; = &nbsp;&nbsp; 変数B &nbsp;&nbsp; ??<br>
+							then<br>
+							echo &nbsp;&nbsp; "OK" &nbsp;&nbsp; # 結果を表示する<br>
+							fi<br>
+							</td></tr>
+							</table>
+
+
+						</ul>
+						</p>
+					</section>
+
+					<section>
+						<h4>if [ 条件式 ]，then，elif [ 条件式 ]，then，else，fi の実行例1-2 (実行例1-1の続き)</h4>
+						<p>
+						<ul>
+							<li>実行する．キーボードから任意の値を入力し，結果が出力され，エラーメッセージがでなければ成功
+						</ul>
+						</p>
+						<img src="pics/b2-03/if-sample1-2.png">
+					</section>
+
+
+					<section>
+						<h4>if [ 条件式 ]，then，elif [ 条件式 ]，then，else，fi の実行例2-1</h4>
+						<p>
+						<ul>
+							<li><font color="RED">vim &nbsp;&nbsp; sample8.sh</font> としエディタを開き，以下のコードを入力し保存して終了する(vim のコマンドモードで :wq と入力)
+
+							<table width="400" class="reveal">
+							<tr><td bgcolor="bisque">
+							#!/bin/sh<br>
+							# キーボードから入力した値を変数Aに代入する<br>
+							echo &nbsp;&nbsp; -n &nbsp;&nbsp; "Input &nbsp;&nbsp; A &nbsp;&nbsp; = &nbsp;&nbsp; "<br>
+							read &nbsp;&nbsp; A<br>
+							# キーボードから入力した値を変数Bに代入する<br>
+							echo &nbsp;&nbsp; -n &nbsp;&nbsp; "Input &nbsp;&nbsp; B &nbsp;&nbsp; = &nbsp;&nbsp; "<br>
+							read &nbsp;&nbsp; B<br>
+							# 条件比較する<br>
+							if &nbsp;&nbsp; [ &nbsp;&nbsp; "$A" &nbsp;&nbsp; = &nbsp;&nbsp; "$B" &nbsp;&nbsp; ] &nbsp;&nbsp; # 変数A &nbsp;&nbsp; = &nbsp;&nbsp; 変数B &nbsp;&nbsp; ??<br>
+							then<br>
+							echo &nbsp;&nbsp; "OK" &nbsp;&nbsp; # 結果を表示する<br>
+							else <br>
+							echo &nbsp;&nbsp; "NG" &nbsp;&nbsp; # 結果を表示する<br>
+							fi<br>
+							</td></tr>
+							</table>
+
+
+						</ul>
+						</p>
+					</section>
+
+					<section>
+						<h4>if [ 条件式 ]，then，elif [ 条件式 ]，then，else，fi の実行例2-2 (実行例2-1の続き)</h4>
+						<p>
+						<ul>
+							<li>実行する．キーボードから任意の値を入力し，結果が出力され，エラーメッセージがでなければ成功
+						</ul>
+						</p>
+						<img src="pics/b2-03/if-sample2-2.png">
+					</section>
+
+
+					<section>
+						<h4>if [ 条件式 ]，then，elif [ 条件式 ]，then，else，fi の実行例3-1</h4>
+						<p>
+						<ul>
+							<li><font color="RED">vim &nbsp;&nbsp; sample9.sh</font> としエディタを開き，以下のコードを入力し保存して終了する(vim のコマンドモードで :wq と入力)
+
+							<table width="400" class="reveal">
+							<tr><td bgcolor="bisque">
+							#!/bin/sh<br>
+							# キーボードから入力した値を変数Aに代入する<br>
+							echo &nbsp;&nbsp; -n &nbsp;&nbsp; "Input &nbsp;&nbsp; A &nbsp;&nbsp; = &nbsp;&nbsp; "<br>
+							read &nbsp;&nbsp; A<br>
+							# 条件比較する<br>
+							if &nbsp;&nbsp; [ &nbsp;&nbsp; "$A" &nbsp;&nbsp; = &nbsp;&nbsp; "Ken" &nbsp;&nbsp; ] &nbsp;&nbsp; # 変数A &nbsp;&nbsp; = &nbsp;&nbsp; "Ken" &nbsp;&nbsp; ??<br>
+							then<br>
+							echo &nbsp;&nbsp; "Hello, &nbsp;&nbsp; $A!" &nbsp;&nbsp; # 結果を表示する<br>
+							elif &nbsp;&nbsp; [ &nbsp;&nbsp; "$A" &nbsp;&nbsp; = &nbsp;&nbsp; "John" &nbsp;&nbsp; ] &nbsp;&nbsp; # 変数A &nbsp;&nbsp; = &nbsp;&nbsp; "John" &nbsp;&nbsp; ??<br>
+							then<br>
+							echo &nbsp;&nbsp; "$A, &nbsp;&nbsp; Welcome back!!" &nbsp;&nbsp; # 結果を表示する<br>
+							fi<br>
+							</td></tr>
+							</table>
+
+
+						</ul>
+						</p>
+					</section>
+
+					<section>
+						<h4>if [ 条件式 ]，then，elif [ 条件式 ]，then，else，fi の実行例3-2 (実行例3-1の続き)</h4>
+						<p>
+						<ul>
+							<li>実行する．キーボードから任意の値を入力し，結果が出力され，エラーメッセージがでなければ成功
+						</ul>
+						</p>
+						<img src="pics/b2-03/if-sample3-2.png">
+					</section>
+
+
+					<section>
+						<h4>if [ 条件式 ]，then，elif [ 条件式 ]，then，else，fi の実行例4-1</h4>
+						<p>
+						<ul>
+							<li><font color="RED">vim &nbsp;&nbsp; sample10.sh</font> としエディタを開き，以下のコードを入力し保存して終了する(vim のコマンドモードで :wq と入力)
+
+							<table width="400" class="reveal">
+							<tr><td bgcolor="bisque">
+							#!/bin/sh<br>
+							# キーボードから入力した値を変数Aに代入する<br>
+							echo &nbsp;&nbsp; -n &nbsp;&nbsp; "Input &nbsp;&nbsp; A &nbsp;&nbsp; = &nbsp;&nbsp; "<br>
+							read &nbsp;&nbsp; A<br>
+							# 条件比較する<br>
+							if &nbsp;&nbsp; [ &nbsp;&nbsp; "$A" &nbsp;&nbsp; = &nbsp;&nbsp; "Ken" &nbsp;&nbsp; ] # 変数A &nbsp;&nbsp; = &nbsp;&nbsp; "Ken" &nbsp;&nbsp; ??<br>
+							then<br>
+							echo &nbsp;&nbsp; "Hello, $A!" &nbsp;&nbsp; # 結果を表示する<br>
+							elif &nbsp;&nbsp; [ &nbsp;&nbsp; "$A" &nbsp;&nbsp; = &nbsp;&nbsp; "John" &nbsp;&nbsp; ] # 変数A &nbsp;&nbsp; = &nbsp;&nbsp; "John" &nbsp;&nbsp; ??<br>
+							then<br>
+							echo &nbsp;&nbsp; "$A, &nbsp;&nbsp; Welcome &nbsp;&nbsp; back!!" &nbsp;&nbsp; # 結果を表示する<br>
+							else
+							echo &nbsp;&nbsp; "$A, &nbsp;&nbsp; Nice &nbsp;&nbsp; to &nbsp;&nbsp; meet &nbsp;&nbsp; you." &nbsp;&nbsp; # 結果を表示する<br>
+							fi<br>
+							</td></tr>
+							</table>
+
+
+						</ul>
+						</p>
+					</section>
+
+					<section>
+						<h4>if [ 条件式 ]，then，elif [ 条件式 ]，then，else，fi の実行例4-2 (実行例4-1の続き)</h4>
+						<p>
+						<ul>
+							<li>実行する．キーボードから任意の値を入力し，結果が出力され，エラーメッセージがでなければ成功
+						</ul>
+						</p>
+						<img src="pics/b2-03/if-sample4-2.png">
+					</section>
+
+
+					<section>
+						<h4>if [ 条件式 ]，then，elif [ 条件式 ]，then，else，fi の実行例5-1</h4>
+						<p>
+						<ul>
+							<li><font color="RED">vim &nbsp;&nbsp; sample11.sh</font> としエディタを開き，以下のコードを入力し保存して終了する(vim のコマンドモードで :wq と入力)
+
+							<table width="400" class="reveal">
+							<tr><td bgcolor="bisque">
+							#!/bin/sh<br>
+							# キーボードから入力した値を変数Aに代入する<br>
+							echo &nbsp;&nbsp; -n &nbsp;&nbsp; "Input &nbsp;&nbsp; A &nbsp;&nbsp; = &nbsp;&nbsp; "<br>
+							read &nbsp;&nbsp; A<br>
+							# 条件比較する<br>
+							if &nbsp;&nbsp; [ &nbsp;&nbsp; -f &nbsp;&nbsp; ./$A &nbsp;&nbsp; ] # ファイルが存在??<br>
+							then<br>
+							echo &nbsp;&nbsp; "File &nbsp;&nbsp; $A &nbsp;&nbsp; exist &nbsp;&nbsp; in &nbsp;&nbsp; current &nbsp;&nbsp; dir." &nbsp;&nbsp; # 結果を表示する<br>
+							else<br>
+							echo &nbsp;&nbsp; "File &nbsp;&nbsp; $A &nbsp;&nbsp; does &nbsp;&nbsp; not &nbsp;&nbsp; exist. &nbsp;&nbsp; Create &nbsp;&nbsp; file &nbsp;&nbsp; $A &nbsp;&nbsp; now." &nbsp;&nbsp;<br>
+ 							# 結果を表示する<br>
+							touch  &nbsp;&nbsp; $A # ファイルを作成する<br>
+							fi<br>
+							</td></tr>
+							</table>
+
+
+						</ul>
+						</p>
+					</section>
+
+					<section>
+						<h4>if [ 条件式 ]，then，elif [ 条件式 ]，then，else，fi の実行例5-2 (実行例5-1の続き)</h4>
+						<p>
+						<ul>
+							<li>実行する．キーボードから任意の値を入力し，結果が出力され，エラーメッセージがでなければ成功
+						</ul>
+						</p>
+						<img src="pics/b2-03/if-sample5-2.png">
+					</section>
+
+
+					<!-- case "$var" in, "値")，esac (変数varを条件分岐する) -->
+					<section>
+						<h4>case "$var" in, "値")，esac</h4>
+						<p>
+						<ul>
+							<li>変数varを条件分岐する
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h4>case "$var" in, "値")，esac</h4>
+						<p>
+						<ol>
+							<table width="400" class="reveal">
+							<br>
+							<tr><td bgcolor="bisque">
+							case &nbsp;&nbsp; "$var" nbsp;&nbsp; in &nbsp;&nbsp; # 変数 $var の内容を条件分枝<br>
+							&nbsp;&nbsp;&nbsp;&nbsp; "値①") &nbsp;&nbsp; echo &nbsp;&nbsp; "case &nbsp;&nbsp; 1." ;; # 値①だったら "case 1" を出力<br>
+							&nbsp;&nbsp;&nbsp;&nbsp; "値②") &nbsp;&nbsp; echo &nbsp;&nbsp; "case &nbsp;&nbsp; 2." ;; # 値②だったら "case 2" を出力<br>
+							・・・・・・・・・・・・
+							<br>
+							&nbsp;&nbsp;&nbsp;&nbsp; "値n") &nbsp;&nbsp; echo &nbsp;&nbsp; "case &nbsp;&nbsp; 1." ;; # 値nだったら "case 1" を出力<br>
+							&nbsp;&nbsp;&nbsp;&nbsp; *) &nbsp;&nbsp; echo &nbsp;&nbsp; "none" ;; <br>
+							&nbsp;&nbsp;&nbsp;&nbsp; # 上の値いずれにも当てはまらない "none" を出力<br>
+							esac<br>
+							</td></tr>
+							</table>
+						</ol>
+						</p>
+					</section>
+
+					<section>
+						<h4>case "$var" in, "値")，esac の実行例1-1</h4>
+						<p>
+						<ul>
+							<li><font color="RED">vim &nbsp;&nbsp; sample12.sh</font> としエディタを開き，以下のコードを入力し保存して終了する(vim のコマンドモードで :wq と入力)
+
+							<table width="400" class="reveal">
+							<tr><td bgcolor="bisque">
+							#!/bin/sh<br>
+							<br>
+							# キーボードから入力した値を変数Aに代入する<br>
+							echo &nbsp;&nbsp; -n &nbsp;&nbsp; "Input &nbsp;&nbsp; A &nbsp;&nbsp; = &nbsp;&nbsp; "<br>
+							read &nbsp;&nbsp; A<br>
+							# 条件比較する<br>
+							case &nbsp;&nbsp; "$A" &nbsp;&nbsp; in &nbsp;&nbsp; # 変数 $var の内容を条件分枝<br>
+							&nbsp;&nbsp;&nbsp;&nbsp; "Ken") &nbsp;&nbsp; echo &nbsp;&nbsp; "Hello, &nbsp;&nbsp; $A!" ;; # Ken の場合<br>
+							&nbsp;&nbsp;&nbsp;&nbsp; "John") &nbsp;&nbsp; echo &nbsp;&nbsp; "Hi, &nbsp;&nbsp; $A!!." ;; # John の場合<br>
+							&nbsp;&nbsp;&nbsp;&nbsp; *) echo &nbsp;&nbsp; "Nice &nbsp;&nbsp; to &nbsp;&nbsp; meet &nbsp;&nbsp; you." ;; <br>
+							&nbsp;&nbsp;&nbsp;&nbsp; # いずれにも当てはまらない場合<br>					
+							esac<br>
+							</td></tr>
+							</table>
+
+
+						</ul>
+						</p>
+					</section>
+
+					<section>
+						<h4>case "$var" in, "値")，esac の実行例1-2 (実行例1-1の続き)</h4>
+						<p>
+						<ul>
+							<li>実行する．キーボードから任意の値を入力し，結果が出力され，エラーメッセージがでなければ成功
+						</ul>
+						</p>
+						<img src="pics/b2-03/case-sample1-2.png">
+					</section>
+
+
+					<!-- while [ 条件式 ]， do ～ done (条件が成り立つ間 do ～ done 内を繰り返す) -->
+					<section>
+						<h4>while [ 条件式 ]， do ～ done</h4>
+						<p>
+						<ul>
+							<li>条件が成り立つ間 do ～ done 内を繰り返す
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h4>while [ 条件式 ]， do ～ done</h4>
+						<p>
+						<ol>
+							<table width="400" class="reveal">
+							<br>
+							<tr><td bgcolor="bisque">
+							while &nbsp;&nbsp; [ 条件 ] &nbsp;&nbsp; # 繰り返し文<br>
+							do<br>
+							&nbsp;&nbsp; &nbsp;&nbsp; read &nbsp;&nbsp; var &nbsp;&nbsp; # キーボードから入力<br>
+							&nbsp;&nbsp; &nbsp;&nbsp; # 条件が成立している間 "hello" を出力し続ける<br>
+							&nbsp;&nbsp; &nbsp;&nbsp; echo  &nbsp;&nbsp; "hello" &nbsp;&nbsp; <br>
+							done<br>
+							</td></tr>
+							</table>
+						</ol>
+						</p>
+					</section>
+					<section>
+						<h4>while [ 条件式 ]， do ～ done</h4>
+						<p>
+						<ol>
+							<table width="400" class="reveal">
+							<br>
+							<tr><td bgcolor="bisque">
+							while &nbsp;&nbsp; : &nbsp;&nbsp; # 無限に繰り返し<br>
+							&nbsp;&nbsp; do<br>
+							&nbsp;&nbsp; &nbsp;&nbsp; read &nbsp;&nbsp; var &nbsp;&nbsp; # キーボードから入力<br>
+							&nbsp;&nbsp; if &nbsp;&nbsp; [ &nbsp;&nbsp; 条件 &nbsp;&nbsp; ] <br>
+							&nbsp;&nbsp; then<br>
+							&nbsp;&nbsp; &nbsp;&nbsp; break # 条件が成立したら，繰り返しを終了する<br>
+							&nbsp;&nbsp; fi<br>
+							done<br>
+							</td></tr>
+							</table>
+						</ol>
+						</p>
+					</section>
+					<section>
+						<h4>while [ 条件式 ]， do ～ done</h4>
+						<p>
+						<ol>
+							<table width="400" class="reveal">
+							<br>
+							<tr><td bgcolor="bisque">
+							while &nbsp;&nbsp; : &nbsp;&nbsp; # 無限に繰り返し<br>
+							&nbsp;&nbsp; do<br>
+							&nbsp;&nbsp; &nbsp;&nbsp; read &nbsp;&nbsp; var &nbsp;&nbsp; # キーボードから入力<br>
+							&nbsp;&nbsp; &nbsp;&nbsp; case &nbsp;&nbsp; "$var" &nbsp;&nbsp; in &nbsp;&nbsp; <br>
+							&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; "値") &nbsp;&nbsp; break &nbsp;&nbsp; ;; # 値の場合，繰り返しを終了する<br>
+							&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; *) &nbsp;&nbsp; echo &nbsp;&nbsp; "Hello" &nbsp;&nbsp; ;; # 上の値以外の場合 "Hello" を出力しつづける<br>
+							&nbsp;&nbsp; &nbsp;&nbsp; esac<br>
+							done<br>
+							</td></tr>
+							</table>
+						</ol>
+						</p>
+					</section>
+
+
+
+					<section>
+						<h4>while [ 条件式 ]， do ～ done の実行例1-1</h4>
+						<p>
+						<ul>
+							<li><font color="RED">vim &nbsp;&nbsp; sample13.sh</font> としエディタを開き，以下のコードを入力し保存して終了する(vim のコマンドモードで :wq と入力)
+
+							<table width="400" class="reveal">
+							<tr><td bgcolor="bisque">
+							#!/bin/sh<br><br>
+							# 変数 $A の内容が "exit" でない限り繰り返す<br>
+							while &nbsp;&nbsp; [ &nbsp;&nbsp; "$A" &nbsp;&nbsp; != &nbsp;&nbsp; "exit" &nbsp;&nbsp; ] &nbsp;&nbsp; <br>
+							do<br>
+							&nbsp;&nbsp; &nbsp;&nbsp; echo &nbsp;&nbsp; -n &nbsp;&nbsp; "Input &nbsp;&nbsp; A &nbsp;&nbsp; = &nbsp;&nbsp; "<br>
+							&nbsp;&nbsp; &nbsp;&nbsp; read &nbsp;&nbsp; A &nbsp;&nbsp; # キーボードから入力し変数 A に値を格納<br>
+							&nbsp;&nbsp; &nbsp;&nbsp; echo &nbsp;&nbsp; $A &nbsp;&nbsp; # 条件が成立している間変数 A の内容を出力し続ける<br>
+							done<br>
+							</td></tr>
+							</table>
+
+
+						</ul>
+						</p>
+					</section>
+
+					<section>
+						<h4>case "$var" in, "値")，esac の実行例1-2 (実行例1-1の続き)</h4>
+						<p>
+						<ul>
+							<li>実行する．キーボードから任意の値を入力し，結果が出力され，エラーメッセージがでなければ成功
+						</ul>
+						</p>
+						<img src="pics/b2-03/while-sample1-2.png">
+					</section>
+
+
+					<section>
+						<h4>while [ 条件式 ]， do ～ done の実行例2-1</h4>
+						<p>
+						<ul>
+							<li><font color="RED">vim &nbsp;&nbsp; sample14.sh</font> としエディタを開き，以下のコードを入力し保存して終了する(vim のコマンドモードで :wq と入力)
+
+							<table width="400" class="reveal">
+							<tr><td bgcolor="bisque">
+							#!/bin/sh<br>
+							<br>
+							while &nbsp;&nbsp; : &nbsp;&nbsp; # 無限に繰り返す <br>
+							do<br>
+							&nbsp;&nbsp; &nbsp;&nbsp; echo &nbsp;&nbsp; -n &nbsp;&nbsp; "Input &nbsp;&nbsp; A &nbsp;&nbsp; = &nbsp;&nbsp; "<br>
+							&nbsp;&nbsp; &nbsp;&nbsp; read &nbsp;&nbsp; A &nbsp;&nbsp; # キーボードから入力し変数 A に値を格納<br>
+							&nbsp;&nbsp; &nbsp;&nbsp; if &nbsp;&nbsp; [ &nbsp;&nbsp; "$A" &nbsp;&nbsp; = &nbsp;&nbsp; "exit" &nbsp;&nbsp; ] &nbsp;&nbsp; # キーボードから入力された値が "exit" だったら<br>
+							&nbsp;&nbsp; &nbsp;&nbsp; then<br>
+							&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; break &nbsp;&nbsp; # 繰り返しを終了する<br>
+							&nbsp;&nbsp; &nbsp;&nbsp; fi<br>
+							&nbsp;&nbsp; echo  &nbsp;&nbsp; $A &nbsp;&nbsp; # 変数 A の内容を出力し続ける<br>
+							done<br>
+							</td></tr>
+							</table>
+
+
+						</ul>
+						</p>
+					</section>
+
+					<section>
+						<h4>while [ 条件式 ]， do ～ done の実行例2-2 (実行例2-1の続き)</h4>
+						<p>
+						<ul>
+							<li>実行する．キーボードから任意の値を入力し，結果が出力され，エラーメッセージがでなければ成功
+						</ul>
+						</p>
+						<img src="pics/b2-03/while-sample2-2.png">
+					</section>
+
+
+					<section>
+						<h4>while [ 条件式 ]， do ～ done の実行例3-1</h4>
+						<p>
+						<ul>
+							<li><font color="RED">vim &nbsp;&nbsp; sample15.sh</font> としエディタを開き，以下のコードを入力し保存して終了する(vim のコマンドモードで :wq と入力)
+
+							<table width="400" class="reveal">
+							<tr><td bgcolor="bisque">
+							#!/bin/sh<br>
+							<br>
+							while &nbsp;&nbsp; : &nbsp;&nbsp; # 無限に繰り返す <br>
+							do<br>
+							echo &nbsp;&nbsp; -n &nbsp;&nbsp; "Input &nbsp;&nbsp; A &nbsp;&nbsp; = &nbsp;&nbsp; "<br>
+							&nbsp;&nbsp; &nbsp;&nbsp; read &nbsp;&nbsp; A; &nbsp;&nbsp; # キーボードから入力し変数 A に値を格納<br>
+							&nbsp;&nbsp; &nbsp;&nbsp; case &nbsp;&nbsp; "$A" &nbsp;&nbsp; in<br>
+							&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; exit) &nbsp;&nbsp; break &nbsp;&nbsp; ;; &nbsp;&nbsp; # "exit" だったら繰り返しを終了する<br>
+							&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; *) &nbsp;&nbsp; echo  &nbsp;&nbsp; $A &nbsp;&nbsp; ;; &nbsp;&nbsp; # 変数 A の内容を出力し続ける<br>
+							&nbsp;&nbsp; &nbsp;&nbsp; esac<br>
+							done<br>
+							</td></tr>
+							</table>
+
+
+						</ul>
+						</p>
+					</section>
+
+					<section>
+						<h4>case "$var" in, "値")，esac の実行例3-2 (実行例3-1の続き)</h4>
+						<p>
+						<ul>
+							<li>実行する．キーボードから任意の値を入力し，結果が出力され，エラーメッセージがでなければ成功
+						</ul>
+						</p>
+						<img src="pics/b2-03/while-sample3-2.png">
+					</section>
+
+
+
+					<!-- seq (連番を作成する) -->
+					<section>
+						<h4>seq コマンド</h4>
+						<p>
+						<ul>
+							<li>連番を作成する  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h4>seq(*1) コマンドの使い方</h4>
+						<p>
+						<ol>
+							<li><font color="RED">seq</font> &nbsp;&nbsp; <font color="BLUE">初期値 &nbsp;&nbsp; 間隔  &nbsp;&nbsp; 最終値</font>
+							<li><font color="RED">seq</font> &nbsp;&nbsp; <font color="BLUE">オプション &nbsp;&nbsp; 初期値 &nbsp;&nbsp; 間隔  &nbsp;&nbsp; 最終値</font>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						</ol>
+						<ul>
+							(※1) 後述する for と組み合わせて，連番ファイルの操作をおこなえる
+						</ul>
+						</p>
+					</section>
+					<section>
+						<h4>seq コマンドのオプション</h4>
+						<p>
+						<ol>
+							<li><font color="RED">seq</font> &nbsp;&nbsp; <font color="BLUE">-w &nbsp;&nbsp; 初期値 &nbsp;&nbsp; 間隔  &nbsp;&nbsp; 最終値</font>&nbsp;&nbsp;(桁数を揃える(*1))
+							<li>その他のオプション(本日は学習しない)
+						</ol>
+							<br><br>
+						<ul>
+							(※1) 例えば1桁の数字で，最終値が2桁だったら 01, 02, 03 ・・・・ ，のようになる
+						</ul>
+						</p>
+					</section>
+
+					<section>
+						<h4>seq &nbsp;&nbsp; の実行例1</h4>
+						<p>
+						<ul>
+							<li>初期値が 1 で，最終値が 10 で，間隔が 1 の連番を生成する
+						</ul>
+						</p>
+						<img src="pics/b2-03/seq-sample1.png">
+					</section>
+
+					<section>
+						<h4>seq &nbsp;&nbsp; の実行例2</h4>
+						<p>
+						<ul>
+							<li>初期値が 1 で，最終値が 10 で，間隔が 2 の桁数を揃えた連番を生成する
+						</ul>
+						</p>
+						<img src="pics/b2-03/seq-sample2.png">
+					</section>
+
+
+					<!-- for var2 in ${var1}， do ～ done (変数var1の内容を順にvar2に代入し do ～ done 内を繰り返す) -->
+					<section>
+						<h4>for var2 in ${var1}， do ～ done</h4>
+						<p>
+						<ul>
+							<li>変数var1の内容を順にvar2に代入し do ～ done 内を繰り返す
+						</ul>
+						</p>
+					</section>
+
+					<section>
+						<h4>for var2 in ${var1}， do ～ done</h4>
+						<p>
+						<ol>
+							<table width="400" class="reveal">
+							<br>
+							<tr><td bgcolor="bisque">
+							var1="a &nbsp;&nbsp; b &nbsp;&nbsp; c" # 変数 var1 に a b c を格納<br>
+							# var1に格納された文字を一つずつ取り出して <br>
+							for &nbsp;&nbsp; var2 &nbsp;&nbsp; in &nbsp;&nbsp; ${var1} &nbsp;&nbsp; # var2 に格納(繰り返す)<br>
+							do<br>
+							&nbsp;&nbsp; &nbsp;&nbsp; echo  &nbsp;&nbsp; $var2 &nbsp;&nbsp; # var2 の内容を表示する<br>
+							&nbsp;&nbsp; &nbsp;&nbsp; sleep &nbsp;&nbsp; 1 &nbsp;&nbsp; # 繰り返し間隔は1秒毎に設定<br>
+							done<br>
+							</td></tr>
+							</table>
+						</ol>
+						</p>
+					</section>
+
+					<section>
+						<h4>for var2 in ${var1}， do ～ done</h4>
+						<p>
+						<ol>
+							<table width="400" class="reveal">
+							<br>
+							<tr><td bgcolor="bisque">
+							# 変数 var1 に 1 から 10 まで連番を格納<br>
+							var1=`seq &nbsp;&nbsp; -w &nbsp;&nbsp; 1 &nbsp;&nbsp; 1 &nbsp;&nbsp; 10` &nbsp;&nbsp; <br>
+							# var1に格納された文字を一つずつ取り出して <br>
+							for &nbsp;&nbsp; var2 &nbsp;&nbsp; in &nbsp;&nbsp; ${var1} &nbsp;&nbsp; &nbsp;&nbsp; # var2 に格納(繰り返す)<br>
+							do<br>
+							&nbsp;&nbsp; &nbsp;&nbsp; echo  &nbsp;&nbsp; $var2 &nbsp;&nbsp; # var2 の内容を表示する<br>
+							&nbsp;&nbsp; &nbsp;&nbsp; sleep &nbsp;&nbsp; 1 &nbsp;&nbsp; # 繰り返し間隔は1秒毎に設定<br>
+							done<br>
+							</td></tr>
+							</table>
+						</ol>
+						</p>
+					</section>
+
+					<section>
+						<h4>for var2 in ${var1}， do ～ done</h4>
+						<p>
+						<ol>
+							<table width="400" class="reveal">
+							<br>
+							<tr><td bgcolor="bisque">
+							# 変数 var1 に <br>
+							var1=`ls` &nbsp;&nbsp; # ls コマンドの出力結果を格納(ファイルのリスト)<br>
+							# var1に格納された文字を一つずつ取り出して<br>
+							for &nbsp;&nbsp; var2 &nbsp;&nbsp; in &nbsp;&nbsp; ${var1} &nbsp;&nbsp; # var2 に格納(繰り返す)<br>
+							do<br>
+							&nbsp;&nbsp; &nbsp;&nbsp; echo  &nbsp;&nbsp; $var2 &nbsp;&nbsp; # var2 の内容を表示する<br>
+							&nbsp;&nbsp; &nbsp;&nbsp; sleep &nbsp;&nbsp; 1 &nbsp;&nbsp; # 繰り返し間隔は1秒毎に設定<br>
+							done<br>
+							</td></tr>
+							</table>
+						</ol>
+						</p>
+					</section>
+
+					<section>
+						<h4>for var2 in ${var1}， do ～ done の実行例1-1</h4>
+						<p>
+						<ul>
+							<li><font color="RED">vim &nbsp;&nbsp; sample16.sh</font> としエディタを開き，以下のコードを入力し保存して終了する(vim のコマンドモードで :wq と入力)
+
+							<table width="400" class="reveal">
+							<tr><td bgcolor="bisque">
+							#!/bin/sh<br>
+							<br>
+							var1="a &nbsp;&nbsp; b &nbsp;&nbsp; c &nbsp;&nbsp; d &nbsp;&nbsp; e &nbsp;&nbsp; f" &nbsp;&nbsp; # var1 に a b c d e f を格納<br>
+							# var1に格納された文字を一つずつ取り出して<br> 
+							for &nbsp;&nbsp; var2 &nbsp;&nbsp; in &nbsp;&nbsp; ${var1} &nbsp;&nbsp; # var2 に格納(繰り返す) <br>
+							do<br>
+							&nbsp;&nbsp; &nbsp;&nbsp; echo &nbsp;&nbsp; $var2 &nbsp;&nbsp; # var2の内容を表示する<br>
+							&nbsp;&nbsp; &nbsp;&nbsp; sleep &nbsp;&nbsp; 1 &nbsp;&nbsp; # 繰り返し間隔は1秒毎に設定<br>
+							done<br>
+							</td></tr>
+							</table>
+						</ul>
+						</p>
+					</section>
+
+					<section>
+						<h4>for var2 in ${var1}， do ～ done の実行例1-2 (実行例1-1の続き)</h4>
+						<p>
+						<ul>
+							<li>実行する．結果が出力され，エラーメッセージがでなければ成功
+						</ul>
+						</p>
+						<img src="pics/b2-03/for-sample1-2.png">
+					</section>
+
+					<section>
+						<h4>for var2 in ${var1}， do ～ done の実行例2-1</h4>
+						<p>
+						<ul>
+							<li><font color="RED">vim &nbsp;&nbsp; sample17.sh</font> としエディタを開き，以下のコードを入力し保存して終了する(vim のコマンドモードで :wq と入力)
+
+							<table width="400" class="reveal">
+							<tr><td bgcolor="bisque">
+							#!/bin/sh<br>
+							<br>
+							var1=`seq &nbsp;&nbsp; -w &nbsp;&nbsp; 1 &nbsp;&nbsp; 1 &nbsp;&nbsp; 10` &nbsp;&nbsp; # 変数 var1 に 1 から 10 まで連番を格納
+							for &nbsp;&nbsp; var2 &nbsp;&nbsp; in &nbsp;&nbsp; ${var1} # var1に格納された文字を一つずつ取り出して var2 に格納(繰り返す) <br>
+							do<br>
+							&nbsp;&nbsp; &nbsp;&nbsp; echo &nbsp;&nbsp; $var2 &nbsp;&nbsp; # var2の内容を表示する<br>
+							&nbsp;&nbsp; &nbsp;&nbsp; sleep &nbsp;&nbsp; 1 &nbsp;&nbsp; # 繰り返し間隔は1秒毎に設定<br>
+							done<br>
+							</td></tr>
+							</table>
+						</ul>
+						</p>
+					</section>
+
+					<section>
+						<h4>for var2 in ${var1}， do ～ done の実行例2-2 (実行例2-1の続き)</h4>
+						<p>
+						<ul>
+							<li>実行する．結果が出力され，エラーメッセージがでなければ成功
+						</ul>
+						</p>
+						<img src="pics/b2-03/for-sample2-2.png">
+					</section>
+
+
+					<section>
+						<h4>for var2 in ${var1}， do ～ done の実行例3-1</h4>
+						<p>
+						<ul>
+							<li><font color="RED">vim &nbsp;&nbsp; sample18.sh</font> としエディタを開き，以下のコードを入力し保存して終了する(vim のコマンドモードで :wq と入力)
+
+							<table width="400" class="reveal">
+							<tr><td bgcolor="bisque">
+							#!/bin/sh<br>
+							<br>
+							# 変数 var1 に現在のディレクトリにある，ファイル名に<br>
+							# "sample数字1桁.sh" が付いたファイルのリストを格納<br>
+							var1=`ls &nbsp;&nbsp; |grep &nbsp;&nbsp; "sample..sh"` &nbsp;&nbsp; <br>
+							# var1に格納された文字を一つずつ取り出して <br>
+							for &nbsp;&nbsp; var2 &nbsp;&nbsp; in &nbsp;&nbsp; ${var1} &nbsp;&nbsp; # var2 に格納(繰り返す) <br>
+							do<br>
+							&nbsp;&nbsp; &nbsp;&nbsp; echo &nbsp;&nbsp; $var2 &nbsp;&nbsp; # var2の内容を表示する<br>
+							&nbsp;&nbsp; &nbsp;&nbsp; sleep &nbsp;&nbsp; 1 &nbsp;&nbsp; # 繰り返し間隔は1秒毎に設定<br>
+							done<br>
+							</td></tr>
+							</table>
+						</ul>
+						</p>
+					</section>
+
+					<section>
+						<h4>for var2 in ${var1}， do ～ done の実行例3-2 (実行例3-1の続き)</h4>
+						<p>
+						<ul>
+							<li>実行する．結果が出力され，エラーメッセージがでなければ成功
+						</ul>
+						</p>
+						<img src="pics/b2-03/for-sample3-2.png">
+					</section>
+
+					<section>
+						<h4>for var2 in ${var1}， do ～ done の実行例4-1</h4>
+						<p>
+						<ul>
+							<li><font color="RED">vim &nbsp;&nbsp; sample19.sh</font> としエディタを開き，以下のコードを入力し保存して終了する(vim のコマンドモードで :wq と入力)
+
+							<table width="400" class="reveal">
+							<tr><td bgcolor="bisque">
+							#!/bin/sh<br>
+							# 変数 var1 に現在のディレクトリにある，ファイル名に <br>
+							# "sample数字1桁.sh" が付いたファイルのリストを格納 <br>
+							var1=`ls &nbsp;&nbsp; |grep &nbsp;&nbsp; "sample..sh"` &nbsp;&nbsp; <br>
+							# var1に格納された文字を一つずつ取り出して <br>
+							for &nbsp;&nbsp; var2 &nbsp;&nbsp; in &nbsp;&nbsp; ${var1} &nbsp;&nbsp; # var2 に格納(繰り返す)<br>
+							do<br>
+							&nbsp;&nbsp; &nbsp;&nbsp; # var2 のファイル名の桁数を2桁にした名前を格納<br>
+							&nbsp;&nbsp; &nbsp;&nbsp; var3=`echo &nbsp;&nbsp; "$var2" &nbsp;&nbsp; |sed &nbsp;&nbsp; "s/e/e0/g"` <br>
+							&nbsp;&nbsp; &nbsp;&nbsp; mv &nbsp;&nbsp; -v &nbsp;&nbsp; $var2 &nbsp;&nbsp; $var3 &nbsp;&nbsp; # ファイル名(桁数)を変更<br>
+							&nbsp;&nbsp; &nbsp;&nbsp; sleep &nbsp;&nbsp; 1 &nbsp;&nbsp; # 繰り返し間隔は1秒毎に設定<br>
+							done<br>
+							</td></tr>
+							</table>
+						</ul>
+						</p>
+					</section>
+
+					<section>
+						<h4>for var2 in ${var1}， do ～ done の実行例4-2 (実行例4-1の続き)</h4>
+						<p>
+						<ul>
+							<li>実行する．結果が出力され，エラーメッセージがでなければ成功
+						</ul>
+						</p>
+						<img src="pics/b2-03/for-sample4-2.png">
+					</section>
+
+
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				slideNumber: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
